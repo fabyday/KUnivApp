@@ -1,4 +1,4 @@
-package com.kangwon.a356.kangwonunivapp.Activity;
+package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
