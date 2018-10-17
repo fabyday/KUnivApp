@@ -6,10 +6,13 @@
 kangwon Univ. App. it is more comportable and faster.
 
 # Developer
-ROH JI HYUN
-KIM MIN KYU
-JUNG HO SEOK
-SIN HYUNG SUP
+1. ROH JI HYUN
+
+2. KIM MIN KYU
+
+3. JUNG HO SEOK
+
+4. SIN HYUNG SUP
 
 
 
