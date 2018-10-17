@@ -1,6 +1,6 @@
 # kangwonUnivApp
 ______________________________________________________________
-#kangwon Univ. App. it is more comportable and faster.
+# kangwon Univ. App. it is more comportable and faster.
 ______________________________________________________________
 
 
