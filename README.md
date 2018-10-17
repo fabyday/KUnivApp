@@ -1,18 +1,16 @@
 # kangwonUnivApp
-______________________________________________________________
 
 
 
 # Descriptions
 kangwon Univ. App. it is more comportable and faster.
-______________________________________________________________
 
 # Developer
 ROH JI HYUN
 KIM MIN KYU
 JUNG HO SEOK
 SIN HYUNG SUP
-______________________________________________________________
+
 
 
 
