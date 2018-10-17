@@ -2,7 +2,6 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 import android.view.WindowManager;
 
 /**
