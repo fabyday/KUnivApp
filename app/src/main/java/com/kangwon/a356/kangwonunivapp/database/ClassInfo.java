@@ -17,7 +17,29 @@ public class ClassInfo {
 
     public ClassInfo()
     {
+        className = null;
+        int startTime = -1;
+        int endTime = -1;
 
+    }
 
+    public ClassInfo(String className, int startTime, int endTime)
+    {
+        this.className = className;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public int getStartTime()
+    {
+        return startTime;
+    }
+    public int getEndTime(){
+        return endTime;
+    }
+
+    public String getClassName()
+    {
+        return className;
     }
 }

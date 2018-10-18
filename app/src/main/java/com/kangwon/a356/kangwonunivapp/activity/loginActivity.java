@@ -2,6 +2,7 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
 import com.kangwon.a356.kangwonunivapp.R;
 
@@ -16,13 +17,19 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 public class loginActivity extends AppCompatActivity {
 
+    Button menubutton;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
         ActivityTools.makeFullScreen(this);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
     }
 }
 

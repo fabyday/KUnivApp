@@ -12,7 +12,30 @@ public class studentInfo {
     public studentInfo()
     {
 
+        id = null;
+        passwd = null;
+
     }
+
+
+    /**
+     *
+     * @param id 학번 이름
+     */
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    /**
+     *
+     * @param passwd 비밀번호 이름.
+     */
+    public void setPasswd(String passwd)
+    {
+        this.passwd = passwd;
+    }
+
 
 
     /**
@@ -24,7 +47,7 @@ public class studentInfo {
     public String getId() throws InformationNotFoundException
     {
         if(id == null)
-            throw new InformationNotFoundException();
+            throw new InformationNotFoundException("there is no ID data");
         return id;
     }
 
@@ -38,7 +61,7 @@ public class studentInfo {
     public String getPasswd() throws  InformationNotFoundException
     {
         if(passwd == null)
-            throw new InformationNotFoundException();
+            throw new InformationNotFoundException("there is no passwd data.");
         return passwd;
     }
 

@@ -11,4 +11,11 @@ package com.kangwon.a356.kangwonunivapp.database;
 
 public class InformationNotFoundException extends Exception {
 
+
+    public InformationNotFoundException(String name)
+    {
+        super(name);
+
+    }
+
 }

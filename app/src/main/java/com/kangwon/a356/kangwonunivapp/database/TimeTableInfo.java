@@ -1,6 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -21,9 +22,66 @@ import java.util.ArrayList;
 public class TimeTableInfo {
 
     ArrayList<ClassInfo> timeTable;
-    public TimeTableInfo()
-    {
+    int size; //현재 들어있는 갯수.
+    public TimeTableInfo() {
         timeTable = new ArrayList<>();
+        size = 0;
+    }
+
+    /**
+     *
+     * @return 시간표 ArrayList의 Iterator를 반환함.
+     * 이를 통해서 타임테이블에 관한 것을 반복적으로 그릴 수 있음.
+     */
+    public Iterator<ClassInfo> getTimeTable() {
+        return timeTable.iterator();
+    }
+
+    /**
+     *
+     * @param index 인덱스
+     * @return 지정한 인덱스의 값을 반환한다.
+     * 지정한 인덱스의 값을 반환하고, 이후에 값을 지운다.
+     */
+    public ClassInfo removeClassInfo(int index) {
+
+        return timeTable.remove(index);
+    }
+
+    /**
+     *
+     * @param index 원하는 인덱스
+     * @return 지정한 인덱스의 값
+     * 인덱스의 값을 뽑으며, remove와 다르게 삭제하지 않음.
+     */
+    public ClassInfo getClassInfo(int index)
+    {
+        return timeTable.get(index);
+    }
+
+    /**
+     *
+     * @param classInfo 외부에서 생성된 classInfo를 추가한다.
+     */
+    public void addTimeTable(ClassInfo classInfo)
+    {
+        timeTable.add(classInfo);
+        size++;
+    }
+
+
+    /**
+     *
+     * @param className 수업 이름
+     * @param startTime 수업 시작 시간
+     * @param EndTime 수업 종료 시간
+     * 내부적으로 ClassInfo를 생성하여 시간표에 집어 넣음.
+     */
+    public void addTimeTable(String className, int startTime, int EndTime)
+    {
+
+        timeTable.add(new ClassInfo(className, startTime, EndTime));
+        size++;
     }
 
 }
