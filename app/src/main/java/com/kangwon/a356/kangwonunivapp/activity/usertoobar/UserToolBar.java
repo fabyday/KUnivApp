@@ -24,7 +24,7 @@ public class UserToolBar extends Toolbar {
         subButtons = new Button[3];
         for(int i = 0; i<BUTTONSIZE; i++)
         {
-
+            return; // for github test
         }
 
     }
