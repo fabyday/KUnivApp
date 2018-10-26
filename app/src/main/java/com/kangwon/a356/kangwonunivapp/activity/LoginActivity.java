@@ -17,7 +17,7 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
 
