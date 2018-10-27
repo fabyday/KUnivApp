@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.LinearLayoutCompat
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,16 +31,14 @@
         </android.support.v7.widget.GridLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_weight="13"
+
+    <com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar
+        android:id="@+id/tabbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabbar"></com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="visible"></com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar>
 
 
-</android.support.v7.widget.LinearLayoutCompat>
+
+</FrameLayout>
