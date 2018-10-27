@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,13 +18,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.TimetableActivity">
+
+
+
+        <activity android:name=".activity.MainActivity">
+
+        </activity>
+
+        <activity android:name=".activity.timetableActivity">
         </activity>
 
 
-        <activity android:name=".activity.AttendanceActivity">
-        </activity>
+        <activity android:name=".activity.attendanceActivity">
 
+        </activity>
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button menubutton;
+    Button loginButton;
 
 
 
@@ -29,7 +29,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
         ActivityTools.makeFullScreen(this);
-
+            loginButton=(Button)findViewById(R.id.loginLoginButton);
+            loginButton.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                }
+            }));
 
     }
 }
