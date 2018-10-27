@@ -6,8 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +37,10 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar
-            android:id="@+id/TabBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar>
+            android:layout_height="wrap_content"
+            android:id="@+id/tabbar"></com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar>
 </LinearLayout>
+
+
 </android.support.v7.widget.LinearLayoutCompat>

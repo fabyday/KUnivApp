@@ -1,5 +1,6 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,15 +27,11 @@ Button setting;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityTools.makeFullScreen(this);
+        TabBar tabBar = (TabBar)findViewById(R.id.tabbar);
+        tabBar.init(0, 3, new String[] {"home", "favorite", "setting"}, null);
 
 
-        favorite = (Button)findViewById(R.id.favorite);
-        home = (Button)findViewById(R.id.home);
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+
     }
 }
