@@ -25,20 +25,20 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ic_launcher_foreground"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <ImageButton
+                android:id="@+id/imagebutton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_launcher_background"
+                tools:srcCompat="@tools:sample/avatars" />
 
         </android.support.v7.widget.GridLayout>
     </LinearLayout>
 
 
-    <com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar
-        android:id="@+id/tabbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="visible"></com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar>
-
-
+<include layout="@layout/tab_bar"></include>
 
 </FrameLayout>

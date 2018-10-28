@@ -1,8 +1,12 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+
+import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
 
 /**
  * @author 노지현
@@ -20,6 +24,8 @@ public class ActivityTools {
      * @version 1
      * @param activity 사용하는 자신의 activity를 넣어준다.
      */
+
+    public static TabBar tabBarData= null;
 
     public static void makeFullScreen(AppCompatActivity activity)
     {

@@ -24,13 +24,13 @@ import java.util.ArrayList;
 public class TabBar extends LinearLayout {
 
     ///////리니어레이아웃 기초 속성///////////////////
-    Context context;
+    protected Context context;
     AttributeSet attr;
     ///////버튼 속성 부여용 변수//////////////////////
-    ViewGroup.LayoutParams buttonLayoutPrams;
+    protected ViewGroup.LayoutParams buttonLayoutPrams;
     private static int DEFAULT_FIRST_BUTTON_SIZE = 3;//최초 만들어지는 기본 버튼의 사이즈.
     ///////각 층별 버튼 목록//////////////////////////
-    ArrayList<ButtonGruopInfo> widgetGroup;
+    protected  ArrayList<ButtonGruopInfo> widgetGroup;
     //////////////////////////////////////////////////
 
 
@@ -152,6 +152,14 @@ public class TabBar extends LinearLayout {
             return widgetGroup.size()-1;
         else
             return 0;
+    }
+
+    public void syncEachTabBar(TabBar tabBar)
+    {
+        tabBar.context=context;
+        tabBar.attr = attr;
+        tabBar.widgetGroup = this.widgetGroup;
+        tabBar.buttonLayoutPrams = this.buttonLayoutPrams;
     }
 
 
