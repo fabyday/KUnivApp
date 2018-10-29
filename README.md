@@ -33,8 +33,8 @@ kangwon Univ. App. it is more comportable and faster.
 
 
 # Critical Issues
-web parsing information : using jsoup library
-information of login with cookie : https://stackoverflow.com/questions/6432970/jsoup-posting-and-cookie
+1. web parsing information : using jsoup library
+2. information of login with cookie : https://stackoverflow.com/questions/6432970/jsoup-posting-and-cookie
 
 
 # Code Typing Rules
