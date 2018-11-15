@@ -30,4 +30,6 @@ dependencies {
     implementation files('libs/glide-3.6.0.jar')
     implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.loopj.android:android-async-http:1.4.5'
 }

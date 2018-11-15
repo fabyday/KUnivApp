@@ -2,11 +2,11 @@ package com.kangwon.a356.kangwonunivapp.database;
 
 
 /**
- * @author 노지현
- * @see TimeTableInfo
- * 설명
  * 시간표에 사용될 강의에 대한 정보이다.
  * 실제 화면에 나타낼 정보에 대한 입력값을 가지는 클래스이다.
+ * @author 노지현
+ * @see TimeTableInfo
+ *
  */
 public class ClassInfo {
 
