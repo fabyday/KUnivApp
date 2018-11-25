@@ -8,10 +8,25 @@ package com.kangwon.a356.kangwonunivapp.network;
  */
 public class NetworkManager {
 
-    HttpsConnectionHelper network;
+    private static NetworkManager nManager=null;
+    HttpsConnectionHelper networkHelper;
 
-    public NetworkManager()
+    private NetworkManager() {
+        networkHelper = new HttpsConnectionHelper();
+    }
+
+    public static NetworkManager getInstance()
     {
+        if(nManager == null)
+            return new NetworkManager();
+        return nManager;
+    }
+
+
+    public void connect()
+    {
+
+                networkHelper.connect();
 
     }
 

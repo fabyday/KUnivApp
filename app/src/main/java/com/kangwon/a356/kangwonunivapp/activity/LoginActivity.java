@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
 /**
  * @author 노지현
@@ -33,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ProcessManager pManager = ProcessManager.getInstance();
+
+                    pManager.connect();
+
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
                 }

@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
+import android.provider.ContactsContract;
+
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
 import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
 
@@ -11,27 +13,35 @@ import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
  * @version 1
  */
 public class ProcessManager {
-    private static ProcessManager processManager;
+    private static ProcessManager processManager=null;
 
     private DataManager dataManager;
     private NetworkManager networkManager;
 
 
     private ProcessManager()
-    {}
+    {
+        dataManager = new DataManager();
+        networkManager = NetworkManager.getInstance();
+    }
 
 
     /**
      * 앱에 유일하게 존재하는 ProcessManger Instance를 반환한다.
      * @return ProcessManager 객체 반환.
      */
-    public ProcessManager getInstance()
+    public static ProcessManager getInstance()
     {
         if(processManager == null)
             processManager= new ProcessManager();
         return processManager;
     }
 
+
+    public void connect()
+    {
+        networkManager.connect();
+    }
 
 
 
