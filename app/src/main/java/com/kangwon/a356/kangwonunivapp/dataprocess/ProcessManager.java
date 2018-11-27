@@ -1,6 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
+import android.content.Context;
 import android.provider.ContactsContract;
 
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
@@ -18,6 +19,7 @@ public class ProcessManager {
     private DataManager dataManager;
     private NetworkManager networkManager;
 
+    private static Context context;
 
     private ProcessManager()
     {
@@ -30,13 +32,17 @@ public class ProcessManager {
      * 앱에 유일하게 존재하는 ProcessManger Instance를 반환한다.
      * @return ProcessManager 객체 반환.
      */
-    public static ProcessManager getInstance()
+    public static ProcessManager getInstance(Context context)
     {
         if(processManager == null)
             processManager= new ProcessManager();
+        setContext(context);
         return processManager;
     }
 
+    private static void setContext(Context cont) {
+        context = cont;
+    }
 
     public void connect()
     {

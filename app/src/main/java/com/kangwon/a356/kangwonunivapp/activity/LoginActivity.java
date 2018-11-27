@@ -1,10 +1,18 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.HttpAuthHandler;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
@@ -30,11 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
         ActivityTools.makeFullScreen(this);
+
             loginButton=(Button)findViewById(R.id.loginLoginButton);
             loginButton.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ProcessManager pManager = ProcessManager.getInstance();
+                    ProcessManager pManager = ProcessManager.getInstance(getApplicationContext());
 
                     pManager.connect();
 
@@ -42,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                 }
             }));
-
     }
+
 }
 

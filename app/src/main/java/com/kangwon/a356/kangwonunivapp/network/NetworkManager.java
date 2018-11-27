@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.network;
 
 
+import android.content.Context;
+
 /**
  *
  * 네트워크 들에 대한 전반적인 관리 클래스
@@ -26,7 +28,7 @@ public class NetworkManager {
     public void connect()
     {
 
-                networkHelper.connect();
+             networkHelper.connect();
 
     }
 
