@@ -3,7 +3,10 @@ package com.kangwon.a356.kangwonunivapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.support.v4.app.Fragment;
+import android.view.ViewGroup;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
@@ -16,21 +19,28 @@ import java.sql.Time;
  * 이 클래스는 출석체크와 출석 체크와 출석 리스트를 보여주는 액티비티이다.
  * res/layout/attendance_layout.xml을 사용한다.
  */
-public class AttendanceActivity extends AppCompatActivity {
 
+public class AttendanceActivity extends Fragment   {
+
+    public AttendanceActivity(){
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.attendance_layout);
-        ActivityTools.makeFullScreen(this);
-        final TabBar tabBar = (TabBar)findViewById(R.id.tabbar);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //ActivityTools.makeFullScreen(this);
+
+        final TabBar tabBar = (TabBar)getView().findViewById(R.id.tabbar);
         tabBar.addLayerInfo(0, 3, new String[] {"home", "favorite", "setting"}, null);
         tabBar.addLayerInfo(0, 3, new String[] {"need", "bad", "set"}, null);
         tabBar.editListener(0, new View.OnClickListener[]{new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AttendanceActivity.this, MainActivity.class);
+                Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
             }
         }, new View.OnClickListener() {
@@ -42,8 +52,11 @@ public class AttendanceActivity extends AppCompatActivity {
                     tabBar.setChildVisivility(1, View.GONE);
             }
         }
-        ,null});
+                ,null});
         tabBar.init();
 
+        return inflater.inflate(R.layout.attendance_layout,container,false);
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameLayout,new TimetableActivity());
+                ft.commit();
+
                 Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);
             }
@@ -39,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameLayout,new AttendanceActivity());
+                ft.commit();
+
                 Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
                 startActivity(i);
             }
@@ -70,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 
