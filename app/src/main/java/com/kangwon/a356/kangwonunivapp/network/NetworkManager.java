@@ -25,10 +25,10 @@ public class NetworkManager {
     }
 
 
-    public void connect()
+    public void connect(Context context)
     {
 
-             networkHelper.connect();
+             networkHelper.connect(context);
 
     }
 

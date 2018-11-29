@@ -44,4 +44,5 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.loopj.android:android-async-http:1.4.5'
     implementation 'org.apache.httpcomponents:httpclient:4.5.6'
+    implementation 'com.github.LiquidPlayer:LiquidCore:0.5.1' //자바 스크립트 코어2
 }

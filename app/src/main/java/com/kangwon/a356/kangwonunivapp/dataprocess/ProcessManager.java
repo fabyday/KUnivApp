@@ -46,7 +46,7 @@ public class ProcessManager {
 
     public void connect()
     {
-        networkManager.connect();
+        networkManager.connect(context);
     }
 
 

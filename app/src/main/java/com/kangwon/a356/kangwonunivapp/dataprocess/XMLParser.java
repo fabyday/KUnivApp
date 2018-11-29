@@ -137,7 +137,8 @@ public class XMLParser {
     public static String bodyStringJsoup(String string)
     {
         Document document = Jsoup.parse(string);
-        Elements e = document.select("mainframe_childframe_form_divPOP_login_edt_IDInputElement");
+
+        Elements e = document.select("scri[t");
         String inputValue = e.attr("value");
         return inputValue;
 
