@@ -2,6 +2,7 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +22,22 @@ import java.sql.Time;
  */
 
 public class AttendanceActivity extends Fragment   {
-
-    public AttendanceActivity(){
-    }
-
+/*
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //ActivityTools.makeFullScreen(this);
+        View view =  inflater.inflate(R.layout.attendance_layout,container,false);
 
+        return view;
+    }
+    /*
+    @Override
+    public void onViewCreated(View view,Bundle savedInstanceState) {
         final TabBar tabBar = (TabBar)getView().findViewById(R.id.tabbar);
         tabBar.addLayerInfo(0, 3, new String[] {"home", "favorite", "setting"}, null);
         tabBar.addLayerInfo(0, 3, new String[] {"need", "bad", "set"}, null);
@@ -54,9 +58,5 @@ public class AttendanceActivity extends Fragment   {
         }
                 ,null});
         tabBar.init();
-
-        return inflater.inflate(R.layout.attendance_layout,container,false);
-    }
-
-
+    }*/
 }

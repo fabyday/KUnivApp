@@ -34,25 +34,19 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frameLayout,new TimetableActivity());
-                ft.commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new TimetableActivity()).commit();
 
-                Intent i = new Intent(MainActivity.this, TimetableActivity.class);
-                startActivity(i);
+               /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
+                startActivity(i);*/
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frameLayout,new AttendanceActivity());
-                ft.commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new AttendanceActivity()).commit();
 
-                Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
-                startActivity(i);
+                /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
+                startActivity(i);*/
             }
         });
 /////////////////////////////////////////////////
@@ -77,13 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }});
         tabBar.init();
-
-
-
-
     }
-
-
-
 
 }
