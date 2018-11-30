@@ -1,5 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
+import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+
 public class studentInfo {
     private String id;
     private String passwd;

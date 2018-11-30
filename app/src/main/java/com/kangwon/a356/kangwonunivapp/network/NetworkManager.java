@@ -3,6 +3,8 @@ package com.kangwon.a356.kangwonunivapp.network;
 
 import android.content.Context;
 
+import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+
 /**
  *
  * 네트워크 들에 대한 전반적인 관리 클래스
@@ -25,10 +27,10 @@ public class NetworkManager {
     }
 
 
-    public void connect(Context context)
+    public void connect(Message[] msg)
     {
 
-             networkHelper.connect(context);
+             networkHelper.connect(msg);
 
     }
 

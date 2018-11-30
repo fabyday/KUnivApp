@@ -10,7 +10,28 @@ import com.kangwon.a356.kangwonunivapp.database.TimeTableInfo;
 
 public class DataManager {
 
+    private static DataManager dataManager = null;
     public TimeTableInfo timeTableInfo;
+    public studentInfo stdInfo;
+
+    private DataManager()
+    {
+        timeTableInfo = new TimeTableInfo();
+        stdInfo = new studentInfo();
+    }
+
+
+    public static DataManager getInstance()
+    {
+        if(dataManager == null)
+            return (dataManager=new DataManager());
+        return dataManager;
+    }
+
+
+
+
+
 
 
 

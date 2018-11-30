@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ProcessManager pManager = ProcessManager.getInstance(getApplicationContext());
+                    ProcessManager pManager = ProcessManager.getInstance();
 
                     pManager.connect();
 

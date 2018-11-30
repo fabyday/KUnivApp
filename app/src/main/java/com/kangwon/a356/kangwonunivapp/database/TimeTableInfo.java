@@ -1,6 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 
@@ -27,6 +28,8 @@ public class TimeTableInfo {
         timeTable = new ArrayList<>();
         size = 0;
     }
+
+
 
     /**
      *
@@ -73,15 +76,27 @@ public class TimeTableInfo {
     /**
      *
      * @param className 수업 이름
-     * @param startTime 수업 시작 시간
-     * @param EndTime 수업 종료 시간
+     * @param instructor 강의자 이름
+     * @param date 수업 시작, 종료시간, 및 날짜
      * 내부적으로 ClassInfo를 생성하여 시간표에 집어 넣음.
      */
-    public void addTimeTable(String className, int startTime, int EndTime)
+    public void addTimeTable(String className, String instructor , TimeInfo[] date)
     {
 
-        timeTable.add(new ClassInfo(className, startTime, EndTime));
+        timeTable.add(new ClassInfo(className, instructor, date));
         size++;
     }
 
+
+    public void addTimeTable(String data)
+    {
+        Iterator iter = timeTable.iterator();
+
+        while(iter.hasNext());
+        {
+            if(iter.next().equals(data));
+        }
+
+
+    }
 }
