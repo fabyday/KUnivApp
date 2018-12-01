@@ -5,8 +5,14 @@ import android.content.Context;
 import android.provider.ContactsContract;
 
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
+
+import java.util.LinkedHashMap;
+import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
 
 
 /**
@@ -14,21 +20,54 @@ import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
  * 앱에 단 한개의 클래스만이 존재할 수 있는 싱글톤 스타일의 클래스이다.
  * @version 1
  */
-public class ProcessManager {
+public class ProcessManager{
     private static ProcessManager processManager=null;
 
     private DataManager dataManager;
     private NetworkManager networkManager;
-    private Message[] msg;
+    private MessageAdapter[] adapters;
+
+    public static final int SUCCESS = 0;
+    public static final int FAILED = 1;
+
+    public static final int NUMBER_OF_ADPTER = 2;
+    public static final int NETWORK_ADPTER = 0;
+    public static final int DATA_ADPTER = 1;
 
 
-
-    private static Context context;
-
+    /**
+     * 자신 아래의 매니저를 생성하고 매니저와의 콜백 메소드들을 연결한다.
+     */
     private ProcessManager()
     {
+
+
         dataManager = DataManager.getInstance();
         networkManager = NetworkManager.getInstance();
+
+        adapters = new MessageAdapter[NUMBER_OF_ADPTER];
+        adapters[NETWORK_ADPTER] = new MessageAdapter(){
+
+            @Override
+            public void receive(MessageObject msg) {
+                networkManager.connect(msg);
+            }
+
+            @Override
+            public void receive() {
+
+            }
+        };
+        adapters[DATA_ADPTER] = new MessageAdapter(){
+            @Override
+            public void receive(MessageObject msg) {
+                dataManager.inputMessage(msg);
+            }
+        };
+
+        //완료를 알려줄 어댑터
+        dataManager.add(adapters[DATA_ADPTER]);
+        networkManager.add(adapters[NETWORK_ADPTER]);
     }
 
 
@@ -44,12 +83,29 @@ public class ProcessManager {
     }
 
 
+    public void login(String id, String password){
 
-    public void connect()
-    {
-        networkManager.connect(msg);
+        //dataManager.inputMessage("UserInfo",new String[]{id, password});
+
     }
 
+    /**
+     * 핸들러를 통해 외부의 데이터와 연결한다.
+     * 리스트를 업데이트한다.
+     */
+    public void updateList()
+    {
+
+    }
+
+    /**
+     * 핸들러를 통해 외부의 데이터와 연결한다.
+     * 시간표를 업데이트한다.
+     */
+    public void updateTimetable()
+    {
+
+    }
 
 
 

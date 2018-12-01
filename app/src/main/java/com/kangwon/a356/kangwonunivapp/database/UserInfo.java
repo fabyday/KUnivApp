@@ -2,7 +2,12 @@ package com.kangwon.a356.kangwonunivapp.database;
 
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 
-public class studentInfo {
+import java.util.LinkedHashMap;
+
+public class UserInfo implements Message{
+    public static final String ID = "id";
+    public static final String PASSWORD = "password";
+
     private String id;
     private String passwd;
 
@@ -11,7 +16,7 @@ public class studentInfo {
      * 자동으로 데이터베이스에 존재하는 id와 passwd를 찾아 초기화한다.
      * 없을 경우 모든 id와 passwd는 null 값을 가진다.
      */
-    public studentInfo()
+    public UserInfo()
     {
 
         id = null;
@@ -67,4 +72,35 @@ public class studentInfo {
         return passwd;
     }
 
+
+    /**
+     * 로그인 메시지를 만들어 준다.
+     * @return
+     */
+    @Override
+    public MessageObject makeQueryMessage() {
+        LinkedHashMap msg = new LinkedHashMap();
+        msg.put(MessageObject.LOGIN_TYPE, "login");
+        msg.put(ID, id);
+        msg.put(PASSWORD, passwd);
+        return new MessageObject(msg);
+    }
+
+    @Override
+    public MessageObject makeQueryMessage(String[] values) {
+        return null;
+    }
+
+    @Override
+    public void receive() {
+
+    }
+
+
+        @Override
+    public void receive(MessageObject msg) {
+        LinkedHashMap msgData =msg.getMessage().get(0);
+        this.id = (String)msgData.get(UserInfo.ID);
+        this.passwd = (String)msgData.get(UserInfo.PASSWORD);
+    }
 }
