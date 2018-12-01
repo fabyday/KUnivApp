@@ -2,6 +2,7 @@ package com.kangwon.a356.kangwonunivapp.database;
 
 import com.google.gson.JsonParser;
 import com.kangwon.a356.kangwonunivapp.dataprocess.JSONParser;
+import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,12 +19,13 @@ import java.util.LinkedHashMap;
  */
 public class MessageObject {
     public static final String LOGIN_TYPE= "login";
+    public static final String SIGNIN_TYPE ="signin";
     public static final String STUDENT_TIMETABLE_TYPE= "studenttimetable";
     public static final String INSTRUCTOR_TIME_TABLE_TYPE= "instructortimetable";;
 
     private String type;
     private ArrayList<LinkedHashMap> message;
-
+    private NetworkExecuteMessage tag;
     public MessageObject(LinkedHashMap[] msg)
     {
         message =new ArrayList<>();
@@ -62,6 +64,8 @@ public class MessageObject {
         return type;
     }
 
+    public void setNEM(NetworkExecuteMessage tag){this.tag = tag;}
+    public NetworkExecuteMessage getNEM(){return tag;}
 
     /**
      * 메시지를 ArrayList를 반환해준다.

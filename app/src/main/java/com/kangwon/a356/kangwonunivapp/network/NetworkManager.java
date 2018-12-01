@@ -19,6 +19,11 @@ import java.util.LinkedHashMap;
  */
 public class NetworkManager extends AbstractManager {
 
+    public static final NetworkExecuteMessage SIGNIN_SUCCESS = new NetworkExecuteMessage(0, "계정 생성을 완료하였습니다.");
+    public static final NetworkExecuteMessage LOGIN_SUCCESS = new NetworkExecuteMessage(1, "로그인에 성공하였습니다.");
+    public static final NetworkExecuteMessage SIGNIN_FAILED = new NetworkExecuteMessage(2, "존재하는 계정입니다.");
+    public static final NetworkExecuteMessage LOGIN_FAILED = new NetworkExecuteMessage(2, "로그인에 실패하였습니다.");
+
     private static NetworkManager nManager=null;
     HttpsConnectionHelper networkHelper;
     Thread waitThread;
@@ -39,7 +44,7 @@ public class NetworkManager extends AbstractManager {
     };
 
     private NetworkManager() {
-        networkHelper = new HttpsConnectionHelper();
+        networkHelper = new HttpsConnectionHelper(helperListener);
     }
 
     public static NetworkManager getInstance()

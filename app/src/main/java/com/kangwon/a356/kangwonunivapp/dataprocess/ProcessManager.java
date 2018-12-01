@@ -8,6 +8,7 @@ import com.kangwon.a356.kangwonunivapp.database.DataManager;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
 
 import java.util.LinkedHashMap;
@@ -27,6 +28,10 @@ public class ProcessManager{
     private NetworkManager networkManager;
     private MessageAdapter[] adapters;
 
+    Queue<MessageObject> networkManagerQueue;
+    Queue<MessageObject> dataManagerQueue;
+    Thread pThread;
+
     public static final int SUCCESS = 0;
     public static final int FAILED = 1;
 
@@ -40,30 +45,40 @@ public class ProcessManager{
      */
     private ProcessManager()
     {
+        networkManagerQueue = new SynchronousQueue<>();
+        dataManagerQueue = new SynchronousQueue<>();
+        pThread = new Thread(new Runnable() {
+            @Override //TODO
+            public void run() {
 
+            }
+        });
 
         dataManager = DataManager.getInstance();
         networkManager = NetworkManager.getInstance();
-
         adapters = new MessageAdapter[NUMBER_OF_ADPTER];
+
+
+        adapters[DATA_ADPTER] = new MessageAdapter(){
+            @Override
+            public void receive(MessageObject msg) {
+                //dataManager.inputMessage(msg);
+                dataManagerQueue.add(msg);
+                pThread.start();
+            }
+        };
+
         adapters[NETWORK_ADPTER] = new MessageAdapter(){
 
             @Override
             public void receive(MessageObject msg) {
-                networkManager.connect(msg);
+                //networkManager.connect(msg);
+                networkManagerQueue.add(msg);
+                pThread.start();
             }
 
-            @Override
-            public void receive() {
+        };
 
-            }
-        };
-        adapters[DATA_ADPTER] = new MessageAdapter(){
-            @Override
-            public void receive(MessageObject msg) {
-                dataManager.inputMessage(msg);
-            }
-        };
 
         //완료를 알려줄 어댑터
         dataManager.add(adapters[DATA_ADPTER]);
@@ -89,11 +104,16 @@ public class ProcessManager{
 
     }
 
+    public void signin(String id, String name, String password)
+    {
+
+    }
+
     /**
      * 핸들러를 통해 외부의 데이터와 연결한다.
      * 리스트를 업데이트한다.
      */
-    public void updateList()
+    public void updateList(int listType)
     {
 
     }
@@ -102,7 +122,7 @@ public class ProcessManager{
      * 핸들러를 통해 외부의 데이터와 연결한다.
      * 시간표를 업데이트한다.
      */
-    public void updateTimetable()
+    public void updateTimetable(int tableType)
     {
 
     }

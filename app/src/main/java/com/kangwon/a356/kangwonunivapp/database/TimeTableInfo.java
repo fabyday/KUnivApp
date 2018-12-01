@@ -77,9 +77,7 @@ public class TimeTableInfo implements Message {
     }
 
     @Override
-    public void receive() {
-
-    }
+    public void receive() {}
 
 
     /**

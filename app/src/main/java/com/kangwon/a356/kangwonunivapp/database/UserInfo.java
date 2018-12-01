@@ -6,11 +6,14 @@ import java.util.LinkedHashMap;
 
 public class UserInfo implements Message{
     public static final String ID = "id";
+    public static final String NAME = "name";
     public static final String PASSWORD = "password";
+    public static final String TOKEN = "token";
 
     private String id;
+    private String name;
     private String passwd;
-
+    private Byte Token;
 
     /**
      * 자동으로 데이터베이스에 존재하는 id와 passwd를 찾아 초기화한다.
@@ -21,7 +24,7 @@ public class UserInfo implements Message{
 
         id = null;
         passwd = null;
-
+        name =null;
     }
 
 
@@ -43,7 +46,7 @@ public class UserInfo implements Message{
         this.passwd = passwd;
     }
 
-
+    public void setName(String name) {this.name = name;}
 
     /**
      *
