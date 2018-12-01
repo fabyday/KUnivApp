@@ -57,7 +57,7 @@ public class ProcessManager{
         dataManager = DataManager.getInstance();
         networkManager = NetworkManager.getInstance();
         adapters = new MessageAdapter[NUMBER_OF_ADPTER];
-
+ 
 
         adapters[DATA_ADPTER] = new MessageAdapter(){
             @Override
