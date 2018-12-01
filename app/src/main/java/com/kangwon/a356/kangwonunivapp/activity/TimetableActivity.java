@@ -205,12 +205,6 @@ public class TimetableActivity extends Fragment {
         tabBar.init(); */
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-
 
         Button.OnClickListener mClickListener = new Button.OnClickListener() {
         @Override

@@ -39,10 +39,6 @@ public class AttendanceActivity extends Fragment   {
     public void onViewCreated(View view,  Bundle savedInstanceState) {
 
     }
-        @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
     /*
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState) {
