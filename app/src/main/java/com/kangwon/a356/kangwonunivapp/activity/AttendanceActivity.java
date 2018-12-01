@@ -33,10 +33,13 @@ public class AttendanceActivity extends Fragment   {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //ActivityTools.makeFullScreen(this);
         View view =  inflater.inflate(R.layout.attendance_layout,container,false);
-
         return view;
     }
     @Override
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
+
+    }
+        @Override
     public void onDestroy() {
         super.onDestroy();
     }

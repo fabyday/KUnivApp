@@ -1,10 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +27,14 @@ public class StudentListActivity extends Fragment {
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
         sListView.setAdapter(adapter);
+        //Test
+        list.add("A");
+        adapter.notifyDataSetChanged();
 
         sListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new AttendanceActivity()).commit();
             }
         });
     }

@@ -1,56 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="#333333"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:orientation="horizontal"
-        android:id="@+id/attendanceTop">
-
-        <EditText
-            android:layout_margin="24dp"
-            android:id="@+id/attenddanceNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:textColor="#7be7e7e7"/>
-
-        <Button
-            android:layout_margin="24dp"
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="확인" />
-
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/attendanceView"
+    android:background="#333333">
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/attendanceTop"
         android:layout_margin="24dp"
         >
-
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:stretchColumns="1,">
 
             <TableRow>
@@ -79,7 +40,8 @@
                     android:textColor="#FFFFFF"
                     android:text="  출결  " />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow1">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +67,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow2">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,7 +94,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow3">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,7 +121,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow4">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,7 +148,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow5">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -209,7 +175,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow6">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -235,7 +202,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow7">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -261,7 +229,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow8">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -287,7 +256,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow9">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -313,7 +283,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow10">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -339,7 +310,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow11">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -365,7 +337,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow12">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -391,7 +364,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow13">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -417,7 +391,8 @@
                     android:textColor="#000000"
                     android:text="출석" />
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow14">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -443,7 +418,8 @@
                 android:textColor="#000000"
                 android:text="출석" />
         </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/TableRow15">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -470,9 +446,7 @@
                 android:text="출석" />
         </TableRow>
         </TableLayout>
-    </ScrollView>
+    </FrameLayout>
 
-</RelativeLayout>
-<include layout="@layout/tab_bar"></include>
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
