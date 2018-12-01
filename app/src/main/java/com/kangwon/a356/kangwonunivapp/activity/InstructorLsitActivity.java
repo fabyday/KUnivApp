@@ -28,7 +28,6 @@ public class InstructorLsitActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.instructorlist_layout,container,false);
         return view;
-
     }
 
     @Override
@@ -84,7 +83,7 @@ public class InstructorLsitActivity extends Fragment {
         iListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new InstructorAttendanceActivity()).commit();
             }
         });
 

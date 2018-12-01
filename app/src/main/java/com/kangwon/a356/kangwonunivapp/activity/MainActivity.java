@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new AttendanceActivity()).commit();
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new StudentListActivity()).commit();
                 /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
                 startActivity(i);*/
             }
