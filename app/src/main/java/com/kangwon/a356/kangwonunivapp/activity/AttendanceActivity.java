@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v4.app.Fragment;
@@ -34,6 +35,10 @@ public class AttendanceActivity extends Fragment   {
         View view =  inflater.inflate(R.layout.attendance_layout,container,false);
 
         return view;
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
     /*
     @Override

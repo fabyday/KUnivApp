@@ -24,18 +24,26 @@
                 android:layout_height="match_parent">
                 //테스트용 이미지 버튼
 
+
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_launcher_foreground"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageButton
-                    android:id="@+id/imagebutton2"
+                    android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_launcher_background"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_launcher_foreground"
                     tools:srcCompat="@tools:sample/avatars" />
 
             </android.support.v7.widget.GridLayout>

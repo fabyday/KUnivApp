@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
@@ -29,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
 ///////////////////////테스트용/////////////////////////////////////
 
-        ImageButton button1 = (ImageButton) findViewById(R.id.imageButton);
-        ImageButton button2  = (ImageButton) findViewById(R.id.imagebutton2);
+        ImageButton button1 = (ImageButton) findViewById(R.id.imageButton1);
+        ImageButton button2  = (ImageButton) findViewById(R.id.imageButton2);
+        ImageButton button3 = (ImageButton) findViewById(R.id.imageButton3);
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new AttendanceActivity()).commit();
 
                 /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
+                startActivity(i);*/
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new InstructorLsitActivity()).commit();
+
+               /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);*/
             }
         });
@@ -71,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }});
         tabBar.init();
+    }
+    //뒤로 가기 버튼 기능 제거
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(MainActivity.this,"뒤로 가기 버튼 사용 불가",Toast.LENGTH_SHORT).show();
     }
 
 }
