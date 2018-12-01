@@ -45,6 +45,7 @@ public class TimetableActivity extends Fragment {
 
     @Override
     public void onViewCreated(View view,  Bundle savedInstanceState) {
+        //시간표에 있는 모든 버튼 선언
         Button Mon9 = (Button)getView().findViewById(R.id.Mon9);
         Button Tue9 = (Button)getView().findViewById(R.id.Tue9);
         Button Wed9 = (Button)getView().findViewById(R.id.Wed9);
@@ -106,8 +107,78 @@ public class TimetableActivity extends Fragment {
         Button Fri18 = (Button)getView().findViewById(R.id.Fri18);
 
 
+        //시간표 작성
+        Mon9.setVisibility(View.VISIBLE);
+        Mon9.setText("소프트웨어 공학");
+        Mon9.setBackgroundColor(Color.rgb(11,22,33));
         Mon9.setOnClickListener(mClickListener);
-        GridLayout gridLayout = (GridLayout)getView().findViewById(R.id.gridLayout);
+
+        Mon10.setVisibility(View.VISIBLE);
+        Mon10.setText("네트워크");
+        Mon10.setBackgroundColor(Color.rgb(44,55,66));
+        Mon10.setOnClickListener(mClickListener);
+
+        Mon14.setVisibility(View.VISIBLE);
+        Mon14.setText("PL");
+        Mon14.setBackgroundColor(Color.rgb(77,88,99));
+        Mon14.setOnClickListener(mClickListener);
+        Mon15.setVisibility(View.VISIBLE);
+        Mon15.setText("PL");
+        Mon15.setBackgroundColor(Color.rgb(77,88,99));
+        Mon15.setOnClickListener(mClickListener);
+
+        Tue10.setVisibility(View.VISIBLE);
+        Tue10.setText("데이터베이스");
+        Tue10.setBackgroundColor(Color.rgb(99,88,77));
+        Tue10.setOnClickListener(mClickListener);
+        Tue11.setVisibility(View.VISIBLE);
+        Tue11.setText("데이터베이스");
+        Tue11.setBackgroundColor(Color.rgb(99,88,77));
+        Tue11.setOnClickListener(mClickListener);
+
+        Tue14.setVisibility(View.VISIBLE);
+        Tue14.setText("컴퓨터시스템공학");
+        Tue14.setBackgroundColor(Color.rgb(66,55,44));
+        Tue14.setOnClickListener(mClickListener);
+        Tue15.setVisibility(View.VISIBLE);
+        Tue15.setText("컴퓨터시스템공학");
+        Tue15.setBackgroundColor(Color.rgb(66,55,44));
+        Tue15.setOnClickListener(mClickListener);
+
+        Wed13.setVisibility(View.VISIBLE);
+        Wed13.setText("데이터베이스");
+        Wed13.setBackgroundColor(Color.rgb(99,88,77));
+        Wed13.setOnClickListener(mClickListener);
+
+        Wed16.setVisibility(View.VISIBLE);
+        Wed16.setText("컴퓨터시스템공학");
+        Wed16.setBackgroundColor(Color.rgb(66,55,44));
+        Wed16.setOnClickListener(mClickListener);
+
+        Wed17.setVisibility(View.VISIBLE);
+        Wed17.setText("직업선택과 꿈설계");
+        Wed17.setBackgroundColor(Color.rgb(33,22,11));
+        Wed17.setOnClickListener(mClickListener);
+
+        Thr9.setVisibility(View.VISIBLE);
+        Thr9.setText("소프트웨어 공학");
+        Thr9.setBackgroundColor(Color.rgb(11,22,33));
+        Thr9.setOnClickListener(mClickListener);
+
+        Thr10.setVisibility(View.VISIBLE);
+        Thr10.setText("네트워크");
+        Thr10.setBackgroundColor(Color.rgb(44,55,66));
+        Thr10.setOnClickListener(mClickListener);
+
+        Thr14.setVisibility(View.VISIBLE);
+        Thr14.setText("PL");
+        Thr14.setBackgroundColor(Color.rgb(77,88,99));
+        Thr14.setOnClickListener(mClickListener);
+        Thr15.setVisibility(View.VISIBLE);
+        Thr15.setText("PL");
+        Thr15.setBackgroundColor(Color.rgb(77,88,99));
+        Thr15.setOnClickListener(mClickListener);
+
 
 /*
         final TabBar tabBar =(TabBar)getView().findViewById(R.id.tabbar);
@@ -135,8 +206,12 @@ public class TimetableActivity extends Fragment {
 
 
 
-        Button.OnClickListener mClickListener = new View.OnClickListener() {
+        Button.OnClickListener mClickListener = new Button.OnClickListener() {
+        @Override
         public void onClick(View v) {
+            TextView Course = getView().findViewById(R.id.course);
+            Button btn = getView().findViewById(v.getId());
+            Course.setText(btn.getText().toString());
             RelativeLayout Sliding = (RelativeLayout)getView().findViewById(R.id.Sliding) ;
             Sliding.callOnClick();
 
