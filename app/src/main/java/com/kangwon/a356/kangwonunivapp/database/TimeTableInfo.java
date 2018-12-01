@@ -1,8 +1,12 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
+import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
+import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -20,25 +24,19 @@ import java.util.Iterator;
  */
 
 
-public class TimeTableInfo {
+public class TimeTableInfo implements Message {
+
+
 
     ArrayList<ClassInfo> timeTable;
-    int size; //현재 들어있는 갯수.
+    private int problemIndex;
+
+
     public TimeTableInfo() {
         timeTable = new ArrayList<>();
-        size = 0;
+
     }
 
-
-
-    /**
-     *
-     * @return 시간표 ArrayList의 Iterator를 반환함.
-     * 이를 통해서 타임테이블에 관한 것을 반복적으로 그릴 수 있음.
-     */
-    public Iterator<ClassInfo> getTimeTable() {
-        return timeTable.iterator();
-    }
 
     /**
      *
@@ -62,41 +60,61 @@ public class TimeTableInfo {
         return timeTable.get(index);
     }
 
-    /**
-     *
-     * @param classInfo 외부에서 생성된 classInfo를 추가한다.
-     */
-    public void addTimeTable(ClassInfo classInfo)
-    {
-        timeTable.add(classInfo);
-        size++;
+
+
+
+
+
+
+    @Override
+    public MessageObject makeQueryMessage() {
+        return null;
+    }
+
+    @Override
+    public MessageObject makeQueryMessage(String[] values) {
+        return null;
+    }
+
+    @Override
+    public void receive() {
+
     }
 
 
     /**
-     *
-     * @param className 수업 이름
-     * @param instructor 강의자 이름
-     * @param date 수업 시작, 종료시간, 및 날짜
-     * 내부적으로 ClassInfo를 생성하여 시간표에 집어 넣음.
+     * 데이터를 받으면 초기화한다.
+     * @param msg
      */
-    public void addTimeTable(String className, String instructor , TimeInfo[] date)
-    {
+    @Override
+    public void receive(MessageObject msg) {
+        ArrayList msgList =  msg.getMessage();
+        int size = msgList.size();
 
-        timeTable.add(new ClassInfo(className, instructor, date));
-        size++;
-    }
-
-
-    public void addTimeTable(String data)
-    {
-        Iterator iter = timeTable.iterator();
-
-        while(iter.hasNext());
+        //각 클래스로 보낸 콜백함수.
+        MessageAdapter adapter=new MessageAdapter(){
+            @Override
+            public void receive(MessageObject msg) {
+                problemIndex=Integer.parseInt(msg.getType());
+            }
+        };
+        for(int i = 0; i<size; i++)
         {
-            if(iter.next().equals(data));
+            LinkedHashMap data = (LinkedHashMap)msgList.get(i);
+            TimeSpaceInfo timeSpaceInfo= new TimeSpaceInfo((String)data.get(TimeSpaceInfo.DAY),
+                                                            (String)data.get(TimeSpaceInfo.CLASSNAME_TYPE),
+                                                            (String)data.get(TimeSpaceInfo.START_TYPE),
+                                                            (String)data.get(TimeSpaceInfo.END_TYPE));
+            ClassInfo classInfo = new ClassInfo((String)data.get(ClassInfo.CLASSNAME), (String)data.get(ClassInfo.INSTRUCTOR), i);
+            classInfo.add(adapter);
+            //만일 강사의 과목이 중복된 정보가 들어올 경우 중복된 정보에 TimeSpace 정보만 추가한다.
+            if(timeTable.contains(classInfo)) {
+                timeTable.get(problemIndex).addTimeSpaceInfo(timeSpaceInfo);
+            }else{
+                classInfo.addTimeSpaceInfo(timeSpaceInfo);
+                timeTable.add(classInfo);
+            }
         }
-
-
     }
+
 }
