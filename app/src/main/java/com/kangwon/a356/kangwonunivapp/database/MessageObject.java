@@ -18,14 +18,20 @@ import java.util.LinkedHashMap;
  * @see com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter
  */
 public class MessageObject {
+    public static final String TYPE = "type";
+
     public static final String LOGIN_TYPE= "login";
     public static final String SIGNIN_TYPE ="signin";
     public static final String STUDENT_TIMETABLE_TYPE= "studenttimetable";
     public static final String INSTRUCTOR_TIME_TABLE_TYPE= "instructortimetable";;
 
+    public static final int NOT_REQUEST_QUERY = 0 ;
+    public static final int REQUEST_QUERY = 1;
+
     private String type;
+    private int requsetStatus=0; //requestStatus는 저장을 하고 데이터를 이용해서 쿼리문을 원한다는 유무이다. ProcessManager에서 쓰임.
     private ArrayList<LinkedHashMap> message;
-    private NetworkExecuteMessage tag;
+    private NetworkExecuteMessage tag=null;
     public MessageObject(LinkedHashMap[] msg)
     {
         message =new ArrayList<>();
@@ -59,6 +65,10 @@ public class MessageObject {
     }
 
 
+    /**
+     *
+     * @return 메시지 타입을 리턴한다.
+     */
     public String getType()
     {
         return type;
@@ -73,6 +83,15 @@ public class MessageObject {
      */
     public ArrayList<LinkedHashMap> getMessage() {
         return message;
+    }
+
+    public void setRequestStatus(int requsetStatus)
+    {
+        this.requsetStatus = requsetStatus;
+    }
+    public int getRequsetStatus()
+    {
+        return requsetStatus;
     }
 
     /**

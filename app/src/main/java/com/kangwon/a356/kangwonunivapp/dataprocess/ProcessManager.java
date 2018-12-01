@@ -3,14 +3,17 @@ package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.widget.LinearLayout;
 
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.database.UserInfo;
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Queue;
 import java.util.concurrent.SynchronousQueue;
@@ -64,7 +67,6 @@ public class ProcessManager{
             public void receive(MessageObject msg) {
                 //dataManager.inputMessage(msg);
                 dataManagerQueue.add(msg);
-                pThread.start();
             }
         };
 
@@ -74,7 +76,6 @@ public class ProcessManager{
             public void receive(MessageObject msg) {
                 //networkManager.connect(msg);
                 networkManagerQueue.add(msg);
-                pThread.start();
             }
 
         };
@@ -98,15 +99,49 @@ public class ProcessManager{
     }
 
 
+    /**
+     * 최초 로그인시 필요한 메소드이다. 이후부터는 토큰 혹은 구현에 따라 세션에 의해 로그인이 유지될 것임.
+     * @param id
+     * @param password
+     */
     public void login(String id, String password){
 
-        //dataManager.inputMessage("UserInfo",new String[]{id, password});
+        ArrayList<LinkedHashMap> data = new ArrayList<>();
+        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
 
+        msg.put(MessageObject.TYPE, MessageObject.LOGIN_TYPE);
+        msg.put(UserInfo.ID, id);
+        msg.put(UserInfo.PASSWORD, password);
+        data.add(msg);
+
+        MessageObject msgData = new MessageObject(data);
+        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+
+
+        dataManager.inputMessage(msgData);
     }
 
+    /**
+     * 회원가입을 위한 메소드. 웹서버에 회원가입 질의한다.
+     * @param id
+     * @param name
+     * @param password
+     */
     public void signin(String id, String name, String password)
     {
+        ArrayList<LinkedHashMap> data = new ArrayList<>();
+        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
 
+        msg.put(MessageObject.TYPE, MessageObject.SIGNIN_TYPE);
+        msg.put(UserInfo.ID, id);
+        msg.put(UserInfo.NAME, name);
+        msg.put(UserInfo.PASSWORD, password);
+        data.add(msg);
+
+        MessageObject msgData = new MessageObject(data);
+        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+
+        networkManager.connect(msgData);
     }
 
     /**

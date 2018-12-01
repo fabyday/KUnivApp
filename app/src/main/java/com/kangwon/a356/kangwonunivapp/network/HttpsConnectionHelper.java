@@ -27,7 +27,10 @@ public class HttpsConnectionHelper{
         addAdapter(adapter);
     }
 
+
     /**
+     * MessageObject를 받아 웹서버에 메시지를 보낸다.
+     * @param msg
      */
     public void connect(final MessageObject msg)
     {
@@ -39,7 +42,7 @@ public class HttpsConnectionHelper{
                 try {
                      recvMsg= new MessageObject(new JSONArray(new String(responseBody)));
 
-                     if(msg.equals(MessageObject.LOGIN_TYPE))
+                     if(msg.equals(MessageObject.LOGIN_TYPE))//받은 메시지에 무엇이 성공했는지 포함해 준다.
                         recvMsg.setNEM(NetworkManager.LOGIN_SUCCESS);
                      else if(msg.equals(MessageObject.SIGNIN_TYPE))
                         recvMsg.setNEM(NetworkManager.SIGNIN_SUCCESS);

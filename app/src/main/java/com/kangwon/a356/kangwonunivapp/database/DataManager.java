@@ -65,6 +65,8 @@ public class DataManager extends AbstractManager {
                     timeTableInfo[AS_INSTRUCTOR].receive(msg);
                     sender=timeTableInfo[AS_INSTRUCTOR];
                 }
+
+
                 //완료 됨을 프로세스 매니저에게 알림
                 if(sender != null)
                     callMessage(sender.makeQueryMessage());

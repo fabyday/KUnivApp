@@ -23,9 +23,20 @@ public class NetworkManager extends AbstractManager {
     public static final NetworkExecuteMessage LOGIN_SUCCESS = new NetworkExecuteMessage(1, "로그인에 성공하였습니다.");
     public static final NetworkExecuteMessage SIGNIN_FAILED = new NetworkExecuteMessage(2, "존재하는 계정입니다.");
     public static final NetworkExecuteMessage LOGIN_FAILED = new NetworkExecuteMessage(2, "로그인에 실패하였습니다.");
+    public static final NetworkExecuteMessage CHECK_ATTANDANCE_SUCCESS = new NetworkExecuteMessage(3, "출석체크 성공");
+    public static final NetworkExecuteMessage CHECK_ATTANDANCE_FAILED = new NetworkExecuteMessage(4, "출석체크 실패");
+    public static final NetworkExecuteMessage OPEN_ATTANDANCE_SUCCESS = new NetworkExecuteMessage(5, "출석부가 성공적으로 열렸습니다.");
+    public static final NetworkExecuteMessage OPEN_ATTANDANCE_FAILED = new NetworkExecuteMessage(6, "출석부가 성공적으로 열리지 않았습니다.");
+    public static final NetworkExecuteMessage GET_TIMETABLE_SUCCESS = new NetworkExecuteMessage(7, "시간표 가져오기 성공");
+    public static final NetworkExecuteMessage GET_TIMETABLE_FAILED = new NetworkExecuteMessage(8, "시간표 가져오기 실패");
+
 
     private static NetworkManager nManager=null;
+
     HttpsConnectionHelper networkHelper;
+
+
+
     Thread waitThread;
     private MessageAdapter helperListener = new MessageAdapter(){
         @Override

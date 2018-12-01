@@ -68,6 +68,8 @@ public class TimeTableInfo implements Message {
 
     @Override
     public MessageObject makeQueryMessage() {
+
+
         return null;
     }
 

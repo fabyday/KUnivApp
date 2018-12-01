@@ -10,10 +10,10 @@ public class UserInfo implements Message{
     public static final String PASSWORD = "password";
     public static final String TOKEN = "token";
 
-    private String id;
-    private String name;
-    private String passwd;
-    private Byte Token;
+    private String id=null;
+    private String name=null;
+    private String passwd=null;
+    private Byte Token=null;
 
     /**
      * 자동으로 데이터베이스에 존재하는 id와 passwd를 찾아 초기화한다.
@@ -83,9 +83,9 @@ public class UserInfo implements Message{
     @Override
     public MessageObject makeQueryMessage() {
         LinkedHashMap msg = new LinkedHashMap();
-        msg.put(MessageObject.LOGIN_TYPE, "login");
-        msg.put(ID, id);
-        msg.put(PASSWORD, passwd);
+        msg.put(MessageObject.TYPE, MessageObject.LOGIN_TYPE);
+        msg.put(UserInfo.ID, id);
+        msg.put(UserInfo.PASSWORD, passwd);
         return new MessageObject(msg);
     }
 
