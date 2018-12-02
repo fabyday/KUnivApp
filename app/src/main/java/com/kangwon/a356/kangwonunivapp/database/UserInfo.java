@@ -86,7 +86,10 @@ public class UserInfo implements Message{
         msg.put(MessageObject.TYPE, MessageObject.LOGIN_TYPE);
         msg.put(UserInfo.ID, id);
         msg.put(UserInfo.PASSWORD, passwd);
-        return new MessageObject(msg);
+        MessageObject msgData = new MessageObject(msg);
+        msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
+        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        return msgData;
     }
 
     @Override

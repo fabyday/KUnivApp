@@ -6,6 +6,7 @@ import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Queue;
 
 /**
  * database 패키지 전반의 데이터 관리를 해준다.
@@ -17,7 +18,7 @@ public class DataManager extends AbstractManager {
     private static DataManager dataManager = null;
     private TimeTableInfo[] timeTableInfo;
     private UserInfo userInfo;
-
+    private Queue dataQueue;
     public static final int AS_STUDENT = 0;
     public static final int AS_INSTRUCTOR = 1;
     public static final int NUMBER_OF_TABLE = 2;
@@ -27,9 +28,13 @@ public class DataManager extends AbstractManager {
     private DataManager()
     {
         timeTableInfo = new TimeTableInfo[NUMBER_OF_TABLE];
-        timeTableInfo[AS_STUDENT] = new TimeTableInfo();
-        timeTableInfo[AS_INSTRUCTOR] = new TimeTableInfo();
         userInfo = new UserInfo();
+
+        timeTableInfo[AS_STUDENT] = new TimeTableInfo(MessageObject.STUDENT_TIMETABLE_TYPE);
+        timeTableInfo[AS_INSTRUCTOR] = new TimeTableInfo(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE);
+
+        timeTableInfo[AS_STUDENT].setUserInfo(userInfo);
+        timeTableInfo[AS_INSTRUCTOR].setUserInfo(userInfo);
     }
 
 
@@ -43,40 +48,45 @@ public class DataManager extends AbstractManager {
 
     /**
      * 스레드가 최초로 생성되고 수행되는 함수. 없을 경우만 쓰레드가 생성된다.
-     * @param msg 메시지 JSON을 LinkedHashMap으로 만든 것.
+     *
      * */
-    public void inputMessage(final MessageObject msg)
+    public void inputMessage()
     {
 
         if(dThread == null)
     dThread=new Thread(new Runnable() {
             @Override
             public void run() {
-                Message sender=null;
-                if(msg.equals(MessageObject.LOGIN_TYPE)){
-                    userInfo.receive(msg);
-                    sender = userInfo;
-                }
-                else if(msg.equals(MessageObject.STUDENT_TIMETABLE_TYPE)) {
-                    timeTableInfo[AS_STUDENT].receive(msg);
-                    sender = timeTableInfo[AS_STUDENT];
-                }
-                else if(msg.equals(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE)){
-                    timeTableInfo[AS_INSTRUCTOR].receive(msg);
-                    sender=timeTableInfo[AS_INSTRUCTOR];
-                }
+
+                while(!dataQueue.isEmpty()) {
+                    Message sender = null;
+                    MessageObject msg = (MessageObject) dataQueue.poll();
+                    if (msg.equals(MessageObject.LOGIN_TYPE)) {
+                        userInfo.receive(msg);
+                        sender = userInfo;
+                    } else if (msg.equals(MessageObject.STUDENT_TIMETABLE_TYPE)) {
+                        timeTableInfo[AS_STUDENT].receive(msg);
+                        sender = timeTableInfo[AS_STUDENT];
+                    } else if (msg.equals(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE)) {
+                        timeTableInfo[AS_INSTRUCTOR].receive(msg);
+                        sender = timeTableInfo[AS_INSTRUCTOR];
+                    }
 
 
-                //완료 됨을 프로세스 매니저에게 알림
-                if(sender != null)
-                    callMessage(sender.makeQueryMessage());
-                else
-                    callMessage(null);
+                    if (msg.getRequsetStatus() == MessageObject.REQUEST_QUERY) {//완료 됨을 프로세스 매니저에게 알림
+                        if (sender != null)
+                            callMessage(sender.makeQueryMessage());
+                        else
+                            callMessage(null);
+
+                    }
+                }
             }
         });
 
         //실제 시작 구문.
-        dThread.start();
+        if(!dThread.isAlive())
+            dThread.start();
 
     }
 
@@ -96,6 +106,12 @@ public class DataManager extends AbstractManager {
                 ((Message)iter.next()).receive(msg);
         }
 
+    }
+
+
+    public void setQueue(Queue q)
+    {
+        this.dataQueue = q;
     }
 }
 

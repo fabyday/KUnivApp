@@ -25,10 +25,21 @@ public class MessageObject {
     public static final String STUDENT_TIMETABLE_TYPE= "studenttimetable";
     public static final String INSTRUCTOR_TIME_TABLE_TYPE= "instructortimetable";;
 
+    public static final String REQUEST_UPDATE_STUDNET_LIST = "studentlist";
+    public static final String REQUEST_UPDATE_STUDNET_TABLE = "studenttimetable";
+    public static final String REQUEST_UPDATE_INSTRUCTOR_LIST = "instructorlist";
+    public static final String REQUEST_UPDATE_INSTRUCTOR_TABLE = "instructortimetable";
+
+    public static final int PROCESS_MANAGER =0;
+    public static final int DATA_MANAGER =1;
+    public static final int NETWORK_MANAGER =2;
+
+
     public static final int NOT_REQUEST_QUERY = 0 ;
     public static final int REQUEST_QUERY = 1;
 
     private String type;
+    private int MessageQueueType; //프로세스 매니저가 사용하는 메시지 큐의 위치
     private int requsetStatus=0; //requestStatus는 저장을 하고 데이터를 이용해서 쿼리문을 원한다는 유무이다. ProcessManager에서 쓰임.
     private ArrayList<LinkedHashMap> message;
     private NetworkExecuteMessage tag=null;
@@ -112,6 +123,14 @@ public class MessageObject {
         }
         return getMsg;
     }
+
+    public int getMessageQueueType()
+    {return MessageQueueType;}
+    public void setMessageQueueType(int messageQueueType)
+    {
+        this.MessageQueueType = messageQueueType;
+    }
+
 
     /**
      * 메시지가 어떤 타입의 메시지인지 확인해 준다.

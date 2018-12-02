@@ -1,5 +1,9 @@
 package com.kangwon.a356.kangwonunivapp.network;
 
+
+/**
+ * 네트워크 성공 여부 함수
+ */
 public class NetworkExecuteMessage {
 
     private int number;
