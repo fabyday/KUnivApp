@@ -34,14 +34,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text=""/>
+                android:text=""
+                android:hint="학번"/>
 
             <EditText
                 android:id="@+id/loginInputPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:hint="비밀번호"/>
         </LinearLayout>
 
         <Button
