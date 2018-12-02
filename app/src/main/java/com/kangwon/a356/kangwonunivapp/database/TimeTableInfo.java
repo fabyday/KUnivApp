@@ -28,26 +28,23 @@ public class TimeTableInfo implements Message {
 
 
 
-    ArrayList<ClassInfo> timeTable;
-    private int problemIndex;
+    private ArrayList<ClassInfo> timeTable;
+    private String tableType;
+    private int problemIndex; //문제가 되는 인덱스를 찾아내는 변수 외부에서 사용 안됨.
+    private UserInfo userInfo; //내부에서 쿼리를 만들 때 사용한다.
 
-
-    public TimeTableInfo() {
+    public TimeTableInfo(String Type) {
         timeTable = new ArrayList<>();
-
+        this.tableType = Type;
     }
 
 
-    /**
-     *
-     * @param index 인덱스
-     * @return 지정한 인덱스의 값을 반환한다.
-     * 지정한 인덱스의 값을 반환하고, 이후에 값을 지운다.
-     */
-    public ClassInfo removeClassInfo(int index) {
 
-        return timeTable.remove(index);
+    public void setUserInfo(UserInfo userInfo)
+    {
+        this.userInfo = userInfo;
     }
+
 
     /**
      *
@@ -69,8 +66,22 @@ public class TimeTableInfo implements Message {
     @Override
     public MessageObject makeQueryMessage() {
 
+        ArrayList<LinkedHashMap> data = new ArrayList<>();
+        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
 
-        return null;
+        try {
+            msg.put(MessageObject.TYPE, this.tableType);
+            msg.put(UserInfo.ID, userInfo.getId());
+        }catch(InformationNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        data.add(msg);
+
+        MessageObject msgData = new MessageObject(data);
+        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
+        return msgData;
     }
 
     @Override

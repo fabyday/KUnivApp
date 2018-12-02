@@ -15,6 +15,7 @@ import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.SynchronousQueue;
 
@@ -32,11 +33,9 @@ public class ProcessManager{
     private MessageAdapter[] adapters;
 
     Queue<MessageObject> networkManagerQueue;
+    Queue<MessageObject> procoessMangerQueue;
     Queue<MessageObject> dataManagerQueue;
     Thread pThread;
-
-    public static final int SUCCESS = 0;
-    public static final int FAILED = 1;
 
     public static final int NUMBER_OF_ADPTER = 2;
     public static final int NETWORK_ADPTER = 0;
@@ -48,12 +47,31 @@ public class ProcessManager{
      */
     private ProcessManager()
     {
-        networkManagerQueue = new SynchronousQueue<>();
-        dataManagerQueue = new SynchronousQueue<>();
+        networkManagerQueue = new LinkedList<>();
+        dataManagerQueue = new LinkedList<>();
+        procoessMangerQueue = new LinkedList<>();
         pThread = new Thread(new Runnable() {
             @Override //TODO
             public void run() {
 
+                while(!procoessMangerQueue.isEmpty())
+                {
+                    MessageObject msg = procoessMangerQueue.poll();
+                    switch (msg.getMessageQueueType())
+                    {
+                        case MessageObject.DATA_MANAGER:
+                            dataManagerQueue.offer(msg);
+                            dataManager.inputMessage();
+                            break;
+                        case MessageObject.NETWORK_MANAGER:
+                            networkManagerQueue.offer(msg);
+                            networkManager.connect();
+                            break;
+                        case MessageObject.PROCESS_MANAGER:
+                            //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필하다.
+
+                    }
+                }
             }
         });
 
@@ -66,7 +84,8 @@ public class ProcessManager{
             @Override
             public void receive(MessageObject msg) {
                 //dataManager.inputMessage(msg);
-                dataManagerQueue.add(msg);
+                procoessMangerQueue.offer(msg);
+                requestProcess();
             }
         };
 
@@ -74,16 +93,20 @@ public class ProcessManager{
 
             @Override
             public void receive(MessageObject msg) {
-                //networkManager.connect(msg);
-                networkManagerQueue.add(msg);
+                procoessMangerQueue.offer(msg);
+                requestProcess();
             }
-
         };
 
+        // 할당 큐 지정. 큐는 프로세스 매니저만 지정할 수 있다.
+        dataManager.setQueue(dataManagerQueue);
+        networkManager.setQueue(networkManagerQueue);
 
         //완료를 알려줄 어댑터
         dataManager.add(adapters[DATA_ADPTER]);
         networkManager.add(adapters[NETWORK_ADPTER]);
+
+
     }
 
 
@@ -116,10 +139,12 @@ public class ProcessManager{
 
         MessageObject msgData = new MessageObject(data);
         msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
-
-
-        dataManager.inputMessage(msgData);
+        msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
+            procoessMangerQueue.offer(msgData);
+        requestProcess();
     }
+
+
 
     /**
      * 회원가입을 위한 메소드. 웹서버에 회원가입 질의한다.
@@ -129,6 +154,7 @@ public class ProcessManager{
      */
     public void signin(String id, String name, String password)
     {
+
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
 
@@ -141,27 +167,40 @@ public class ProcessManager{
         MessageObject msgData = new MessageObject(data);
         msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
 
-        networkManager.connect(msgData);
+        msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
+        procoessMangerQueue.offer(msgData);
+        requestProcess();
     }
 
     /**
      * 핸들러를 통해 외부의 데이터와 연결한다.
      * 리스트를 업데이트한다.
+     * @param type 메시지의 타입을 정의한다. 테이블이냐, 아니면 리스트냐 등.
      */
-    public void updateList(int listType)
+    public void updateRequest(String type)
     {
+        ArrayList<LinkedHashMap> data = new ArrayList<>();
+        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
+        msg.put(MessageObject.TYPE, type);
+        data.add(msg);
 
+        MessageObject msgData = new MessageObject(data);
+
+        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+
+        msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
+
+        procoessMangerQueue.offer(msgData);
+        requestProcess();
     }
 
-    /**
-     * 핸들러를 통해 외부의 데이터와 연결한다.
-     * 시간표를 업데이트한다.
-     */
-    public void updateTimetable(int tableType)
+
+    private void requestProcess()
     {
+        if(!pThread.isAlive())
+            pThread.start();
 
     }
-
 
 
 }

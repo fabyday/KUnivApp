@@ -11,6 +11,7 @@ import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Queue;
 
 /**
  *
@@ -34,23 +35,16 @@ public class NetworkManager extends AbstractManager {
     private static NetworkManager nManager=null;
 
     HttpsConnectionHelper networkHelper;
+    Queue networkQueue;
 
 
-
-    Thread waitThread;
+    Thread networkThread;
     private MessageAdapter helperListener = new MessageAdapter(){
         @Override
         public void receive(MessageObject msg) {
-            final MessageObject fmsg= msg;
-            if(waitThread==null)
-            waitThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    callMessage(fmsg);
-                }
-            });
 
-            waitThread.start();
+                    callMessage(msg);
+
         }
     };
 
@@ -68,12 +62,22 @@ public class NetworkManager extends AbstractManager {
 
     /**
      * GET 메시지를 주면 networHelper를 통해 메시지를 전달한다.
-     * @param msg
+     *
      */
-    public void connect(MessageObject msg)
+    public void connect()
     {
+        if(networkThread==null)
+            networkThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //큐가 비지 않으면 계속해서 큐를 비운다.
+                    while(!networkQueue.isEmpty())
+                        networkHelper.connect((MessageObject)networkQueue.poll());
+                }
+            });
 
-             networkHelper.connect(msg);
+        if(!networkThread.isAlive())
+            networkThread.start();
 
     }
 
@@ -84,6 +88,12 @@ public class NetworkManager extends AbstractManager {
         {
             ((Message)iter.next()).receive(msg);
         }
+    }
+
+
+    public void setQueue(Queue q)
+    {
+        this.networkQueue = q;
     }
 
 }
