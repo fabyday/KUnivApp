@@ -1,30 +1,25 @@
 package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
-import android.content.Context;
 import android.os.Handler;
-import android.provider.ContactsContract;
-import android.widget.LinearLayout;
 
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.database.UserInfo;
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
-import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
 
 
 /**
  * 이 클래스는 전체적인 백그라운드 작업 진행을 총괄한다.
  * 앱에 단 한개의 클래스만이 존재할 수 있는 싱글톤 스타일의 클래스이다.
- *
+ * 프로세스 매니저와 그 하위 클래스들의 모든 스레드는 큐가 비면 깊은 잠에 빠진다.
+ * @author 노지현
  * @version 1
  */
 public class ProcessManager {
@@ -62,8 +57,7 @@ public class ProcessManager {
         adapters[DATA_ADPTER] = new MessageAdapter() {
             @Override
             public void receive(MessageObject msg) {
-                //dataManager.inputMessage(msg);
-                procoessMangerQueue.offer(msg);
+                addItemToQueue(msg);
                 requestProcess();
             }
         };
@@ -71,7 +65,7 @@ public class ProcessManager {
 
             @Override
             public void receive(MessageObject msg) {
-                procoessMangerQueue.offer(msg);
+                addItemToQueue(msg);
                 requestProcess();
             }
         };
@@ -99,9 +93,10 @@ public class ProcessManager {
                                 networkManagerQueue.offer(msg);
                                 networkManager.connect();
                                 break;
-                            case MessageObject.PROCESS_MANAGER:
+                            case MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER:
                                 //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필하다.
-
+                            case MessageObject.JUST_PROCESS_MANAGER:
+                                //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필요함. MESSAGEOBJECT 객체일 것이다.
                         }
 
                     }
@@ -151,9 +146,9 @@ public class ProcessManager {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
-        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
         msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
-        procoessMangerQueue.offer(msgData);
+        addItemToQueue(msgData);
         requestProcess();
     }
 
@@ -161,9 +156,9 @@ public class ProcessManager {
     /**
      * 회원가입을 위한 메소드. 웹서버에 회원가입 질의한다.
      *
-     * @param id
-     * @param name
-     * @param password
+     * @param id String 타입의 아이디
+     * @param name String 타입의 이름
+     * @param password String 타입의 비밀번호
      */
     public void signin(String id, String name, String password) {
 
@@ -177,10 +172,10 @@ public class ProcessManager {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
-        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
 
         msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
-        procoessMangerQueue.offer(msgData);
+        addItemToQueue(msgData);
         requestProcess();
     }
 
@@ -199,14 +194,24 @@ public class ProcessManager {
 
         MessageObject msgData = new MessageObject(data);
 
-        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
 
         msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
 
-        procoessMangerQueue.offer(msgData);
+        addItemToQueue(msgData);
         requestProcess();
     }
 
+    /**
+     * 이 request는 procoessQueue의 동기화를 담당하는 메소드이다.
+     *
+     * @param msg
+     */
+    private void addItemToQueue(MessageObject msg) {
+        synchronized (procoessMangerQueue) {
+            procoessMangerQueue.offer(msg);
+        }
+    }
 
     private void requestProcess() {
         synchronized (procoessMangerQueue) {

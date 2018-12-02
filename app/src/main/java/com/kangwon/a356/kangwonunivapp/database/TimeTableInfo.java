@@ -4,8 +4,6 @@ import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 
@@ -32,7 +30,6 @@ public class TimeTableInfo implements Message {
     private UserInfo userInfo; //내부에서 쿼리를 만들 때 사용한다.
 
     public TimeTableInfo(String Type) {
-        timeTable = new ArrayList<>();
         this.tableType = Type;
     }
 
@@ -67,14 +64,9 @@ public class TimeTableInfo implements Message {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
-        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
         msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
         return msgData;
-    }
-
-    @Override
-    public MessageObject makeQueryMessage(String[] values) {
-        return null;
     }
 
     @Override
@@ -91,6 +83,7 @@ public class TimeTableInfo implements Message {
     public void receive(MessageObject msg) {
         ArrayList msgList = msg.getMessage();
         int size = msgList.size();
+        timeTable = new ArrayList<>();
 
         //각 클래스로 보낸 콜백함수.
         MessageAdapter adapter = new MessageAdapter() {

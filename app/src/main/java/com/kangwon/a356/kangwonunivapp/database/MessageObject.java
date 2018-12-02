@@ -19,32 +19,54 @@ import java.util.LinkedHashMap;
  * @see com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter
  */
 public class MessageObject {
-    public static final String TYPE = "type";
 
+    public static final String TYPE = "type"; //DataManager가 데이터를 분배하는데 쓰임
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //DataManager -> NetworkManager : 각 데이터 객체들이 필요한 메시지의 요청을 위한 JSON 의 값이다.
+    //NetworkManager -> DataManager : DataManager가 어떤 객체로 메시지를 전달하지를 정하는 값. type를 key로 가진다.
     public static final String LOGIN_TYPE = "login";
     public static final String SIGNIN_TYPE = "signin";
     public static final String STUDENT_TIMETABLE_TYPE = "studenttimetable";
     public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable";
-    ;
 
+    public static final String CHECK_ATTANDANCE = "checkattandance";
+    public static final String OPEN_ATTANDANCE = "openattandance";
+    public static final String OPEN_LECTURE= "openlecture";
+    public static final String JOIN_LECTURE = "joinlecture";
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////일단은 안쓴다.////////////////////////////////////////
+    //유저가 실제 update() 등의 메소드 등을 통해 호출 할시에 사용된다.
     public static final String REQUEST_UPDATE_STUDNET_LIST = "studentlist";
     public static final String REQUEST_UPDATE_STUDNET_TABLE = "studenttimetable";
     public static final String REQUEST_UPDATE_INSTRUCTOR_LIST = "instructorlist";
     public static final String REQUEST_UPDATE_INSTRUCTOR_TABLE = "instructortimetable";
+///////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final int PROCESS_MANAGER = 0;
-    public static final int DATA_MANAGER = 1;
-    public static final int NETWORK_MANAGER = 2;
+    //메시지가 어떤 곳으로 전달되어야 되는지 정의된다.
+    public static final int FROM_PROCESS_MANAGER_TO_DATA_MANAGER = 0; //사용자와 데이터 매니저 두개에 메시지를 준다. 단 데이터매니저가 메시지를 받아 처리한 것을 받아 쓴다.
+    public static final int DATA_MANAGER = 1; // 데이터 매니저에게 전달.
+    public static final int NETWORK_MANAGER = 2; // 네트워크 매니저에게 전달
+    public static final int JUST_PROCESS_MANAGER = 3; //사용자에게만 전달
 
 
-    public static final int NOT_REQUEST_QUERY = 0;
-    public static final int REQUEST_QUERY = 1;
+    //사용자가 쿼리를 원하는가를 정하는 변수 requestStatus를 위해 정의되어 있다.
+    public static final int NOT_REQUEST_QUERY = 0; // 아무런 것도 리퀘스트 하지 않는다.
+    public static final int REQUEST_FOR_ALL = 1; // 모든 정보를 준다.
+    public static final int JUST_REQUEST_HINT = 2; //로그인과 같은 것은 단순하게 로그인이 잘 되었다만 알면 된다.(OK, ERROR 같은 단순한 정보 외의 어떠한 실질적 정보도 포함하지 않는다.)
 
-    private String type;
-    private int MessageQueueType; //프로세스 매니저가 사용하는 메시지 큐의 위치
+
+    // 일종의 헤더 메시지
+    private String type; //메시지에도 존재하나 ArrayList로 랩핑되어 있어 빠르게 메시지를 전달하기 위해 사용된다.
+    private int MessageQueueType; //메시지가 가야하는 큐의 타입
     private int requsetStatus = 0; //requestStatus는 저장을 하고 데이터를 이용해서 쿼리문을 원한다는 유무이다. ProcessManager에서 쓰임.
-    private ArrayList<LinkedHashMap> message;
-    private NetworkExecuteMessage tag = null;
+    private NetworkExecuteMessage tag = null; //서버로의 질의 이후, 메시지를 보낼 때 질의가 잘 수행되었는지에 대한 정보를 담는다.
+
+
+    private ArrayList<LinkedHashMap> message; // MAP 타입의 실질적인 메시지이며 MessageObject 객체에 감싸 보낸다.
+
+
 
     public MessageObject(LinkedHashMap[] msg) {
         message = new ArrayList<>();
@@ -58,7 +80,6 @@ public class MessageObject {
         type = (String) msg.get(0).get("type");
 
     }
-
     public MessageObject(JSONObject msg) {
         this(JSONParser.toArrayList(msg));
     }

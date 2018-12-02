@@ -81,13 +81,8 @@ public class UserInfo implements Message {
         msg.put(UserInfo.PASSWORD, passwd);
         MessageObject msgData = new MessageObject(msg);
         msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
-        msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
         return msgData;
-    }
-
-    @Override
-    public MessageObject makeQueryMessage(String[] values) {
-        return null;
     }
 
     @Override

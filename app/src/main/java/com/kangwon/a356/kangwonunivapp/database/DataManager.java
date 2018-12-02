@@ -5,7 +5,6 @@ import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Queue;
 
 /**
@@ -60,7 +59,7 @@ public class DataManager extends AbstractManager {
                             }
 
 
-                            if (msg.getRequsetStatus() == MessageObject.REQUEST_QUERY) {//완료 됨을 프로세스 매니저에게 알림
+                            if (msg.getRequsetStatus() == MessageObject.REQUEST_FOR_ALL) {//완료 됨을 프로세스 매니저에게 알림
                                 if (sender != null)
                                     callMessage(sender.makeQueryMessage());
                                 else

@@ -105,10 +105,55 @@ public class HttpsConnectionHelper {
 
             MessageObject recvMsg = new MessageObject(new JSONArray(new String(page)));
 
+            String type = msg.getType();
+            switch(type)
+            {
+                case MessageObject.LOGIN_TYPE:
+                    recvMsg.setNEM(NetworkManager.LOGIN_SUCCESS);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.SIGNIN_TYPE:
+                    recvMsg.setNEM(NetworkManager.SIGNIN_SUCCESS);
+                    recvMsg.setMessageQueueType(MessageObject.JUST_PROCESS_MANAGER);
+                    break;
+                case MessageObject.STUDENT_TIMETABLE_TYPE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+                case MessageObject.CHECK_ATTANDANCE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+                case MessageObject.OPEN_ATTANDANCE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+                case MessageObject.OPEN_LECTURE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+                case MessageObject.JOIN_LECTURE:
+                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
+                    break;
+
+            }
+
+            /*
             if (msg.equals(MessageObject.LOGIN_TYPE))//받은 메시지에 무엇이 성공했는지 포함해 준다.
+            {
                 recvMsg.setNEM(NetworkManager.LOGIN_SUCCESS);
+            }
             else if (msg.equals(MessageObject.SIGNIN_TYPE))
+            {
                 recvMsg.setNEM(NetworkManager.SIGNIN_SUCCESS);
+            }
+            else if(msg.equals(MessageObject.STUDENT_TIMETABLE_TYPE))
+            {
+
+            }
+            else if(msg.equals(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE))
+            */
+
+
             adapter.receive(recvMsg);
 
 
@@ -128,7 +173,6 @@ public class HttpsConnectionHelper {
             if(!(flag == CONNECTION_IO_EXCEPTION))
                 urlCon.disconnect();
         }
-
 
     }
 

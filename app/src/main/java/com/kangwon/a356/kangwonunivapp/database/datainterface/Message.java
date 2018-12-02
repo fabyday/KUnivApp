@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 public interface Message {
 
     public MessageObject makeQueryMessage();
-    public MessageObject makeQueryMessage(String[] values);
     public void receive(MessageObject msg);
     public void receive();
 
