@@ -16,23 +16,23 @@ public abstract class AbstractManager {
 
     private ArrayList<Message> messageQueue;
 
-    public AbstractManager()
-    {
+    public AbstractManager() {
         messageQueue = new ArrayList<>();
     }
 
-    public void add(Message message)
-    {
+    public void add(Message message) {
         messageQueue.add(message);
     }
 
-    public Iterator getIterator()
-    {
+    public Iterator getIterator() {
         return messageQueue.iterator();
     }
+
+    /**
+     *
+     * @param msg 메시지를 받으면 콜백방식으로 다음을 수행하게 한다.
+     */
     public abstract void callMessage(MessageObject msg);
-
-
 
 
 }

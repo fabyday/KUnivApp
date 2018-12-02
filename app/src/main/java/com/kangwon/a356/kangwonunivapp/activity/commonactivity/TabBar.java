@@ -30,15 +30,15 @@ public class TabBar extends LinearLayout {
     protected ViewGroup.LayoutParams buttonLayoutPrams;
     private static int DEFAULT_FIRST_BUTTON_SIZE = 3;//최초 만들어지는 기본 버튼의 사이즈.
     ///////각 층별 버튼 목록//////////////////////////
-    protected  ArrayList<ButtonGruopInfo> widgetGroup;
+    protected ArrayList<ButtonGruopInfo> widgetGroup;
     //////////////////////////////////////////////////
 
 
     /**
      * @param context 컨텍스트값
-     * @param attr 속성값
-     * 두 파라미터는 findViewById를 사용하여 받아오기 위한 생성자이다.
-     * 자바 코드로 뷰를 생성할 것이 아니라면 사용에 염두할 필요는 없다.
+     * @param attr    속성값
+     *                두 파라미터는 findViewById를 사용하여 받아오기 위한 생성자이다.
+     *                자바 코드로 뷰를 생성할 것이 아니라면 사용에 염두할 필요는 없다.
      */
     public TabBar(Context context, AttributeSet attr) {
         super(context, attr);
@@ -50,18 +50,16 @@ public class TabBar extends LinearLayout {
 
 
     /**
-     *addLayerInfo와 editLayerInfo가 끝났을 경우 한번 실행.
+     * addLayerInfo와 editLayerInfo가 끝났을 경우 한번 실행.
      */
-    public void init()
-    {
+    public void init() {
         int i;
-        for(i = widgetGroup.size()-1 ; i>=0 ; i--)
-        {
+        for (i = widgetGroup.size() - 1; i >= 0; i--) {
             widgetGroup.get(i).getPanel().setVisibility(GONE);
             this.addView(widgetGroup.get(i).getPanel());
 
         }
-        widgetGroup.get(i+1).getPanel().setVisibility(VISIBLE);
+        widgetGroup.get(i + 1).getPanel().setVisibility(VISIBLE);
     }
 
     /**
@@ -73,51 +71,46 @@ public class TabBar extends LinearLayout {
      */
 
 
-
     /**
-     * @author 노지현
      * @param Orientation 레이아웃의 위치 방향 1 세로, 0 가로
-     * @param size 버튼의 개수
-     * @param buttonName 버튼의 이름들 배열
-     * @param Listener 버튼에 들어갈 리스너배열
-     * init을 수행하기 전의 세팅을한다.
+     * @param size        버튼의 개수
+     * @param buttonName  버튼의 이름들 배열
+     * @param Listener    버튼에 들어갈 리스너배열
+     *                    init을 수행하기 전의 세팅을한다.
+     * @author 노지현
      */
-    public void addLayerInfo(int Orientation, int size, String[] buttonName, OnClickListener[] Listener)
-    {
+    public void addLayerInfo(int Orientation, int size, String[] buttonName, OnClickListener[] Listener) {
 
         LinearLayout panelTmp = new LinearLayout(context, attr);
-        if(!(Orientation == HORIZONTAL || Orientation ==VERTICAL))
-                    panelTmp.setOrientation(Orientation);
-        else
-            panelTmp.setOrientation(HORIZONTAL);
-        ButtonGruopInfo btnTmp= new ButtonGruopInfo(panelTmp, size, buttonName, Listener);
-        widgetGroup.add(btnTmp);
-    }
-
-    public void addLayerInfo(int Orientation, int size, String[] buttonName)
-    {
-
-        LinearLayout panelTmp = new LinearLayout(context, attr);
-        if(!(Orientation == HORIZONTAL || Orientation ==VERTICAL))
+        if (!(Orientation == HORIZONTAL || Orientation == VERTICAL))
             panelTmp.setOrientation(Orientation);
         else
             panelTmp.setOrientation(HORIZONTAL);
-        ButtonGruopInfo btnTmp= new ButtonGruopInfo(panelTmp, size, buttonName);
+        ButtonGruopInfo btnTmp = new ButtonGruopInfo(panelTmp, size, buttonName, Listener);
         widgetGroup.add(btnTmp);
     }
 
-    public void editListener(int panelNumber, int[] index, OnClickListener Listener) throws ArrayIndexOutOfBoundsException
-    {
+    public void addLayerInfo(int Orientation, int size, String[] buttonName) {
 
-        if(widgetGroup.size() <= panelNumber)
+        LinearLayout panelTmp = new LinearLayout(context, attr);
+        if (!(Orientation == HORIZONTAL || Orientation == VERTICAL))
+            panelTmp.setOrientation(Orientation);
+        else
+            panelTmp.setOrientation(HORIZONTAL);
+        ButtonGruopInfo btnTmp = new ButtonGruopInfo(panelTmp, size, buttonName);
+        widgetGroup.add(btnTmp);
+    }
+
+    public void editListener(int panelNumber, int[] index, OnClickListener Listener) throws ArrayIndexOutOfBoundsException {
+
+        if (widgetGroup.size() <= panelNumber)
             throw new ArrayIndexOutOfBoundsException("없는 panel 번호입니다.");
         widgetGroup.get(panelNumber).setButtonOnClickListener(index, Listener);
     }
 
 
-    public void editListener(int panelNumber, OnClickListener[] Listener) throws ArrayIndexOutOfBoundsException
-    {
-        if(widgetGroup.size() <= panelNumber)
+    public void editListener(int panelNumber, OnClickListener[] Listener) throws ArrayIndexOutOfBoundsException {
+        if (widgetGroup.size() <= panelNumber)
             throw new ArrayIndexOutOfBoundsException("없는 버튼 번호입니다." + "panel number : " + panelNumber + " widgetGroup length :" + widgetGroup.size());
         widgetGroup.get(panelNumber).setButtonOnClickListener(Listener);
     }
@@ -125,43 +118,38 @@ public class TabBar extends LinearLayout {
 
     /**
      * @param panelNumber 0-n까지의 변경하고픈 패널 번호를 입력한다.
-     * @param visibility GONE과 VISIBLE 만을 허용한다.
-     * 원하는 패널 버튼 전체에 VISIBLE과 GONE 속성을 부여한다.
+     * @param visibility  GONE과 VISIBLE 만을 허용한다.
+     *                    원하는 패널 버튼 전체에 VISIBLE과 GONE 속성을 부여한다.
      */
-    public void setChildVisivility(int panelNumber, int visibility)
-    {
-        if(widgetGroup.size() <= panelNumber)
+    public void setChildVisivility(int panelNumber, int visibility) {
+        if (widgetGroup.size() <= panelNumber)
             return;
-        if(visibility == VISIBLE || visibility == GONE)
+        if (visibility == VISIBLE || visibility == GONE)
             widgetGroup.get(panelNumber).getPanel().setVisibility(visibility);
 
     }
 
     /**
-     *
      * @param panelNumber 0-n 까지의 원하는 패널번호를 입력한다.
      * @return 0-n의 visibility를 반환하나,
      * 만일 범위를 초과했을 경우에는 가장 가까운 최소, 최대 패널의 visibility를 반환한다.
      */
-    public int getChildVisivility(int panelNumber)
-    {
-        if(widgetGroup.size() > panelNumber || panelNumber >= 0)
+    public int getChildVisivility(int panelNumber) {
+        if (widgetGroup.size() > panelNumber || panelNumber >= 0)
             return widgetGroup.get(panelNumber).getPanel().getVisibility();
 
-        else if(widgetGroup.size()<= panelNumber)
-            return widgetGroup.size()-1;
+        else if (widgetGroup.size() <= panelNumber)
+            return widgetGroup.size() - 1;
         else
             return 0;
     }
 
-    public void syncEachTabBar(TabBar tabBar)
-    {
-        tabBar.context=context;
+    public void syncEachTabBar(TabBar tabBar) {
+        tabBar.context = context;
         tabBar.attr = attr;
         tabBar.widgetGroup = this.widgetGroup;
         tabBar.buttonLayoutPrams = this.buttonLayoutPrams;
     }
-
 
 
     /**
@@ -178,18 +166,16 @@ public class TabBar extends LinearLayout {
         private int size = DEFAULT_FIRST_BUTTON_SIZE;
 
 
-        public ButtonGruopInfo(LinearLayout layout, int size, String[] buttonNames)
-        {
+        public ButtonGruopInfo(LinearLayout layout, int size, String[] buttonNames) {
             setSize(size);
             this.panel = layout;
             setButtonName(buttonNames);
             makeButton();
         }
 
-        public ButtonGruopInfo(LinearLayout layout, int size, String[] buttonNames, OnClickListener[] Listener)
-        {
+        public ButtonGruopInfo(LinearLayout layout, int size, String[] buttonNames, OnClickListener[] Listener) {
             this(layout, size, buttonNames);
-            if(Listener != null)
+            if (Listener != null)
                 setButtonOnClickListener(Listener);
 
         }
@@ -220,77 +206,70 @@ public class TabBar extends LinearLayout {
             }
 
         }
+
         /**
-         * @author 노지현
          * @param buttonNames String 타입의 배열이다.
          * @throws NullPointerException 만일 String 자체나 String일 경우 예외를 발생한다.
-         * 제목을 가지고 초기화를 진행한다.
+         *                              제목을 가지고 초기화를 진행한다.
+         * @author 노지현
          */
-        public void setButtonName(String[] buttonNames) throws NullPointerException
-        {
-            if(buttonNames == null)
+        public void setButtonName(String[] buttonNames) throws NullPointerException {
+            if (buttonNames == null)
                 throw new NullPointerException("String 배열자체가 널입니다.");
-            for(int i = 0; i<buttonNames.length-1; i++)
-                if(buttonNames[i]==null)
+            for (int i = 0; i < buttonNames.length - 1; i++)
+                if (buttonNames[i] == null)
                     throw new NullPointerException("배열에 NULL이 포함되어 있습니다.");
             this.buttonNames = buttonNames;
         }
 
         /**
-         * @author 노지현
-         * @param index 설정하려는 버튼 번호의 인덱스들의 리스트
+         * @param index    설정하려는 버튼 번호의 인덱스들의 리스트
          * @param Listener 버튼에 설정할 리스너
-         * 각기 다른 번호의 버튼에 동일한 리스너를 등록한다.
+         *                 각기 다른 번호의 버튼에 동일한 리스너를 등록한다.
+         * @author 노지현
          */
-        public void setButtonOnClickListener(int[] index, OnClickListener Listener) throws ArrayIndexOutOfBoundsException
-        {
-            if(index.length > size)
+        public void setButtonOnClickListener(int[] index, OnClickListener Listener) throws ArrayIndexOutOfBoundsException {
+            if (index.length > size)
                 throw new ArrayIndexOutOfBoundsException("인덱스의 개수가 버튼의 개수보다 많습니다.");
-            for(int i : index)
-                if(i < 0 || i>=size )
+            for (int i : index)
+                if (i < 0 || i >= size)
                     throw new ArrayIndexOutOfBoundsException("존재하지 않는 버튼 번호를 넣었습니다.");
 
-            for(int i : index)
+            for (int i : index)
                 buttons[i].setOnClickListener(Listener);
         }
 
         /**
-         * @author 노지현
          * @param Listener 버튼에 설정할 리스너
-         * 모든 버튼의 각 인덱스에 일치하는 인덱스를 가진 Listner를 등록해준다.
+         *                 모든 버튼의 각 인덱스에 일치하는 인덱스를 가진 Listner를 등록해준다.
+         * @author 노지현
          */
-        public void setButtonOnClickListener(OnClickListener[] Listener) throws ArrayIndexOutOfBoundsException
-        {
-            if(Listener.length > size)
+        public void setButtonOnClickListener(OnClickListener[] Listener) throws ArrayIndexOutOfBoundsException {
+            if (Listener.length > size)
                 throw new ArrayIndexOutOfBoundsException("리스너의 개수가 버튼의 개수보다 많습니다.");
 
-            for(int i=0; i<Listener.length; i++)
+            for (int i = 0; i < Listener.length; i++)
                 buttons[i].setOnClickListener(Listener[i]);
         }
 
         /**
-         *
-         * @param index 버튼의 인덱스이다. (0-n 범위)
+         * @param index  버튼의 인덱스이다. (0-n 범위)
          * @param weight 주고자 하는 가중치의 크기이다.
          * @throws ArrayIndexOutOfBoundsException 만일 범위를 넘길경우 예외를 발생시킨다. Runtime error
-         * 원하는 크기의 weight을 줄 수 있다.
+         *                                        원하는 크기의 weight을 줄 수 있다.
          */
-        public void setButtonWeight(int index, int weight) throws ArrayIndexOutOfBoundsException
-        {
-            if(index < 0 || index>=size )
-            {
+        public void setButtonWeight(int index, int weight) throws ArrayIndexOutOfBoundsException {
+            if (index < 0 || index >= size) {
                 throw new ArrayIndexOutOfBoundsException("존재하지 않는 버튼 번호를 넣었습니다.");
             }
-            buttons[index].setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT, weight));
+            buttons[index].setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, weight));
         }
-
 
 
         /**
          * 패널을 보여준다.
          */
-        public LinearLayout getPanel()
-        {
+        public LinearLayout getPanel() {
             return panel;
         }
 

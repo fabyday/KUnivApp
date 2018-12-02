@@ -10,8 +10,7 @@ public class NetworkExecuteMessage {
     private String message;
 
 
-    public NetworkExecuteMessage(int number, String message)
-    {
+    public NetworkExecuteMessage(int number, String message) {
         this.number = number;
         this.message = message;
     }
@@ -19,6 +18,6 @@ public class NetworkExecuteMessage {
 
     @Override
     public String toString() {
-        return "[ 코드 : "+number+" ] : "+ message;
+        return "[ 코드 : " + number + " ] : " + message;
     }
 }

@@ -19,7 +19,7 @@ import com.kangwon.a356.kangwonunivapp.R;
  * res/layout/attendance_layout.xml을 사용한다.
  */
 
-public class AttendanceActivity extends Fragment   {
+public class AttendanceActivity extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +28,14 @@ public class AttendanceActivity extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //ActivityTools.makeFullScreen(this);
-        View view =  inflater.inflate(R.layout.attendance_layout,container,false);
+        View view = inflater.inflate(R.layout.attendance_layout, container, false);
         return view;
     }
+
     @Override
-    public void onViewCreated(View view,  Bundle savedInstanceState) {
-        EditText AttenddanceNumber = (EditText)getView().findViewById(R.id.attenddanceNumber); // 인증 번호 넣는 에디트 텍스트
-        Button Confirm = (Button)getView().findViewById(R.id.confirm); // 확인 버튼
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        EditText AttenddanceNumber = (EditText) getView().findViewById(R.id.attenddanceNumber); // 인증 번호 넣는 에디트 텍스트
+        Button Confirm = (Button) getView().findViewById(R.id.confirm); // 확인 버튼
 
         final String AttNum = AttenddanceNumber.getText().toString(); // 에디트 텍스트 -> String
 
@@ -44,7 +45,7 @@ public class AttendanceActivity extends Fragment   {
                 // * 교수의 인증 번호랑 비교
 
 
-                Toast.makeText(getActivity(),"인증 되었습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "인증 되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
     }

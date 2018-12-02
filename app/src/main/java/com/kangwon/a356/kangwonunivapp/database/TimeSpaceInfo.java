@@ -25,15 +25,13 @@ public class TimeSpaceInfo {
     private Date endTime;
 
 
-    public TimeSpaceInfo(String day, String classRoom, String startTime, String endTime)
-    {
+    public TimeSpaceInfo(String day, String classRoom, String startTime, String endTime) {
         this.classRoom = classRoom;
         try {
             this.startTime = TIME.parse(startTime);
             this.endTime = TIME.parse(endTime);
             this.day = DAY.parse(day);
-        }catch(ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -50,7 +48,9 @@ public class TimeSpaceInfo {
         return day;
     }
 
-    public String getClassRoom(){return classRoom;}
+    public String getClassRoom() {
+        return classRoom;
+    }
 
 
 }

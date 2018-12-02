@@ -18,14 +18,12 @@ import java.util.LinkedHashMap;
  * 초기화 조건
  * 만일 내부 데이터베이스에 존재할 경우, TimeTable을 내부 데이터베이스를 통해서 초기화시키며
  * 만일 내부 데이터베이스에 존재하지 않을 경우, TimeTable을 외부 서버의 데이터베이스를 통해서 초기화 시킨다.
- *
+ * <p>
  * 추가사항
- *
  */
 
 
 public class TimeTableInfo implements Message {
-
 
 
     private ArrayList<ClassInfo> timeTable;
@@ -39,28 +37,19 @@ public class TimeTableInfo implements Message {
     }
 
 
-
-    public void setUserInfo(UserInfo userInfo)
-    {
+    public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
 
 
     /**
-     *
      * @param index 원하는 인덱스
      * @return 지정한 인덱스의 값
      * 인덱스의 값을 뽑으며, remove와 다르게 삭제하지 않음.
      */
-    public ClassInfo getClassInfo(int index)
-    {
+    public ClassInfo getClassInfo(int index) {
         return timeTable.get(index);
     }
-
-
-
-
-
 
 
     @Override
@@ -72,8 +61,7 @@ public class TimeTableInfo implements Message {
         try {
             msg.put(MessageObject.TYPE, this.tableType);
             msg.put(UserInfo.ID, userInfo.getId());
-        }catch(InformationNotFoundException e)
-        {
+        } catch (InformationNotFoundException e) {
             e.printStackTrace();
         }
         data.add(msg);
@@ -90,38 +78,39 @@ public class TimeTableInfo implements Message {
     }
 
     @Override
-    public void receive() {}
+    public void receive() {
+    }
 
 
     /**
      * 데이터를 받으면 초기화한다.
+     *
      * @param msg
      */
     @Override
     public void receive(MessageObject msg) {
-        ArrayList msgList =  msg.getMessage();
+        ArrayList msgList = msg.getMessage();
         int size = msgList.size();
 
         //각 클래스로 보낸 콜백함수.
-        MessageAdapter adapter=new MessageAdapter(){
+        MessageAdapter adapter = new MessageAdapter() {
             @Override
             public void receive(MessageObject msg) {
-                problemIndex=Integer.parseInt(msg.getType());
+                problemIndex = Integer.parseInt(msg.getType());
             }
         };
-        for(int i = 0; i<size; i++)
-        {
-            LinkedHashMap data = (LinkedHashMap)msgList.get(i);
-            TimeSpaceInfo timeSpaceInfo= new TimeSpaceInfo((String)data.get(TimeSpaceInfo.DAY),
-                                                            (String)data.get(TimeSpaceInfo.CLASSNAME_TYPE),
-                                                            (String)data.get(TimeSpaceInfo.START_TYPE),
-                                                            (String)data.get(TimeSpaceInfo.END_TYPE));
-            ClassInfo classInfo = new ClassInfo((String)data.get(ClassInfo.CLASSNAME), (String)data.get(ClassInfo.INSTRUCTOR), i);
+        for (int i = 0; i < size; i++) {
+            LinkedHashMap data = (LinkedHashMap) msgList.get(i);
+            TimeSpaceInfo timeSpaceInfo = new TimeSpaceInfo((String) data.get(TimeSpaceInfo.DAY),
+                    (String) data.get(TimeSpaceInfo.CLASSNAME_TYPE),
+                    (String) data.get(TimeSpaceInfo.START_TYPE),
+                    (String) data.get(TimeSpaceInfo.END_TYPE));
+            ClassInfo classInfo = new ClassInfo((String) data.get(ClassInfo.CLASSNAME), (String) data.get(ClassInfo.INSTRUCTOR), i);
             classInfo.add(adapter);
             //만일 강사의 과목이 중복된 정보가 들어올 경우 중복된 정보에 TimeSpace 정보만 추가한다.
-            if(timeTable.contains(classInfo)) {
+            if (timeTable.contains(classInfo)) {
                 timeTable.get(problemIndex).addTimeSpaceInfo(timeSpaceInfo);
-            }else{
+            } else {
                 classInfo.addTimeSpaceInfo(timeSpaceInfo);
                 timeTable.add(classInfo);
             }

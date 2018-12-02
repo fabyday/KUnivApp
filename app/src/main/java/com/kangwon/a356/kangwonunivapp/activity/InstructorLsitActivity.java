@@ -33,12 +33,12 @@ public class InstructorLsitActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.instructorlist_layout,container,false);
+        View view = inflater.inflate(R.layout.instructorlist_layout, container, false);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view,  Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         Button AddBtn = getView().findViewById(R.id.AddCourse); // 강의 추가 버튼
         final ListView iListView = getView().findViewById(R.id.InstructorListView);  // instructorlist_layout.xml의 리스트뷰
         final ArrayList<String> list = new ArrayList<String>();
@@ -50,21 +50,21 @@ public class InstructorLsitActivity extends Fragment {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
-                final  EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
+                final EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
                 courseName.setHint("강의명을 입력해주세요.");
                 builder.setTitle("강의 추가")
                         .setView(courseName)
                         .setPositiveButton("추가", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    list.add(courseName.getText().toString());
-                                    adapter.notifyDataSetChanged();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                list.add(courseName.getText().toString());
+                                adapter.notifyDataSetChanged();
 
-                                }
-                            })
-                            .setNegativeButton("취소", null)
-                            .create()
-                            .show();
+                            }
+                        })
+                        .setNegativeButton("취소", null)
+                        .create()
+                        .show();
             }
         });
 
@@ -76,12 +76,12 @@ public class InstructorLsitActivity extends Fragment {
                 builder.setTitle("강의 삭제")
                         .setMessage("강의를 삭제하시겠습니까?")
                         .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        list.remove(position);
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                })
-                        .setNegativeButton("취소",null)
+                            public void onClick(DialogInterface dialog, int which) {
+                                list.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("취소", null)
                         .create()
                         .show();
                 return true;
@@ -93,7 +93,7 @@ public class InstructorLsitActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 교수용 강의 출석인증 화면으로
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new InstructorAttendanceActivity()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorAttendanceActivity()).commit();
             }
         });
     }

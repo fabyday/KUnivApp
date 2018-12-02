@@ -27,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
 ///////////////////////테스트용/////////////////////////////////////
 
         ImageButton button1 = (ImageButton) findViewById(R.id.imageButton1);
-        ImageButton button2  = (ImageButton) findViewById(R.id.imageButton2);
+        ImageButton button2 = (ImageButton) findViewById(R.id.imageButton2);
         ImageButton button3 = (ImageButton) findViewById(R.id.imageButton3);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new TimetableActivity()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new TimetableActivity()).commit();
 
                /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);*/
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new StudentListActivity()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new StudentListActivity()).commit();
                 /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
                 startActivity(i);*/
             }
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new InstructorLsitActivity()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorLsitActivity()).commit();
 
                /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);*/
@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
 /////////////////////////////////////////////////
 
 
-        final TabBar tabBar = (TabBar)findViewById(R.id.tabbar);
+        final TabBar tabBar = (TabBar) findViewById(R.id.tabbar);
 
-        tabBar.addLayerInfo(0, 3, new String[] {"home", "favorite", "setting"}, null);
-        tabBar.addLayerInfo(0, 3, new String[] {"empty", "empty", "empty"}, null);
+        tabBar.addLayerInfo(0, 3, new String[]{"home", "favorite", "setting"}, null);
+        tabBar.addLayerInfo(0, 3, new String[]{"empty", "empty", "empty"}, null);
         tabBar.editListener(0, new View.OnClickListener[]{null, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tabBar.getChildVisivility(1) == View.GONE)
+                if (tabBar.getChildVisivility(1) == View.GONE)
                     tabBar.setChildVisivility(1, View.VISIBLE);
                 else
                     tabBar.setChildVisivility(1, View.GONE);
@@ -74,15 +74,16 @@ public class MainActivity extends AppCompatActivity {
         }, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               
+
             }
         }});
         tabBar.init();
     }
+
     //뒤로 가기 버튼 기능 제거
     @Override
-    public void onBackPressed(){
-        Toast.makeText(MainActivity.this,"뒤로 가기 버튼 사용 불가",Toast.LENGTH_SHORT).show();
+    public void onBackPressed() {
+        Toast.makeText(MainActivity.this, "뒤로 가기 버튼 사용 불가", Toast.LENGTH_SHORT).show();
     }
 
 }

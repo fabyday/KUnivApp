@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
@@ -17,11 +18,11 @@ import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
  */
 
 
-
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
-
+    TextView id;
+    TextView pw;
 
 
     @Override
@@ -30,21 +31,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
 
-
-
         ActivityTools.makeFullScreen(this);
 
-            loginButton=(Button)findViewById(R.id.loginLoginButton);
-            loginButton.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ProcessManager pManager = ProcessManager.getInstance();
-
-
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                        startActivity(intent);
-                }
-            }));
+        loginButton = (Button) findViewById(R.id.loginLoginButton);
+        loginButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }));
     }
 
 }

@@ -14,7 +14,6 @@ import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
  */
 
 
-
 public class ActivityTools {
 
     /**
@@ -23,10 +22,9 @@ public class ActivityTools {
      * @param activity 사용하는 자신의 activity를 넣어준다.
      */
 
-    public static TabBar tabBarData= null;
+    public static TabBar tabBarData = null;
 
-    public static void makeFullScreen(AppCompatActivity activity)
-    {
+    public static void makeFullScreen(AppCompatActivity activity) {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 

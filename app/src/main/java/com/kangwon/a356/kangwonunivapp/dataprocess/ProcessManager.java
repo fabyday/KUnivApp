@@ -2,6 +2,7 @@ package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
 import android.content.Context;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.widget.LinearLayout;
 
@@ -23,10 +24,13 @@ import java.util.concurrent.SynchronousQueue;
 /**
  * 이 클래스는 전체적인 백그라운드 작업 진행을 총괄한다.
  * 앱에 단 한개의 클래스만이 존재할 수 있는 싱글톤 스타일의 클래스이다.
+ *
  * @version 1
  */
-public class ProcessManager{
-    private static ProcessManager processManager=null;
+public class ProcessManager {
+    private static ProcessManager processManager = null;
+    Handler handler;
+
 
     private DataManager dataManager;
     private NetworkManager networkManager;
@@ -45,42 +49,17 @@ public class ProcessManager{
     /**
      * 자신 아래의 매니저를 생성하고 매니저와의 콜백 메소드들을 연결한다.
      */
-    private ProcessManager()
-    {
+    private ProcessManager(final Handler handler) {
+        this.handler = handler;
         networkManagerQueue = new LinkedList<>();
         dataManagerQueue = new LinkedList<>();
         procoessMangerQueue = new LinkedList<>();
-        pThread = new Thread(new Runnable() {
-            @Override //TODO
-            public void run() {
 
-                while(!procoessMangerQueue.isEmpty())
-                {
-                    MessageObject msg = procoessMangerQueue.poll();
-                    switch (msg.getMessageQueueType())
-                    {
-                        case MessageObject.DATA_MANAGER:
-                            dataManagerQueue.offer(msg);
-                            dataManager.inputMessage();
-                            break;
-                        case MessageObject.NETWORK_MANAGER:
-                            networkManagerQueue.offer(msg);
-                            networkManager.connect();
-                            break;
-                        case MessageObject.PROCESS_MANAGER:
-                            //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필하다.
-
-                    }
-                }
-            }
-        });
-
-        dataManager = DataManager.getInstance();
-        networkManager = NetworkManager.getInstance();
+        dataManager = DataManager.getInstance(dataManagerQueue);
+        networkManager = NetworkManager.getInstance(networkManagerQueue);
         adapters = new MessageAdapter[NUMBER_OF_ADPTER];
- 
 
-        adapters[DATA_ADPTER] = new MessageAdapter(){
+        adapters[DATA_ADPTER] = new MessageAdapter() {
             @Override
             public void receive(MessageObject msg) {
                 //dataManager.inputMessage(msg);
@@ -88,8 +67,7 @@ public class ProcessManager{
                 requestProcess();
             }
         };
-
-        adapters[NETWORK_ADPTER] = new MessageAdapter(){
+        adapters[NETWORK_ADPTER] = new MessageAdapter() {
 
             @Override
             public void receive(MessageObject msg) {
@@ -98,36 +76,71 @@ public class ProcessManager{
             }
         };
 
-        // 할당 큐 지정. 큐는 프로세스 매니저만 지정할 수 있다.
-        dataManager.setQueue(dataManagerQueue);
-        networkManager.setQueue(networkManagerQueue);
-
         //완료를 알려줄 어댑터
         dataManager.add(adapters[DATA_ADPTER]);
         networkManager.add(adapters[NETWORK_ADPTER]);
 
 
+        pThread = new Thread(new Runnable() {
+            @Override //TODO
+            public void run() {
+
+                while (true) {
+
+                    System.out.println("thread");
+                    while (!procoessMangerQueue.isEmpty()) {
+                        MessageObject msg = procoessMangerQueue.poll();
+                        switch (msg.getMessageQueueType()) {
+                            case MessageObject.DATA_MANAGER:
+                                dataManagerQueue.offer(msg);
+                                dataManager.inputMessage();
+                                break;
+                            case MessageObject.NETWORK_MANAGER:
+                                networkManagerQueue.offer(msg);
+                                networkManager.connect();
+                                break;
+                            case MessageObject.PROCESS_MANAGER:
+                                //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필하다.
+
+                        }
+
+                    }
+                    try {
+
+                        synchronized (procoessMangerQueue) {
+                            procoessMangerQueue.wait();
+                            System.out.println("wait");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        pThread.start();// 스레드는 큐가 빌 경우 잠에 빠진다.
     }
 
 
     /**
      * 앱에 유일하게 존재하는 ProcessManger Instance를 반환한다.
+     *
      * @return ProcessManager 객체 반환.
      */
-    public static ProcessManager getInstance()
-    {
-        if(processManager == null)
-            processManager= new ProcessManager();
+    public static ProcessManager getInstance(Handler handler) {
+        if (processManager == null)
+            processManager = new ProcessManager(handler);
         return processManager;
     }
 
 
     /**
      * 최초 로그인시 필요한 메소드이다. 이후부터는 토큰 혹은 구현에 따라 세션에 의해 로그인이 유지될 것임.
+     *
      * @param id
      * @param password
      */
-    public void login(String id, String password){
+    public void login(String id, String password) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
@@ -140,20 +153,19 @@ public class ProcessManager{
         MessageObject msgData = new MessageObject(data);
         msgData.setRequestStatus(MessageObject.REQUEST_QUERY);
         msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
-            procoessMangerQueue.offer(msgData);
+        procoessMangerQueue.offer(msgData);
         requestProcess();
     }
 
 
-
     /**
      * 회원가입을 위한 메소드. 웹서버에 회원가입 질의한다.
+     *
      * @param id
      * @param name
      * @param password
      */
-    public void signin(String id, String name, String password)
-    {
+    public void signin(String id, String name, String password) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
@@ -175,10 +187,11 @@ public class ProcessManager{
     /**
      * 핸들러를 통해 외부의 데이터와 연결한다.
      * 리스트를 업데이트한다.
+     *
      * @param type 메시지의 타입을 정의한다. 테이블이냐, 아니면 리스트냐 등.
      */
-    public void updateRequest(String type)
-    {
+    public void updateRequest(String type) {
+
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
         msg.put(MessageObject.TYPE, type);
@@ -195,11 +208,10 @@ public class ProcessManager{
     }
 
 
-    private void requestProcess()
-    {
-        if(!pThread.isAlive())
-            pThread.start();
-
+    private void requestProcess() {
+        synchronized (procoessMangerQueue) {
+            procoessMangerQueue.notify();
+        }
     }
 
 
