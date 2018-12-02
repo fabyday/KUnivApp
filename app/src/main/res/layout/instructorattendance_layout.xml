@@ -1,452 +1,499 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#333333">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="24dp"
-        >
+        android:layout_height="match_parent">
+
         <TableLayout
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:stretchColumns="1,">
-
             <TableRow>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#F44336"
+                    android:gravity="center"
+                    android:text="  주차  "
                     android:textColor="#FFFFFF"
-                    android:text="  주차  " />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#9C27B0"
+                    android:gravity="center"
+                    android:text="일자"
                     android:textColor="#FFFFFF"
-                    android:text="일자" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#edeb3f"
+                    android:gravity="center"
+                    android:text="  출결  "
                     android:textColor="#FFFFFF"
-                    android:text="  출결  " />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow1">
+
+            <TableRow android:id="@+id/TableRow1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow2">
+
+            <TableRow android:id="@+id/TableRow2">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow3">
+
+            <TableRow android:id="@+id/TableRow3">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow4">
+
+            <TableRow android:id="@+id/TableRow4">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow5">
+
+            <TableRow android:id="@+id/TableRow5">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow6">
+
+            <TableRow android:id="@+id/TableRow6">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow7">
+
+            <TableRow android:id="@+id/TableRow7">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow8">
+
+            <TableRow android:id="@+id/TableRow8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow9">
+
+            <TableRow android:id="@+id/TableRow9">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow10">
+
+            <TableRow android:id="@+id/TableRow10">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow11">
+
+            <TableRow android:id="@+id/TableRow11">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow12">
+
+            <TableRow android:id="@+id/TableRow12">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow13">
+
+            <TableRow android:id="@+id/TableRow13">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
                     android:textColor="#000000"
-                    android:text="1" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
                     android:textColor="#000000"
-                    android:text="yyyy.mm.dd" />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp"
                     android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
                     android:textColor="#000000"
-                    android:text="출석" />
+                    android:textSize="24sp" />
             </TableRow>
-            <TableRow
-                android:id="@+id/TableRow14">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#ffffff"
-                android:textColor="#000000"
-                android:text="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#FFFFFF"
-                android:textColor="#000000"
-                android:text="yyyy.mm.dd" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#ffffff"
-                android:textColor="#000000"
-                android:text="출석" />
-        </TableRow>
-            <TableRow
-                android:id="@+id/TableRow15">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#ffffff"
-                android:textColor="#000000"
-                android:text="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#FFFFFF"
-                android:textColor="#000000"
-                android:text="yyyy.mm.dd" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:background="#ffffff"
-                android:textColor="#000000"
-                android:text="출석" />
-        </TableRow>
+
+            <TableRow android:id="@+id/TableRow14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </TableRow>
+
+            <TableRow android:id="@+id/TableRow15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="yyyy.mm.dd"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="출석"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </TableRow>
         </TableLayout>
     </FrameLayout>
-
 
 </android.support.constraint.ConstraintLayout>

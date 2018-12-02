@@ -36,11 +36,14 @@ public class AttendanceActivity extends Fragment   {
         EditText AttenddanceNumber = (EditText)getView().findViewById(R.id.attenddanceNumber); // 인증 번호 넣는 에디트 텍스트
         Button Confirm = (Button)getView().findViewById(R.id.confirm); // 확인 버튼
 
-        String AttNum = AttenddanceNumber.getText().toString(); // 에디트 텍스트 -> String
+        final String AttNum = AttenddanceNumber.getText().toString(); // 에디트 텍스트 -> String
 
         Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // * 교수의 인증 번호랑 비교
+
+
                 Toast.makeText(getActivity(),"인증 되었습니다.",Toast.LENGTH_LONG).show();
             }
         });

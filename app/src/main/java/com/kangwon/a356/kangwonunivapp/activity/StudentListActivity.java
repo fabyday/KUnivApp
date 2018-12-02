@@ -14,6 +14,11 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 import java.util.ArrayList;
 
+/**
+ * 이 클래스는 res/layout/studentlsit_layout.xml 를 다룬다.
+ * 학생들이 수강 신청한 강의가 리스트뷰 형식으로 나타난다.
+ */
+
 public class StudentListActivity extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class StudentListActivity extends Fragment {
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
         sListView.setAdapter(adapter);
+
+        // * 학생이 수강 신청한 강의가 list에 있어야 함
 
         //테스트
         list.add("Please");

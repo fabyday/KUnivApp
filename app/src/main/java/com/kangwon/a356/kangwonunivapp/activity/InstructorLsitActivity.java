@@ -19,6 +19,11 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 import java.util.ArrayList;
 
+/**
+ * res/layout/instructorlist_layout.xml 을 다룬다.
+ * 교수가 강의를 생성하고 생성한 강의를 리스트뷰 형식으로 보여주고 강의를 삭제할 수 도 있다.
+ */
+
 public class InstructorLsitActivity extends Fragment {
 
     @Override
@@ -44,17 +49,17 @@ public class InstructorLsitActivity extends Fragment {
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
-                final LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                builder.setView(inflater.inflate(R.layout.addcoursedialog_layout,null))
-                            .setTitle("강의 추가")
-                            .setPositiveButton("추가", new DialogInterface.OnClickListener() {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
+                final  EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
+                courseName.setHint("강의명을 입력해주세요.");
+                builder.setTitle("강의 추가")
+                        .setView(courseName)
+                        .setPositiveButton("추가", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    View view = inflater.inflate(R.layout.addcoursedialog_layout, null);
-                                    EditText courseName = (EditText)view.findViewById(R.id.CourseName);
                                     list.add(courseName.getText().toString());
                                     adapter.notifyDataSetChanged();
+
                                 }
                             })
                             .setNegativeButton("취소", null)
@@ -87,10 +92,10 @@ public class InstructorLsitActivity extends Fragment {
         iListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 교수용 강의 출석인증 화면으로
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new InstructorAttendanceActivity()).commit();
             }
         });
-
     }
 }
 
