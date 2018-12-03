@@ -37,8 +37,8 @@ public class MessageObject {
     //강사용
     public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable"; //시간표
     public static final String OPEN_ATTANDANCE = "openattandance"; //출석부 열기
+    public static final String CLOSE_ATTANDANCE = "closeattandance"; //출석부 닫기
     public static final String OPEN_LECTURE= "openlecture"; //강의 생성
-    public static final String CLOSE_LECTURE = "closeattandance"; //출석부 닫기
     public static final String DEL_LECTURE = "dellect"; //강의 삭제
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -53,16 +53,20 @@ public class MessageObject {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
     //메시지가 어떤 곳으로 전달되어야 되는지 정의된다. MessageQueueType 에 사용
-    public static final int FROM_PROCESS_MANAGER_TO_DATA_MANAGER = 0; //사용자와 데이터 매니저 두개에 메시지를 준다. 단 데이터매니저가 메시지를 받아 처리한 것을 받아 쓴다.
     public static final int DATA_MANAGER = 1; // 데이터 매니저에게 전달.
     public static final int NETWORK_MANAGER = 2; // 네트워크 매니저에게 전달
-    public static final int JUST_PROCESS_MANAGER = 3; //사용자에게만 전달
+    public static final int PROCESS_MANAGER = 4; //사용자에게만 전달
 
 
     //사용자가 쿼리를 원하는가를 정하는 변수 requestStatus를 위해 정의되어 있다.
-    public static final int NOT_REQUEST_QUERY = 0; // 아무런 것도 리퀘스트 하지 않는다.
-    public static final int REQUEST_FOR_ALL = 1; // 모든 정보를 준다.
-    public static final int JUST_REQUEST_HINT = 2; //로그인과 같은 것은 단순하게 로그인이 잘 되었다만 알면 된다.(OK, ERROR 같은 단순한 정보 외의 어떠한 실질적 정보도 포함하지 않는다.)
+    //유저가 데이터 매니저에게, 데이터 매니저가 네트워크 매니저에게 요청시 사용
+    public static final int NOT_REQUEST_QUERY = 1; // 아무런 것도 리퀘스트 하지 않는다.
+    public static final int REQUEST_FOR_ALL = 2; // 모든 정보를 준다.
+    public static final int JUST_REQUEST_HINT = 4; //NetworkExcuteMessage를 이용한 로그인과 같은 것은 단순하게 로그인이 잘 되었다만 알면 된다.(OK, ERROR 같은 단순한 정보 외의 어떠한 실질적 정보도 포함하지 않는다.)
+
+    ////네트워크 매니저가 메시지를 유저와 데이터 매니저에 보낼때 사용한다.
+    public static final int RESPONSE_HINT = 8;
+    public static final int RESPONSE_FOR_REQUEST = 16;
 
 
     // 일종의 헤더 메시지

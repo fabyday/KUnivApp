@@ -6,6 +6,9 @@ package com.kangwon.a356.kangwonunivapp.network;
  */
 public class NetworkExecuteMessage {
 
+
+    public static final int SUCCESS = 0;
+    public static final int FAIL = 1;
     private int number;
     private String message;
 
@@ -15,6 +18,9 @@ public class NetworkExecuteMessage {
         this.message = message;
     }
 
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public String toString() {

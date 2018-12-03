@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     //뒤로 가기 버튼 기능 제거
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Toast.makeText(MainActivity.this, "뒤로 가기 버튼 사용 불가", Toast.LENGTH_SHORT).show();
     }
 

@@ -2,6 +2,8 @@ package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 import com.kangwon.a356.kangwonunivapp.database.DataManager;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
@@ -19,6 +21,7 @@ import java.util.Queue;
  * 이 클래스는 전체적인 백그라운드 작업 진행을 총괄한다.
  * 앱에 단 한개의 클래스만이 존재할 수 있는 싱글톤 스타일의 클래스이다.
  * 프로세스 매니저와 그 하위 클래스들의 모든 스레드는 큐가 비면 깊은 잠에 빠진다.
+ *
  * @author 노지현
  * @version 1
  */
@@ -57,7 +60,8 @@ public class ProcessManager {
         adapters[DATA_ADPTER] = new MessageAdapter() {
             @Override
             public void receive(MessageObject msg) {
-                addItemToQueue(msg);
+                if(msg != null)
+                    addItemToQueue(msg);
                 requestProcess();
             }
         };
@@ -76,39 +80,48 @@ public class ProcessManager {
 
 
         pThread = new Thread(new Runnable() {
-            @Override //TODO
+            @Override
             public void run() {
 
                 while (true) {
-
-                    System.out.println("thread");
+                    Log.i("ProcessThread", "스레드 시작");
                     while (!procoessMangerQueue.isEmpty()) {
+                        Log.i("ProcessThread", "시작전 큐 사이즈 : "+procoessMangerQueue.size());
                         MessageObject msg = procoessMangerQueue.poll();
-                        switch (msg.getMessageQueueType()) {
-                            case MessageObject.DATA_MANAGER:
-                                dataManagerQueue.offer(msg);
-                                dataManager.inputMessage();
-                                break;
-                            case MessageObject.NETWORK_MANAGER:
-                                networkManagerQueue.offer(msg);
-                                networkManager.connect();
-                                break;
-                            case MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER:
-                                //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필하다.
-                            case MessageObject.JUST_PROCESS_MANAGER:
-                                //TODO 핸들러를 통해 외부로 전달 해주는 코드가 필요함. MESSAGEOBJECT 객체일 것이다.
+                        Log.i("ProcessThread", "시작후 큐 사이즈 : "+procoessMangerQueue.size());
+                        Log.i("ProcessThread", "보내는 메시지 : "+msg.toGETMessage());
+                        int flag = msg.getMessageQueueType();
+                        if ((flag & MessageObject.PROCESS_MANAGER) == MessageObject.PROCESS_MANAGER) {
+                            Log.i("ProcessThread", "유저로 전달 : "+msg.toGETMessage());
+                            Message msgUsedByHandler = new Message();
+                            msgUsedByHandler.obj = msg;
+                            handler.sendMessage(msgUsedByHandler); //메시지를 외부로 보내준다.
                         }
-
+                        if ((flag & MessageObject.DATA_MANAGER) == MessageObject.DATA_MANAGER) ;
+                        {
+                            Log.i("ProcessThread", "데이터매니저로 전달 : "+msg.toGETMessage());
+                            dataManagerQueue.offer(msg);
+                            dataManager.inputMessage();
+                        }
+                        if ((flag & MessageObject.NETWORK_MANAGER) == MessageObject.NETWORK_MANAGER) {
+                            Log.i("ProcessThread", "네트워크 매니저로 전달"+msg.toGETMessage());
+                            networkManagerQueue.offer(msg);
+                            networkManager.connect();
+                        }
+                        Log.i("ProcessThread", "메시지 완료");
                     }
-                    try {
 
+                    try {
                         synchronized (procoessMangerQueue) {
+                            Log.i("ProcessThread", "Runnable");
                             procoessMangerQueue.wait();
-                            System.out.println("wait");
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    Log.i("ProcessThread", "Re Running");
+
                 }
             }
         });
@@ -156,8 +169,8 @@ public class ProcessManager {
     /**
      * 회원가입을 위한 메소드. 웹서버에 회원가입 질의한다.
      *
-     * @param id String 타입의 아이디
-     * @param name String 타입의 이름
+     * @param id       String 타입의 아이디
+     * @param name     String 타입의 이름
      * @param password String 타입의 비밀번호
      */
     public void signin(String id, String name, String password) {
@@ -210,12 +223,14 @@ public class ProcessManager {
     private void addItemToQueue(MessageObject msg) {
         synchronized (procoessMangerQueue) {
             procoessMangerQueue.offer(msg);
+            Log.i("ProcessThread", "큐에 추가 ");
         }
     }
 
     private void requestProcess() {
         synchronized (procoessMangerQueue) {
             procoessMangerQueue.notify();
+            Log.i("ProcessThread", "요청");
         }
     }
 

@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
 
+import android.util.Log;
+
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
 
@@ -44,9 +46,13 @@ public class DataManager extends AbstractManager {
                     while (true) {
 
 
+                        Log.i("DataThread", "스레드 시작");
+
                         while (!dataQueue.isEmpty()) {
                             Message sender = null;
+                            Log.i("DataThread", " 시작 전 큐 사이즈 : " + dataQueue.size());
                             MessageObject msg = (MessageObject) dataQueue.poll();
+                            Log.i("DataThread", " 시작 후 큐 사이즈 : " + dataQueue.size());
                             if (msg.equals(MessageObject.LOGIN_TYPE)) {
                                 userInfo.receive(msg);
                                 sender = userInfo;
@@ -60,15 +66,23 @@ public class DataManager extends AbstractManager {
 
 
                             if (msg.getRequsetStatus() == MessageObject.REQUEST_FOR_ALL) {//완료 됨을 프로세스 매니저에게 알림
-                                if (sender != null)
+                                if (sender != null) {
                                     callMessage(sender.makeQueryMessage());
+                                    Log.i("DataThread", " 콜백");
+
+                                }
                                 else
+                                {
                                     callMessage(null);
+                                    Log.i("DataThread", " ?");
+                                }
+
 
                             }
                         }
                         try {
                             synchronized (dataQueue) {
+                                Log.i("DataThread", "스레드 대기 상태");
                                 dataQueue.wait();
                             }
                         } catch (InterruptedException e) {
@@ -78,7 +92,6 @@ public class DataManager extends AbstractManager {
                 }
             });
         dThread.start();
-
     }
 
 
@@ -96,6 +109,7 @@ public class DataManager extends AbstractManager {
 
 
         synchronized (dataQueue) {
+            Log.i("ProcessThread", "데이터매니저에게 요청");
             dataQueue.notify();
         }
 
@@ -110,10 +124,8 @@ public class DataManager extends AbstractManager {
     @Override
     public void callMessage(MessageObject msg) {
         Iterator iter = super.getIterator();
+        Log.i("ProcessThread", "프로세스에 처리 완료 요청");
         while (iter.hasNext()) {
-            if (msg == null)
-                ((Message) iter.next()).receive();
-            else
                 ((Message) iter.next()).receive(msg);
         }
 

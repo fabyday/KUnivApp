@@ -69,10 +69,6 @@ public class TimeTableInfo implements Message {
         return msgData;
     }
 
-    @Override
-    public void receive() {
-    }
-
 
     /**
      * 데이터를 받으면 초기화한다.

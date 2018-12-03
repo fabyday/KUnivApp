@@ -8,8 +8,7 @@ import java.util.LinkedHashMap;
 
 public interface Message {
 
-    public MessageObject makeQueryMessage();
-    public void receive(MessageObject msg);
-    public void receive();
+     MessageObject makeQueryMessage();
+     void receive(MessageObject msg);
 
 }

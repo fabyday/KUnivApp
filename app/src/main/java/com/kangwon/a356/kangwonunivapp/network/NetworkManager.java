@@ -3,6 +3,7 @@ package com.kangwon.a356.kangwonunivapp.network;
 
 import android.content.Context;
 import android.os.MessageQueue;
+import android.util.Log;
 
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
@@ -20,16 +21,8 @@ import java.util.Queue;
  */
 public class NetworkManager extends AbstractManager {
 
-    public static final NetworkExecuteMessage SIGNIN_SUCCESS = new NetworkExecuteMessage(0, "계정 생성을 완료하였습니다.");
-    public static final NetworkExecuteMessage LOGIN_SUCCESS = new NetworkExecuteMessage(1, "로그인에 성공하였습니다.");
-    public static final NetworkExecuteMessage SIGNIN_FAILED = new NetworkExecuteMessage(2, "존재하는 계정입니다.");
-    public static final NetworkExecuteMessage LOGIN_FAILED = new NetworkExecuteMessage(2, "로그인에 실패하였습니다.");
-    public static final NetworkExecuteMessage CHECK_ATTANDANCE_SUCCESS = new NetworkExecuteMessage(3, "출석체크 성공");
-    public static final NetworkExecuteMessage CHECK_ATTANDANCE_FAILED = new NetworkExecuteMessage(4, "출석체크 실패");
-    public static final NetworkExecuteMessage OPEN_ATTANDANCE_SUCCESS = new NetworkExecuteMessage(5, "출석부가 성공적으로 열렸습니다.");
-    public static final NetworkExecuteMessage OPEN_ATTANDANCE_FAILED = new NetworkExecuteMessage(6, "출석부가 성공적으로 열리지 않았습니다.");
-    public static final NetworkExecuteMessage GET_TIMETABLE_SUCCESS = new NetworkExecuteMessage(7, "시간표 가져오기 성공");
-    public static final NetworkExecuteMessage GET_TIMETABLE_FAILED = new NetworkExecuteMessage(8, "시간표 가져오기 실패");
+    public static final NetworkExecuteMessage SUCCESS = new NetworkExecuteMessage(NetworkExecuteMessage.SUCCESS, "성공적으로 처리되었습니다.");
+    public static final NetworkExecuteMessage FAIL = new NetworkExecuteMessage(NetworkExecuteMessage.FAIL, "실패되었습니다.");
 
 
     private static NetworkManager nManager = null;
@@ -61,12 +54,17 @@ public class NetworkManager extends AbstractManager {
                 @Override
                 public void run() {
                     while (true) {
+                        Log.i("NetworkManager", "networkThread 동작 시작");
                         //큐가 비지 않으면 계속해서 큐를 비운다.
-                        while (!networkQueue.isEmpty())
+                        while (!networkQueue.isEmpty()) {
+                            Log.i("NetworkManager", "시작 전 큐 사이즈 : " + networkQueue.size());
                             networkHelper.connect((MessageObject) networkQueue.poll());
+                            Log.i("NetworkManager", "시작 후 큐 사이즈 : " + networkQueue.size());
+                        }
 
                         try {
                             synchronized (networkQueue) {
+                                Log.i("NetworkManager", "networkThread 대기");
                                 networkQueue.wait();
                             }
                         } catch (InterruptedException e) {
@@ -93,6 +91,7 @@ public class NetworkManager extends AbstractManager {
     public void connect() {
 
         synchronized (networkQueue) {
+            Log.i("NetworkManager", "NetworkThread가 깨어날 준비를 합니다.");
             networkQueue.notify();
         }
 

@@ -1,13 +1,11 @@
 package com.kangwon.a356.kangwonunivapp.network;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -37,11 +35,8 @@ import javax.net.ssl.X509TrustManager;
 
 public class HttpsConnectionHelper {
 
-    public static int CONNECTION_IO_EXCEPTION = 0;
-    public static int PURE_IO_EXCEPTION =1 ;
-    int flag;
 
-    private static final String serverURL = "http://bugtail.iptime.org";
+    private static final String serverURL = "http://bugtail.iptime.org:8080";
     HttpURLConnection urlCon = null;
     MessageAdapter adapter = null;
 
@@ -77,8 +72,6 @@ public class HttpsConnectionHelper {
         try {
 
             URL url = new URL(serverURL + msg.toGETMessage());
-            System.out.println("msg.toGETMessage()"+msg.toGETMessage());
-            flag = HttpsConnectionHelper.CONNECTION_IO_EXCEPTION;
             urlCon = (HttpURLConnection) url.openConnection();
 
 
@@ -86,13 +79,6 @@ public class HttpsConnectionHelper {
             urlCon.setRequestProperty("Content-Type", "application/json");
             urlCon.setDoInput(true);
 
-            if (urlCon.getResponseCode() != 200)
-                System.out.println("연결 실패");
-            else
-                System.out.println("연결 성공");
-
-
-            flag = HttpsConnectionHelper.PURE_IO_EXCEPTION;
             bis = new BufferedInputStream(urlCon.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(bis, "UTF-8"));
             String line;
@@ -101,78 +87,87 @@ public class HttpsConnectionHelper {
                 page += line;
             bis.close();
 
-
-            MessageObject recvMsg = new MessageObject(new JSONArray(new String(page)));
-
-            String type = msg.getType();
-            switch(type)
-            {
-                case MessageObject.LOGIN_TYPE:
-                    recvMsg.setNEM(NetworkManager.LOGIN_SUCCESS);
-                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
-                    break;
-                case MessageObject.SIGNIN_TYPE:
-                    recvMsg.setNEM(NetworkManager.SIGNIN_SUCCESS);
-                    recvMsg.setMessageQueueType(MessageObject.JUST_PROCESS_MANAGER);
-                    break;
-                case MessageObject.STUDENT_TIMETABLE_TYPE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-                case MessageObject.CHECK_ATTANDANCE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-                case MessageObject.OPEN_ATTANDANCE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-                case MessageObject.OPEN_LECTURE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-                case MessageObject.JOIN_LECTURE:
-                    recvMsg.setMessageQueueType(MessageObject.FROM_PROCESS_MANAGER_TO_DATA_MANAGER);
-                    break;
-
-            }
-
-            /*
-            if (msg.equals(MessageObject.LOGIN_TYPE))//받은 메시지에 무엇이 성공했는지 포함해 준다.
-            {
-                recvMsg.setNEM(NetworkManager.LOGIN_SUCCESS);
-            }
-            else if (msg.equals(MessageObject.SIGNIN_TYPE))
-            {
-                recvMsg.setNEM(NetworkManager.SIGNIN_SUCCESS);
-            }
-            else if(msg.equals(MessageObject.STUDENT_TIMETABLE_TYPE))
-            {
-
-            }
-            else if(msg.equals(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE))
-            */
-
-
-            adapter.receive(recvMsg);
-
-
+            adapter.receive(makeMessage(msg.getType(), page));
+            Log.i("HttpsConnectionHelper", "메시지 처리 완료");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            urlCon.disconnect();
+        }
 
-            if(flag == CONNECTION_IO_EXCEPTION)
-                System.out.println("CONNECTION NULL");
-            if(flag == PURE_IO_EXCEPTION)
-                System.out.println("String not found");
+    }
+
+    private MessageObject makeMessage(String type, String page) {
+        MessageObject recvMsg = null;
+        try {
+
+                recvMsg = new MessageObject(new JSONArray(new String(page)));
 
 
+            switch (type) {
+                case MessageObject.LOGIN_TYPE:
+                    recvMsg.setNEM(NetworkManager.SUCCESS);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    break;
+                case MessageObject.SIGNIN_TYPE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
+                    break;
+                case MessageObject.STUDENT_TIMETABLE_TYPE:
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    break;
+                case MessageObject.JOIN_LECTURE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    break;
+                case MessageObject.ALL_LIST:
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.CHECK_ATTANDANCE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.OPEN_ATTANDANCE:
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.CLOSE_ATTANDANCE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.OPEN_LECTURE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                case MessageObject.DEL_LECTURE:
+                    setNEMessage(recvMsg);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    break;
+                default:
+                    recvMsg.setNEM(NetworkManager.FAIL);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            if(!(flag == CONNECTION_IO_EXCEPTION))
-                urlCon.disconnect();
+            return recvMsg;
         }
 
+    }
+
+    private void setNEMessage(MessageObject recvMsg) {
+        if (recvMsg.getMessage().get(0).get("status") == "SUCC")
+            recvMsg.setNEM(NetworkManager.SUCCESS);
+        else
+            recvMsg.setNEM(NetworkManager.FAIL);
     }
 
 

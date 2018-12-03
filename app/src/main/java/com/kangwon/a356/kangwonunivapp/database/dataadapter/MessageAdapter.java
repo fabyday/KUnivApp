@@ -14,8 +14,4 @@ public class MessageAdapter implements Message {
 
     }
 
-    @Override
-    public void receive() {
-
-    }
 }

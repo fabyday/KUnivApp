@@ -2,6 +2,8 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
+import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
 /**
  * @author 노지현
@@ -26,14 +30,25 @@ public class LoginActivity extends AppCompatActivity {
     TextView pw;
 
 
+    final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            MessageObject managerMsg = (MessageObject) msg.obj;
+            if (managerMsg.getNEM().getNumber() == NetworkExecuteMessage.SUCCESS) {
+                changeMainActivity();
+            }
+        }
+    };
+    ProcessManager manager = ProcessManager.getInstance(handler);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
-        id=(TextView)findViewById(R.id.loginInputID);
-        pw = (TextView)findViewById(R.id.loginInputPW);
-
         ActivityTools.makeFullScreen(this);
+
+        id = (TextView) findViewById(R.id.loginInputID);
+        pw = (TextView) findViewById(R.id.loginInputPW);
+
 
 
 
@@ -42,12 +57,18 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                Log.i("LoginActivity", "intent");
-                startActivity(intent);
-                finish();
+                manager.login(id.getText().toString(), pw.getText().toString());
+                Log.i("LoginActivity", "login waiting");
             }
         }));
+    }
+
+
+    private void changeMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Log.i("LoginActivity", "login accessed");
+        startActivity(intent);
+        finish();
     }
 
     @Override

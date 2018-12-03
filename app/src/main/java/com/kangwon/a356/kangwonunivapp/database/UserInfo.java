@@ -85,11 +85,6 @@ public class UserInfo implements Message {
         return msgData;
     }
 
-    @Override
-    public void receive() {
-
-    }
-
 
     @Override
     public void receive(MessageObject msg) {
