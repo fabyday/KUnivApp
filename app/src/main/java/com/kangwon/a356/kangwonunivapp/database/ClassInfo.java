@@ -19,7 +19,6 @@ public class ClassInfo {
     public static final String CLASSNAME = "classname";
     public static final String INSTRUCTOR = "instructor";
 
-
     private int num;
     private String className; // 강의 이름
     private String instructor;

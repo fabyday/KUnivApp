@@ -81,7 +81,6 @@ public class HttpsConnectionHelper {
             flag = HttpsConnectionHelper.CONNECTION_IO_EXCEPTION;
             urlCon = (HttpURLConnection) url.openConnection();
 
-            System.out.println("urlcon"+urlCon);
 
             urlCon.setRequestMethod("GET");
             urlCon.setRequestProperty("Content-Type", "application/json");

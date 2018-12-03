@@ -25,7 +25,7 @@ public class TimeTableInfo implements Message {
 
 
     private ArrayList<ClassInfo> timeTable;
-    private String tableType;
+    private String tableType; //학생 테이블인가 강사 테이블인가
     private int problemIndex; //문제가 되는 인덱스를 찾아내는 변수 외부에서 사용 안됨.
     private UserInfo userInfo; //내부에서 쿼리를 만들 때 사용한다.
 

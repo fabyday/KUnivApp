@@ -3,6 +3,7 @@ package com.kangwon.a356.kangwonunivapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,19 +30,33 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
-
+        id=(TextView)findViewById(R.id.loginInputID);
+        pw = (TextView)findViewById(R.id.loginInputPW);
 
         ActivityTools.makeFullScreen(this);
+
+
+
 
         loginButton = (Button) findViewById(R.id.loginLoginButton);
         loginButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Log.i("LoginActivity", "intent");
                 startActivity(intent);
+                finish();
             }
         }));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.i("LoginActivity", "onDestroyed");
+        finish();
+
+    }
 }
 

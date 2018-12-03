@@ -22,29 +22,37 @@ public class MessageObject {
 
     public static final String TYPE = "type"; //DataManager가 데이터를 분배하는데 쓰임
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DataManager -> NetworkManager : 각 데이터 객체들이 필요한 메시지의 요청을 위한 JSON 의 값이다.
     //NetworkManager -> DataManager : DataManager가 어떤 객체로 메시지를 전달하지를 정하는 값. type를 key로 가진다.
     public static final String LOGIN_TYPE = "login";
     public static final String SIGNIN_TYPE = "signin";
-    public static final String STUDENT_TIMETABLE_TYPE = "studenttimetable";
-    public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable";
 
+    ///학생용
+    public static final String STUDENT_TIMETABLE_TYPE = "studenttimetable";
     public static final String CHECK_ATTANDANCE = "checkattandance";
-    public static final String OPEN_ATTANDANCE = "openattandance";
-    public static final String OPEN_LECTURE= "openlecture";
     public static final String JOIN_LECTURE = "joinlecture";
+    public static final String ALL_LIST = "alllist";
+
+    //강사용
+    public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable"; //시간표
+    public static final String OPEN_ATTANDANCE = "openattandance"; //출석부 열기
+    public static final String OPEN_LECTURE= "openlecture"; //강의 생성
+    public static final String CLOSE_LECTURE = "closeattandance"; //출석부 닫기
+    public static final String DEL_LECTURE = "dellect"; //강의 삭제
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////일단은 안쓴다.////////////////////////////////////////
     //유저가 실제 update() 등의 메소드 등을 통해 호출 할시에 사용된다.
+    /*
     public static final String REQUEST_UPDATE_STUDNET_LIST = "studentlist";
     public static final String REQUEST_UPDATE_STUDNET_TABLE = "studenttimetable";
     public static final String REQUEST_UPDATE_INSTRUCTOR_LIST = "instructorlist";
     public static final String REQUEST_UPDATE_INSTRUCTOR_TABLE = "instructortimetable";
+    */
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    //메시지가 어떤 곳으로 전달되어야 되는지 정의된다.
+    //메시지가 어떤 곳으로 전달되어야 되는지 정의된다. MessageQueueType 에 사용
     public static final int FROM_PROCESS_MANAGER_TO_DATA_MANAGER = 0; //사용자와 데이터 매니저 두개에 메시지를 준다. 단 데이터매니저가 메시지를 받아 처리한 것을 받아 쓴다.
     public static final int DATA_MANAGER = 1; // 데이터 매니저에게 전달.
     public static final int NETWORK_MANAGER = 2; // 네트워크 매니저에게 전달
