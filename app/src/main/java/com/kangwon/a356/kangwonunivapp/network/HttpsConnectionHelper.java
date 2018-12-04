@@ -87,14 +87,19 @@ public class HttpsConnectionHelper {
                 page += line;
             bis.close();
 
+            Log.i("log", page);
+
             adapter.receive(makeMessage(msg.getType(), page));
             Log.i("HttpsConnectionHelper", "메시지 처리 완료");
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.i("Exception", "malformedURLException");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.i("Exception", "IOException");
         } finally {
             urlCon.disconnect();
+            Log.i("Exception", "disconnected");
         }
 
     }

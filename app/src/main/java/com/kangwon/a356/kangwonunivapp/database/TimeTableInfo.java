@@ -106,6 +106,7 @@ public class TimeTableInfo implements Message {
                 problemIndex = Integer.parseInt(msg.getType());
             }
         };
+
         for (int i = 0; i < size; i++) {
             LinkedHashMap data = (LinkedHashMap) msgList.get(i);
             TimeSpaceInfo timeSpaceInfo = new TimeSpaceInfo((String) data.get(TimeSpaceInfo.DAY),
