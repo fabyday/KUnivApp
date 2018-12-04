@@ -53,33 +53,60 @@ public class DataManager extends AbstractManager {
                             Log.i("DataThread", " 시작 전 큐 사이즈 : " + dataQueue.size());
                             MessageObject msg = (MessageObject) dataQueue.poll();
                             Log.i("DataThread", " 시작 후 큐 사이즈 : " + dataQueue.size());
-                            if (msg.equals(MessageObject.LOGIN_TYPE)) {
-                                userInfo.receive(msg);
-                                sender = userInfo;
-                            } else if (msg.equals(MessageObject.STUDENT_TIMETABLE_TYPE)) {
-                                timeTableInfo[AS_STUDENT].receive(msg);
-                                sender = timeTableInfo[AS_STUDENT];
-                            } else if (msg.equals(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE)) {
-                                timeTableInfo[AS_INSTRUCTOR].receive(msg);
-                                sender = timeTableInfo[AS_INSTRUCTOR];
+                            String type = msg.getType();
+                            switch (type) {
+                                case MessageObject.LOGIN_TYPE:
+                                    userInfo.receive(msg);
+                                    sender = userInfo;
+                                    break;
+                                case MessageObject.SIGNIN_TYPE:
+
+                                    break;
+                                case MessageObject.STUDENT_TIMETABLE_TYPE:
+                                    timeTableInfo[AS_STUDENT].receive(msg);
+                                    sender = timeTableInfo[AS_STUDENT];
+                                    break;
+                                case MessageObject.JOIN_LECTURE:
+
+                                    break;
+                                case MessageObject.ALL_LIST:
+
+                                    break;
+                                case MessageObject.CHECK_ATTANDANCE:
+
+                                    break;
+                                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                                    timeTableInfo[AS_INSTRUCTOR].receive(msg);
+                                    sender = timeTableInfo[AS_INSTRUCTOR];
+                                    break;
+                                case MessageObject.OPEN_ATTANDANCE:
+
+                                    break;
+                                case MessageObject.CLOSE_ATTANDANCE:
+
+                                    break;
+                                case MessageObject.OPEN_LECTURE:
+
+
+                                    break;
+                                case MessageObject.DEL_LECTURE:
+
+
+                                    break;
+                                default:
+
                             }
+                                    try{
+                                        callMessage(sender.makeQueryMessage(msg));
+                                        Log.i("DataThread", " 콜백");
+                                    }catch(Exception e)
+                                    {
+                                        e.printStackTrace();
+                                    }
 
 
-                            if (msg.getRequsetStatus() == MessageObject.REQUEST_FOR_ALL) {//완료 됨을 프로세스 매니저에게 알림
-                                if (sender != null) {
-                                    callMessage(sender.makeQueryMessage());
-                                    Log.i("DataThread", " 콜백");
-
-                                }
-                                else
-                                {
-                                    callMessage(null);
-                                    Log.i("DataThread", " ?");
-                                }
-
-
-                            }
                         }
+
                         try {
                             synchronized (dataQueue) {
                                 Log.i("DataThread", "스레드 대기 상태");
@@ -91,6 +118,7 @@ public class DataManager extends AbstractManager {
                     }
                 }
             });
+        dThread.setName("DataThread");
         dThread.start();
     }
 
@@ -126,7 +154,7 @@ public class DataManager extends AbstractManager {
         Iterator iter = super.getIterator();
         Log.i("ProcessThread", "프로세스에 처리 완료 요청");
         while (iter.hasNext()) {
-                ((Message) iter.next()).receive(msg);
+            ((Message) iter.next()).receive(msg);
         }
 
     }

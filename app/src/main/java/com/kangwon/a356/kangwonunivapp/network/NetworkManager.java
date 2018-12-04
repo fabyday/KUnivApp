@@ -73,7 +73,7 @@ public class NetworkManager extends AbstractManager {
                     }
                 }
             });
-
+        networkThread.setName("NetworkThread");
         networkThread.start();
 
     }

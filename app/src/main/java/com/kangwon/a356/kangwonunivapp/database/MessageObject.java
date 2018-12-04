@@ -75,11 +75,10 @@ public class MessageObject {
     private int requsetStatus = 0; //requestStatus는 저장을 하고 데이터를 이용해서 쿼리문을 원한다는 유무이다. ProcessManager에서 쓰임.
     private NetworkExecuteMessage tag = null; //서버로의 질의 이후, 메시지를 보낼 때 질의가 잘 수행되었는지에 대한 정보를 담는다.
 
-
     private ArrayList<LinkedHashMap> message; // MAP 타입의 실질적인 메시지이며 MessageObject 객체에 감싸 보낸다.
+    private Object processedData; //유저가 사용할 정보 객체. 필요에 따라 형 변환해서 사용
 
-
-
+    public MessageObject(){}
     public MessageObject(LinkedHashMap[] msg) {
         message = new ArrayList<>();
         for (int i = 0; i < msg.length; i++)
@@ -166,6 +165,14 @@ public class MessageObject {
         this.MessageQueueType = messageQueueType;
     }
 
+
+    public void setProcessedData(Object processedData) {
+        this.processedData = processedData;
+    }
+
+    public Object getProcessedData() {
+        return processedData;
+    }
 
     /**
      * 메시지가 어떤 타입의 메시지인지 확인해 준다.

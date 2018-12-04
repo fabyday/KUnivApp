@@ -50,23 +50,41 @@ public class TimeTableInfo implements Message {
 
 
     @Override
-    public MessageObject makeQueryMessage() {
+    public MessageObject makeQueryMessage(MessageObject refMsg) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
 
+
         try {
-            msg.put(MessageObject.TYPE, this.tableType);
+            msg.put(MessageObject.TYPE, refMsg.getType());
             msg.put(UserInfo.ID, userInfo.getId());
         } catch (InformationNotFoundException e) {
             e.printStackTrace();
         }
         data.add(msg);
+        MessageObject msgData = null;
+        int flag = refMsg.getRequsetStatus();
+        switch (flag) {
+            case MessageObject.REQUEST_FOR_ALL: case MessageObject.JUST_REQUEST_HINT:case MessageObject.NOT_REQUEST_QUERY://사용자의 메시지 요청은 메시지를 네트워크로 메시지를 요청해준다.
+                msgData= new MessageObject(data);
+                msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
+                msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
+                break;
+            case MessageObject.RESPONSE_FOR_REQUEST : //네트워크에서 부터 온 것은 전부 프로세스 매니저로 자신을 첨부해서 보낸다.
+                msgData= new MessageObject(data);
+                msgData.setProcessedData(this);
+                msgData.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                break;
+            case MessageObject.RESPONSE_HINT:
+                msgData= new MessageObject(data);
+                msgData.setRequestStatus(MessageObject.RESPONSE_HINT);
+                msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                break;
+        }
 
-        MessageObject msgData = new MessageObject(data);
-        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
-        msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
-        return msgData;
+            return msgData;
     }
 
 
@@ -105,5 +123,6 @@ public class TimeTableInfo implements Message {
             }
         }
     }
+
 
 }

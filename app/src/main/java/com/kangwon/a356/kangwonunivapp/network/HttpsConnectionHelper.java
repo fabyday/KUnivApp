@@ -108,7 +108,7 @@ public class HttpsConnectionHelper {
 
             switch (type) {
                 case MessageObject.LOGIN_TYPE:
-                    recvMsg.setNEM(NetworkManager.SUCCESS);
+                    setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
                     break;
@@ -118,6 +118,7 @@ public class HttpsConnectionHelper {
                     recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.STUDENT_TIMETABLE_TYPE:
+                    recvMsg.setNEM(NetworkManager.SUCCESS);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
                     break;
@@ -127,6 +128,7 @@ public class HttpsConnectionHelper {
                     recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
                     break;
                 case MessageObject.ALL_LIST:
+                    recvMsg.setNEM(NetworkManager.SUCCESS);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     break;
                 case MessageObject.CHECK_ATTANDANCE:
@@ -134,9 +136,11 @@ public class HttpsConnectionHelper {
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     break;
                 case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                    recvMsg.setNEM(NetworkManager.SUCCESS);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     break;
                 case MessageObject.OPEN_ATTANDANCE:
+                    setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     break;
                 case MessageObject.CLOSE_ATTANDANCE:

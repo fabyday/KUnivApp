@@ -91,19 +91,19 @@ public class ProcessManager {
                         Log.i("ProcessThread", "시작후 큐 사이즈 : "+procoessMangerQueue.size());
                         Log.i("ProcessThread", "보내는 메시지 : "+msg.toGETMessage());
                         int flag = msg.getMessageQueueType();
-                        if ((flag & MessageObject.PROCESS_MANAGER) == MessageObject.PROCESS_MANAGER) {
+                        if ( MessageObject.PROCESS_MANAGER == MessageObject.PROCESS_MANAGER) {
                             Log.i("ProcessThread", "유저로 전달 : "+msg.toGETMessage());
                             Message msgUsedByHandler = new Message();
                             msgUsedByHandler.obj = msg;
                             handler.sendMessage(msgUsedByHandler); //메시지를 외부로 보내준다.
                         }
-                        if ((flag & MessageObject.DATA_MANAGER) == MessageObject.DATA_MANAGER) ;
+                        if (MessageObject.DATA_MANAGER == MessageObject.DATA_MANAGER) ;
                         {
                             Log.i("ProcessThread", "데이터매니저로 전달 : "+msg.toGETMessage());
                             dataManagerQueue.offer(msg);
                             dataManager.inputMessage();
                         }
-                        if ((flag & MessageObject.NETWORK_MANAGER) == MessageObject.NETWORK_MANAGER) {
+                        if (MessageObject.NETWORK_MANAGER == MessageObject.NETWORK_MANAGER) {
                             Log.i("ProcessThread", "네트워크 매니저로 전달"+msg.toGETMessage());
                             networkManagerQueue.offer(msg);
                             networkManager.connect();
@@ -125,6 +125,7 @@ public class ProcessManager {
                 }
             }
         });
+        pThread.setName("Process-Threasd");
 
         pThread.start();// 스레드는 큐가 빌 경우 잠에 빠진다.
     }
