@@ -29,22 +29,19 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_launcher_foreground"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/timetable" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_launcher_background"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/student" />
 
                 <ImageButton
                     android:id="@+id/imageButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_launcher_foreground"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/instructor" />
 
             </android.support.v7.widget.GridLayout>
         </LinearLayout>
@@ -53,6 +50,7 @@
 
     <include
         layout="@layout/tab_bar"
+        android:layout_width="wrap_content"
         android:layout_height="72dp"></include>
 
 </FrameLayout>
