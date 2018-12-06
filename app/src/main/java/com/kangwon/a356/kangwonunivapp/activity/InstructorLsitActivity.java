@@ -45,6 +45,7 @@ public class InstructorLsitActivity extends Fragment {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
         iListView.setAdapter(adapter);
 
+
 //강의 추가 버튼 동작
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override

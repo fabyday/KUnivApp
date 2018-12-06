@@ -109,9 +109,7 @@ public class HttpsConnectionHelper {
         try {
 
                 recvMsg = new MessageObject(new JSONArray(new String(page)));
-
-                System.out.println("말되요?"+new String(page));
-            switch (type) {
+                switch (type) {
                 case MessageObject.LOGIN_TYPE:
                     setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
@@ -134,11 +132,11 @@ public class HttpsConnectionHelper {
                     break;
                 case MessageObject.ALL_LIST:
                     recvMsg.setNEM(NetworkManager.SUCCESS);
-                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                     break;
                 case MessageObject.CHECK_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                     break;
                 case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
                     recvMsg.setNEM(NetworkManager.SUCCESS);
@@ -146,11 +144,11 @@ public class HttpsConnectionHelper {
                     break;
                 case MessageObject.OPEN_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                     break;
                 case MessageObject.CLOSE_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                     break;
                 case MessageObject.OPEN_LECTURE:
                     setNEMessage(recvMsg);

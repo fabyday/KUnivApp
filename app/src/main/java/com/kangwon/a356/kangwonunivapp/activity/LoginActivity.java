@@ -36,9 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             MessageObject managerMsg = (MessageObject) msg.obj;
             System.out.println(((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber());
-            if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
+            //if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
                 changeMainActivity();
-            }
+            //}
         }
     };
     ProcessManager manager = ProcessManager.getInstance(handler);

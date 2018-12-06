@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -19,6 +21,8 @@ import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
 public class MainActivity extends AppCompatActivity {
 
 
+    FragmentManager fmng;
+    FragmentTransaction transaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new TimetableActivity()).commit();
-
+                fmng = getSupportFragmentManager();
+                transaction =fmng.beginTransaction();
+                transaction.add(R.id.frameLayout, new TimetableActivity());
+                transaction.addToBackStack(null);
+                transaction.commit();
                /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);*/
             }
@@ -44,7 +51,11 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new StudentListActivity()).commit();
+                fmng = getSupportFragmentManager();
+                transaction =fmng.beginTransaction();
+                transaction.add(R.id.frameLayout, new StudentListActivity());
+                transaction.addToBackStack(null);
+                transaction.commit();
                 /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
                 startActivity(i);*/
             }
@@ -52,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorLsitActivity()).commit();
-
+                fmng = getSupportFragmentManager();
+                transaction =fmng.beginTransaction();
+                transaction.add(R.id.frameLayout, new InstructorLsitActivity());
+                transaction.addToBackStack(null);
+                transaction.commit();
                /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
                 startActivity(i);*/
             }
@@ -63,9 +77,14 @@ public class MainActivity extends AppCompatActivity {
 
         final TabBar tabBar = (TabBar) findViewById(R.id.tabbar);
 
-        tabBar.addLayerInfo(0, 3, new String[]{"home", "favorite", "setting"}, null);
+        tabBar.addLayerInfo(0, 3, new String[]{"홈", "즐겨찾기", "로그아웃"}, null);
         tabBar.addLayerInfo(0, 3, new String[]{"empty", "empty", "empty"}, null);
-        tabBar.editListener(0, new View.OnClickListener[]{null, new View.OnClickListener() {
+        tabBar.editListener(0, new View.OnClickListener[]{new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fmng.popBackStack();
+            }
+        }, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tabBar.getChildVisivility(1) == View.GONE)
@@ -85,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
     //뒤로 가기 버튼 기능 제거
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Toast.makeText(MainActivity.this, "뒤로 가기 버튼 사용 불가", Toast.LENGTH_SHORT).show();
     }
 
