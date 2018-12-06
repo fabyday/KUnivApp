@@ -16,8 +16,8 @@ public class SignUpActivity extends AppCompatActivity {
         EditText signUpName = (EditText)findViewById(R.id.signUpName);
         EditText signUpID = (EditText)findViewById(R.id.signUpID);
         EditText signUpPW = (EditText)findViewById(R.id.signUpPW);
-        Button signUpButton = (Button)findViewById(R.id.signUpButton);
+        Button createButton = (Button)findViewById(R.id.CreateButton);
 
-        
+
     }
 }

@@ -29,11 +29,12 @@
             android:textColor="#7be7e7e7"/>
 
         <Button
-            android:layout_margin="24dp"
             android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="24dp"
             android:layout_weight="1"
+            android:background="#4374D9"
             android:text="확인" />
 
 

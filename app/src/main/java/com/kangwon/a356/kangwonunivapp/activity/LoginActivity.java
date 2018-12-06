@@ -27,6 +27,7 @@ import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
+    Button signUpButton;
     TextView id;
     TextView pw;
 
@@ -51,10 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         id = (TextView) findViewById(R.id.loginInputID);
         pw = (TextView) findViewById(R.id.loginInputPW);
 
-
-
-
-
         loginButton = (Button) findViewById(R.id.loginLoginButton);
         loginButton.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -63,12 +60,26 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("LoginActivity", "login waiting");
             }
         }));
+        signUpButton = (Button)findViewById(R.id.singUpButton);
+        signUpButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeLoginActivity();
+            }
+        }));
+
     }
 
 
     private void changeMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         Log.i("LoginActivity", "login accessed");
+        startActivity(intent);
+        finish();
+    }
+    private void changeLoginActivity() {
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        Log.i("LoginActivity", "sign up");
         startActivity(intent);
         finish();
     }
