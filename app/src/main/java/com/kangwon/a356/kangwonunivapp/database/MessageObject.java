@@ -112,6 +112,7 @@ public class MessageObject {
     /**
      * @return 메시지 타입을 리턴한다.
      */
+    public void setType(String type){this.type = type;}
     public String getType() {
         return type;
     }

@@ -110,6 +110,7 @@ public class HttpsConnectionHelper {
         try {
 
                 recvMsg = new MessageObject(new JSONArray(new String(page)));
+                recvMsg.setType(type);
                 switch (type) {
                 case MessageObject.LOGIN_TYPE:
                     setNEMessage(recvMsg);
