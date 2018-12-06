@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -21,16 +23,24 @@ import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
 public class MainActivity extends AppCompatActivity {
 
 
-    FragmentManager fmng;
-    FragmentTransaction transaction;
+    public FragmentManager fmng;
+    public FragmentTransaction transaction;
+
+    public final Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+                    
+        }
+    };
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityTools.makeFullScreen(this);
-
-
-///////////////////////테스트용/////////////////////////////////////
 
         ImageButton button1 = (ImageButton) findViewById(R.id.imageButton1);
         ImageButton button2 = (ImageButton) findViewById(R.id.imageButton2);
@@ -44,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.add(R.id.frameLayout, new TimetableActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
-               /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
-                startActivity(i);*/
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.add(R.id.frameLayout, new StudentListActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
-                /*Intent i = new Intent(MainActivity.this, AttendanceActivity.class);
-                startActivity(i);*/
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.add(R.id.frameLayout, new InstructorLsitActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
-               /* Intent i = new Intent(MainActivity.this, TimetableActivity.class);
-                startActivity(i);*/
             }
         });
 /////////////////////////////////////////////////

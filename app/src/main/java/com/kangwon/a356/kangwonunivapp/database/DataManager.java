@@ -23,7 +23,8 @@ public class DataManager extends AbstractManager {
     private Queue dataQueue;
     public static final int AS_STUDENT = 0;
     public static final int AS_INSTRUCTOR = 1;
-    public static final int NUMBER_OF_TABLE = 2;
+    public static final int AS_ALL_LIST = 2;
+    public static final int NUMBER_OF_TABLE = 3;
 
     Thread dThread = null;
 
@@ -69,7 +70,8 @@ public class DataManager extends AbstractManager {
 
                                     break;
                                 case MessageObject.ALL_LIST:
-
+                                    timeTableInfo[AS_ALL_LIST].receive(msg);
+                                    sender = timeTableInfo[AS_ALL_LIST];
                                     break;
                                 case MessageObject.CHECK_ATTANDANCE:
 
@@ -86,22 +88,17 @@ public class DataManager extends AbstractManager {
                                     break;
                                 case MessageObject.OPEN_LECTURE:
 
-
                                     break;
                                 case MessageObject.DEL_LECTURE:
 
-
                                     break;
-                                default:
-
                             }
-                                    try{
-                                        callMessage(sender.makeQueryMessage(msg));
-                                        Log.i("DataThread", " 콜백");
-                                    }catch(Exception e)
-                                    {
-                                        e.printStackTrace();
-                                    }
+                            try {
+                                Log.i("DataThread", " 콜백");
+                                callMessage(sender.makeQueryMessage(msg));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
 
                         }

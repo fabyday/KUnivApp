@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("LoginActivity", "login waiting");
             }
         }));
-        signUpButton = (Button)findViewById(R.id.singUpButton);
+        signUpButton = (Button)findViewById(R.id.SignUpButton);
         signUpButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
