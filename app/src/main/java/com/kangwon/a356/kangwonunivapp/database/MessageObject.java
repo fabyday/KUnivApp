@@ -1,6 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
-import com.google.gson.JsonParser;
+import android.os.Handler;
+
 import com.kangwon.a356.kangwonunivapp.dataprocess.JSONParser;
 import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+
 
 /**
  * 메시지 객체이다. 내부에서 사용할 메시지와 외부에서 사용할 메시지를 구분하지 않고 사용 가능하게 해준다.
@@ -77,6 +79,7 @@ public class MessageObject {
 
     private ArrayList<LinkedHashMap> message; // MAP 타입의 실질적인 메시지이며 MessageObject 객체에 감싸 보낸다.
     private Object processedData; //유저가 사용할 정보 객체. 필요에 따라 형 변환해서 사용
+    private Handler handler;
 
     public MessageObject(){}
     public MessageObject(LinkedHashMap[] msg) {
@@ -185,5 +188,17 @@ public class MessageObject {
         if (this.type.equals(obj))
             return true;
         return false;
+
     }
+
+
+    public void setHandler(Handler handler)
+    {
+        this.handler = handler;
+    }
+    public Handler getHandler()
+    {
+        return handler;
+    }
+
 }

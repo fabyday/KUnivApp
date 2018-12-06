@@ -25,14 +25,11 @@
 
         </activity>
 
-        <activity android:name=".activity.TimetableActivity">
+        <activity android:name=".activity.SignUpActivity">
 
         </activity>
 
 
-        <activity android:name=".activity.AttendanceActivity">
-
-        </activity>
     </application>
 
 </manifest>

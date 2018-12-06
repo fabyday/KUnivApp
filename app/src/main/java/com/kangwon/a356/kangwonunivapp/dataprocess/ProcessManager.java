@@ -27,7 +27,6 @@ import java.util.Queue;
  */
 public class ProcessManager {
     private static ProcessManager processManager = null;
-    Handler handler;
 
 
     private DataManager dataManager;
@@ -47,8 +46,7 @@ public class ProcessManager {
     /**
      * 자신 아래의 매니저를 생성하고 매니저와의 콜백 메소드들을 연결한다.
      */
-    private ProcessManager(final Handler handler) {
-        this.handler = handler;
+    private ProcessManager() {
         networkManagerQueue = new LinkedList<>();
         dataManagerQueue = new LinkedList<>();
         procoessMangerQueue = new LinkedList<>();
@@ -93,7 +91,12 @@ public class ProcessManager {
                         if ( flag == MessageObject.PROCESS_MANAGER) {
                             Message msgUsedByHandler = new Message();
                             msgUsedByHandler.obj = msg;
-                            handler.sendMessage(msgUsedByHandler); //메시지를 외부로 보내준다.
+                            try{
+                                msg.getHandler().sendMessage(msgUsedByHandler); //메시지를 외부로 보내준다.
+                            }catch(Exception e)
+                            {
+                                Log.v("ProcessThread", "handler 부분 예외"); //handler가 null이거나 연결이 끊길 경우 무시한다.
+                            }
                         }
                         else if(flag == MessageObject.DATA_MANAGER)
                         {
@@ -126,6 +129,7 @@ public class ProcessManager {
         pThread.setName("Process-Threasd");
 
         pThread.start();// 스레드는 큐가 빌 경우 잠에 빠진다.
+
     }
 
 
@@ -134,9 +138,9 @@ public class ProcessManager {
      *
      * @return ProcessManager 객체 반환.
      */
-    public static ProcessManager getInstance(Handler handler) {
+    public static ProcessManager getInstance() {
         if (processManager == null)
-            processManager = new ProcessManager(handler);
+            processManager = new ProcessManager();
         return processManager;
     }
 
@@ -147,7 +151,7 @@ public class ProcessManager {
      * @param id
      * @param password
      */
-    public void login(String id, String password) {
+    public void login(String id, String password, Handler handler) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
@@ -158,6 +162,7 @@ public class ProcessManager {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
+        msgData.setHandler(handler);
         msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
         msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
         addItemToQueue(msgData);
@@ -172,7 +177,7 @@ public class ProcessManager {
      * @param name     String 타입의 이름
      * @param password String 타입의 비밀번호
      */
-    public void signin(String id, String name, String password) {
+    public void signin(String id, String name, String password, Handler handler) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
@@ -184,6 +189,7 @@ public class ProcessManager {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
+        msgData.setHandler(handler);
         msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
 
         msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
@@ -197,7 +203,7 @@ public class ProcessManager {
      *
      * @param type 메시지의 타입을 정의한다. 테이블이냐, 아니면 리스트냐 등.
      */
-    public void updateRequest(String type) {
+    public void updateRequest(String type, Handler handler) {
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
         LinkedHashMap<String, String> msg = new LinkedHashMap<>();
@@ -205,7 +211,7 @@ public class ProcessManager {
         data.add(msg);
 
         MessageObject msgData = new MessageObject(data);
-
+        msgData.setHandler(handler);
         msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
 
         msgData.setMessageQueueType(MessageObject.DATA_MANAGER);

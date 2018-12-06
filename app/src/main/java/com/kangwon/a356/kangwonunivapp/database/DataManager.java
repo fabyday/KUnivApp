@@ -61,6 +61,8 @@ public class DataManager extends AbstractManager {
                                     sender = userInfo;
                                     break;
                                 case MessageObject.SIGNIN_TYPE:
+                                    msg.setProcessedData(msg.getNEM());
+                                    msg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                                     break;
                                 case MessageObject.STUDENT_TIMETABLE_TYPE:
                                     timeTableInfo[AS_STUDENT].receive(msg);
@@ -95,9 +97,11 @@ public class DataManager extends AbstractManager {
                             }
                             try {
                                 Log.i("DataThread", " 콜백");
-                                callMessage(sender.makeQueryMessage(msg));
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                MessageObject obj = sender.makeQueryMessage(msg);
+                                obj.setHandler(msg.getHandler());
+                                callMessage(obj);
+                            } catch (NullPointerException e) {
+                                callMessage(msg); //그냥 확인 문자들은 이것으로 처리된다.
                             }
 
 

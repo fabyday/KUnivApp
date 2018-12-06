@@ -88,8 +88,9 @@ public class HttpsConnectionHelper {
             bis.close();
 
             Log.i("log", page);
-
-            adapter.receive(makeMessage(msg.getType(), page));
+            MessageObject lastMessage = makeMessage(msg.getType(), page); //메시지를 처리하고 마지막으로 핸들러를 달아준다.
+            lastMessage.setHandler(msg.getHandler());
+            adapter.receive(lastMessage);
             Log.i("HttpsConnectionHelper", "메시지 처리 완료");
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -172,6 +173,7 @@ public class HttpsConnectionHelper {
     }
 
     private void setNEMessage(MessageObject recvMsg) {
+        System.out.println(recvMsg.getMessage().get(0).get("status"));
         if (recvMsg.getMessage().get(0).get("status").equals("SUCC") )
             recvMsg.setNEM(NetworkManager.SUCCESS);
         else

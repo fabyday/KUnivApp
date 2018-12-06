@@ -37,12 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             MessageObject managerMsg = (MessageObject) msg.obj;
             System.out.println(((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber());
-            //if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
+            if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
                 changeMainActivity();
-            //}
+            }
         }
     };
-    ProcessManager manager = ProcessManager.getInstance(handler);
+    ProcessManager manager = ProcessManager.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manager.login(id.getText().toString(), pw.getText().toString());
+                manager.login(id.getText().toString(), pw.getText().toString(), handler);
                 Log.i("LoginActivity", "login waiting");
             }
         }));
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLoginActivity();
+                changeSigninActivity();
             }
         }));
 
@@ -77,11 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    private void changeLoginActivity() {
+    private void changeSigninActivity() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         Log.i("LoginActivity", "sign up");
         startActivity(intent);
-        finish();
     }
 
     @Override
