@@ -91,19 +91,18 @@ public class ProcessManager {
                         Log.i("ProcessThread", "시작후 큐 사이즈 : "+procoessMangerQueue.size());
                         int flag = msg.getMessageQueueType();
                         if ( flag == MessageObject.PROCESS_MANAGER) {
-                            Log.i("ProcessThread", "유저로 전달 : "+msg.toGETMessage());
                             Message msgUsedByHandler = new Message();
                             msgUsedByHandler.obj = msg;
                             handler.sendMessage(msgUsedByHandler); //메시지를 외부로 보내준다.
                         }
                         else if(flag == MessageObject.DATA_MANAGER)
                         {
-                            Log.i("ProcessThread", "데이터매니저로 전달 : "+msg.toGETMessage());
+                            Log.i("ProcessThread", "데이터매니저로 전달 : ");
                             dataManagerQueue.offer(msg);
                             dataManager.inputMessage();
                         }
                         else if(flag == MessageObject.NETWORK_MANAGER) {
-                            Log.i("ProcessThread", "네트워크 매니저로 전달"+msg.toGETMessage());
+                            Log.i("ProcessThread", "네트워크 매니저로 전달");
                             networkManagerQueue.offer(msg);
                             networkManager.connect();
                         }

@@ -16,14 +16,19 @@ import java.util.LinkedHashMap;
  */
 public class ClassInfo {
 
-    public static final String CLASSNAME = "classname";
-    public static final String INSTRUCTOR = "instructor";
+    public static final String CLASSNAME = "classname"; //강좌 이름
+    public static final String INSTRUCTOR = "instructor"; //강의자 이름
+    public static final String START_DATE = "startdate";
+    public static final String END_DATE = "enddate";
 
-    private int num;
+    private int num; //현재 classinfo가 들어가 있는 ArrayList의 위치 찾기 위해 도와주는 변수임.
     private String className; // 강의 이름
     private String instructor;
     private ArrayList<TimeSpaceInfo> timeSpaceInfo;
     private Message messageListener;
+
+    private String startDate; //시작일
+    private String endDate; //종료일
 
 
     public ClassInfo(String className, String instructor, int number) {

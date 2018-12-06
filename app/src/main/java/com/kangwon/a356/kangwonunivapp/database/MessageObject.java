@@ -39,7 +39,7 @@ public class MessageObject {
     public static final String OPEN_ATTANDANCE = "openattandance"; //출석부 열기
     public static final String CLOSE_ATTANDANCE = "closeattandance"; //출석부 닫기
     public static final String OPEN_LECTURE= "openlecture"; //강의 생성
-    public static final String DEL_LECTURE = "dellect"; //강의 삭제
+    public static final String DEL_LECTURE = "closelecture"; //강의 삭제
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////일단은 안쓴다.////////////////////////////////////////

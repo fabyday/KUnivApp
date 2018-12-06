@@ -42,6 +42,7 @@ public class NetworkManager extends AbstractManager {
             @Override
             public void receive(MessageObject msg) {
 
+                System.out.println("네트워크 전달하기요. : "+msg.getNEM().toString());
                 callMessage(msg);
 
             }

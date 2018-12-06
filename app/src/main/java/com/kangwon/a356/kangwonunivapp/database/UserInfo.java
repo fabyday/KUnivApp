@@ -98,6 +98,7 @@ public class UserInfo implements Message {
                 msgData.setProcessedData(refMsg.getNEM());
                 msgData.setRequestStatus(MessageObject.RESPONSE_HINT);
                 msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                System.out.println("완성: " +refMsg.getNEM().toString());
                 break;
         }
 

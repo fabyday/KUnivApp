@@ -110,7 +110,7 @@ public class HttpsConnectionHelper {
 
                 recvMsg = new MessageObject(new JSONArray(new String(page)));
 
-
+                System.out.println("말되요?"+new String(page));
             switch (type) {
                 case MessageObject.LOGIN_TYPE:
                     setNEMessage(recvMsg);
@@ -167,16 +167,18 @@ public class HttpsConnectionHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
+            System.out.println("네트워크 큐 타입> " + recvMsg.getMessageQueueType());
             return recvMsg;
         }
 
     }
 
     private void setNEMessage(MessageObject recvMsg) {
-        if (recvMsg.getMessage().get(0).get("status") == "SUCC")
+        if (recvMsg.getMessage().get(0).get("status").equals("SUCC") )
             recvMsg.setNEM(NetworkManager.SUCCESS);
         else
             recvMsg.setNEM(NetworkManager.FAIL);
+
     }
 
 

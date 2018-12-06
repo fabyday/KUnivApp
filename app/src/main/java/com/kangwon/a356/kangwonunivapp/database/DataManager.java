@@ -60,7 +60,6 @@ public class DataManager extends AbstractManager {
                                     sender = userInfo;
                                     break;
                                 case MessageObject.SIGNIN_TYPE:
-
                                     break;
                                 case MessageObject.STUDENT_TIMETABLE_TYPE:
                                     timeTableInfo[AS_STUDENT].receive(msg);

@@ -113,6 +113,7 @@ public class TimeTableInfo implements Message {
                     (String) data.get(TimeSpaceInfo.CLASSNAME_TYPE),
                     (String) data.get(TimeSpaceInfo.START_TYPE),
                     (String) data.get(TimeSpaceInfo.END_TYPE));
+
             ClassInfo classInfo = new ClassInfo((String) data.get(ClassInfo.CLASSNAME), (String) data.get(ClassInfo.INSTRUCTOR), i);
             classInfo.add(adapter);
             //만일 강사의 과목이 중복된 정보가 들어올 경우 중복된 정보에 TimeSpace 정보만 추가한다.

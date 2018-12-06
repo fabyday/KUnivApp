@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.database.UserInfo;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
@@ -34,7 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             MessageObject managerMsg = (MessageObject) msg.obj;
-            if (managerMsg.getNEM().getNumber() == NetworkExecuteMessage.SUCCESS) {
+            System.out.println(((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber());
+            if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
                 changeMainActivity();
             }
         }

@@ -9,10 +9,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class TimeSpaceInfo {
-    public static final String DAY_TYPE = "day";
-    public static final String CLASSNAME_TYPE = "classname";
-    public static final String START_TYPE = "starttime";
-    public static final String END_TYPE = "endtime";
+    public static final String DAY_TYPE = "day"; //날짜
+    public static final String CLASSNAME_TYPE = "classplace"; //장소
+    public static final String START_TYPE = "starttime"; //시작시간
+    public static final String END_TYPE = "endtime"; //종료 시간
 
 
     public static SimpleDateFormat TIME = new SimpleDateFormat("kk:mm");
