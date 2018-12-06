@@ -45,10 +45,7 @@ public class StudentListActivity extends Fragment {
 
         // * 학생이 수강 신청한 강의가 list에 있어야 함
 
-        //테스트
-        list.add("Please");
-        adapter.notifyDataSetChanged();
-
+   
         sListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) { // 리스트뷰 아이템 클릭시 출결인증 화면으로

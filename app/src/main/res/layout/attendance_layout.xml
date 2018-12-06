@@ -26,6 +26,7 @@
             android:layout_margin="24dp"
             android:layout_weight="1"
             android:ems="10"
+            android:textSize="20sp"
             android:textColorHint="#47C83E"
             android:hint="출석인증번호"
             android:textColor="#47C83E" />
