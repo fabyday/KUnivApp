@@ -42,7 +42,7 @@ public class InstructorLsitActivity extends Fragment {
         Button AddBtn = getView().findViewById(R.id.AddCourse); // 강의 추가 버튼
         final ListView iListView = getView().findViewById(R.id.InstructorListView);  // instructorlist_layout.xml의 리스트뷰
         final ArrayList<String> list = new ArrayList<String>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fix_simple_list, list);
         iListView.setAdapter(adapter);
 
 

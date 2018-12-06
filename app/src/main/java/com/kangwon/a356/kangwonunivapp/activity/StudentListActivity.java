@@ -40,7 +40,7 @@ public class StudentListActivity extends Fragment {
         ListView sListView = getView().findViewById(R.id.StudentListView); // studentlsit_layout.xml의 리스트뷰
         final ArrayList<String> list = new ArrayList<String>();
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fix_simple_list, list);
         sListView.setAdapter(adapter);
 
         // * 학생이 수강 신청한 강의가 list에 있어야 함

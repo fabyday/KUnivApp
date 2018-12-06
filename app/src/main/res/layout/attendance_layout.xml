@@ -20,13 +20,15 @@
         android:id="@+id/attendanceTop">
 
         <EditText
-            android:layout_margin="24dp"
             android:id="@+id/attenddanceNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="24dp"
             android:layout_weight="1"
             android:ems="10"
-            android:textColor="#7be7e7e7"/>
+            android:textColorHint="#47C83E"
+            android:hint="출석인증번호"
+            android:textColor="#47C83E" />
 
         <Button
             android:id="@+id/confirm"
@@ -35,7 +37,9 @@
             android:layout_margin="24dp"
             android:layout_weight="1"
             android:background="#4374D9"
-            android:text="확인" />
+            android:text="확인"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
 
     </LinearLayout>
