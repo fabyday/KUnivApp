@@ -27,7 +27,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="#4374D9"
-                android:text="강의 추가" />
+                android:text="강의 추가"
+                android:textSize="20sp"/>
         </LinearLayout>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

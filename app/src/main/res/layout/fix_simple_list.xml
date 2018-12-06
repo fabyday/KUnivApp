@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Listview 의 아이템 글자 옵션-->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:gravity="center_vertical"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:id="@android:id/text2"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:textColor="#47C83E"
+    />
