@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <EditText
-                android:id="@+id/SignUpName"
+                android:id="@+id/signUpName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -50,7 +50,7 @@
                 android:hint="아이디"/>
 
             <EditText
-                android:id="@+id/singUpPW"
+                android:id="@+id/signUpPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -59,7 +59,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/singUpButton"
+            android:id="@+id/signUpButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="등록" />
