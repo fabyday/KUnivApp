@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
@@ -38,7 +39,12 @@ public class LoginActivity extends AppCompatActivity {
             MessageObject managerMsg = (MessageObject) msg.obj;
             System.out.println(((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber());
             if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
-                changeMainActivity();
+                {
+                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                    changeMainActivity();
+
+                }
             }
         }
     };

@@ -198,6 +198,28 @@ public class ProcessManager {
     }
 
     /**
+     * 변경을 요하는 요청. delete, change
+     * @param msg
+     * @param handler
+     */
+    public void commitRequest(LinkedHashMap msg, Handler handler)
+    {
+
+    }
+
+    /**
+     * 변경을 요하는 작업 중 다수의 메시지를 포함하는 객체
+     * @param msg
+     * @param handler
+     */
+    public void commitRequest(LinkedHashMap[] msg, Handler handler)
+    {
+
+    }
+
+
+
+    /**
      * 핸들러를 통해 외부의 데이터와 연결한다.
      * 리스트를 업데이트한다.
      *

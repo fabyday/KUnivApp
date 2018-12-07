@@ -1,5 +1,6 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -99,7 +100,10 @@ public class MainActivity extends AppCompatActivity {
         }, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
             }
         }});
         tabBar.init();
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     //뒤로 가기 버튼 기능 제거
     @Override
     public void onBackPressed() {
-        Toast.makeText(MainActivity.this, "뒤로 가기 버튼 사용 불가", Toast.LENGTH_SHORT).show();
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
+import android.widget.TextView;
+
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 
 import java.text.DateFormat;
@@ -52,5 +54,34 @@ public class TimeSpaceInfo {
         return classRoom;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        if (this == obj) {
+            System.out.println("Object Same");
+            return true;
+        }
+        TimeSpaceInfo info = (TimeSpaceInfo)obj;
+        if (day.equals(info.getDay()))
+            if (startTime.equals(info.getStartTime())) {
+                if(endTime.equals(info.getEndTime()))
+                return true;
+            }
+        return false;
+    }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        hashCode = prime * hashCode + ((day == null) ? 0 : day.hashCode());
+        hashCode = prime * hashCode + startTime.hashCode();
+        hashCode = prime * hashCode + endTime.hashCode();
+        return hashCode;
+    }
 }

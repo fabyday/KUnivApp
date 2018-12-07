@@ -65,34 +65,24 @@ public class DataManager extends AbstractManager {
                                     msg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                                     break;
                                 case MessageObject.STUDENT_TIMETABLE_TYPE:
+                                case MessageObject.STUDENT_ATTANDANCE_LIST:
+                                case MessageObject.CHECK_ATTANDANCE:
+                                case MessageObject.JOIN_LECTURE:
                                     timeTableInfo[AS_STUDENT].receive(msg);
                                     sender = timeTableInfo[AS_STUDENT];
-                                    break;
-                                case MessageObject.JOIN_LECTURE:
-
                                     break;
                                 case MessageObject.ALL_LIST:
                                     timeTableInfo[AS_ALL_LIST].receive(msg);
                                     sender = timeTableInfo[AS_ALL_LIST];
                                     break;
-                                case MessageObject.CHECK_ATTANDANCE:
-
-                                    break;
+                                case MessageObject.OPEN_LECTURE:
+                                case MessageObject.CLOSE_ATTANDANCE:
+                                case MessageObject.OPEN_ATTANDANCE:
+                                case MessageObject.DEL_LECTURE:
                                 case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                                case MessageObject.INSTRUCTOR_ATTANDANCE_LIST:
                                     timeTableInfo[AS_INSTRUCTOR].receive(msg);
                                     sender = timeTableInfo[AS_INSTRUCTOR];
-                                    break;
-                                case MessageObject.OPEN_ATTANDANCE:
-
-                                    break;
-                                case MessageObject.CLOSE_ATTANDANCE:
-
-                                    break;
-                                case MessageObject.OPEN_LECTURE:
-
-                                    break;
-                                case MessageObject.DEL_LECTURE:
-
                                     break;
                             }
                             try {

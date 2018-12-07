@@ -115,7 +115,7 @@ public class HttpsConnectionHelper {
                 case MessageObject.LOGIN_TYPE:
                     setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
-                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.SIGNIN_TYPE:
                     setNEMessage(recvMsg);
@@ -130,39 +130,47 @@ public class HttpsConnectionHelper {
                 case MessageObject.JOIN_LECTURE:
                     setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
-                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.ALL_LIST:
                     recvMsg.setNEM(NetworkManager.SUCCESS);
-                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
                     break;
                 case MessageObject.CHECK_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
                     recvMsg.setNEM(NetworkManager.SUCCESS);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
                     break;
                 case MessageObject.OPEN_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.CLOSE_ATTANDANCE:
                     setNEMessage(recvMsg);
-                    recvMsg.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                    recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.OPEN_LECTURE:
                     setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 case MessageObject.DEL_LECTURE:
                     setNEMessage(recvMsg);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
                 default:
                     recvMsg.setNEM(NetworkManager.FAIL);
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+                    recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
             }
         } catch (JSONException e) {
             e.printStackTrace();
