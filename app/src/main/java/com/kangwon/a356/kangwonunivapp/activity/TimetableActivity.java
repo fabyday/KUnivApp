@@ -1,20 +1,14 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
-import android.app.Activity;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
 import com.github.eunsiljo.timetablelib.data.TimeGridData;
@@ -22,7 +16,6 @@ import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 import com.kangwon.a356.kangwonunivapp.R;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -41,14 +34,15 @@ import java.util.List;
 
 public class TimetableActivity extends Fragment {
 
-    View btnMode;
+    //View btnMode; //툴바 2칸 ,7칸 변경 버튼
     TimeTableView timeTable;
     Button attendanceBtn;
 
-    ArrayList<TimeTableData> mShortSamples = new ArrayList<>();
-    ArrayList<TimeTableData> mLongSamples = new ArrayList<>();
-    List<String> mTitles = Arrays.asList("Korean", "English", "Math", "Science", "Physics", "Chemistry", "Biology");
-    List<String> mLongHeaders = Arrays.asList("Plan", "Do");
+   // ArrayList<TimeTableData> mShortSamples = new ArrayList<>();  // 두칸 테이블 샘플을 위해 사용
+    // ArrayList<TimeTableData> mLongSamples = new ArrayList<>();  // 7칸 데이블 샘플을 위해 사용
+
+    List<String> mTitles = Arrays.asList("Korean", "English", "Math", "Science", "Physics", "Chemistry", "Biology");   // 강의 샘플
+    //List<String> mLongHeaders = Arrays.asList("Plan", "Do");   // 두 칸 테이블를 위한 헤더
     List<String> mShortHeaders = Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     long mNow = 0;
 
@@ -68,7 +62,7 @@ public class TimetableActivity extends Fragment {
             initLayout();
             initListener();
             initData();
-            attendanceBtn = (Button)getView().findViewById(R.id.attendanceBtn);
+            attendanceBtn = (Button)getView().findViewById(R.id.attendanceBtn);  // 출석인증 버튼
             attendanceBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -78,18 +72,19 @@ public class TimetableActivity extends Fragment {
         }
 
         private void initLayout() {
-            btnMode = getView().findViewById(R.id.btnMode);
+           // btnMode = getView().findViewById(R.id.btnMode);
             timeTable = (TimeTableView)getView().findViewById(R.id.timeTable);
-        }
+            }
 
         private void initListener() {
+/*          툴바 버튼 효과 2칸, 7칸 변경
             btnMode.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     toogleMode();
 
                     if(v.isActivated()){
-                        timeTable.setShowHeader(false);
+                        timeTable.setShowHeader(true);
                         timeTable.setTableMode(TimeTableView.TableMode.SHORT);
                         //timeTable.setTimeTable(getMillis("2017-11-10 00:00:00"), mShortSamples);
                         timeTable.setTimeTable(mNow, getSamples(mNow, mShortHeaders, mTitles));
@@ -102,15 +97,15 @@ public class TimetableActivity extends Fragment {
                     }
                 }
             });
-
+*/
             timeTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
                 @Override
-                public void onTimeItemClick(View view, int position, TimeGridData item) {
+                public void onTimeItemClick(View view, int position, TimeGridData item) {  // 강의 눌렸을 때 슬라이드 올라오게
 
                     LinearLayout Sliding = (LinearLayout) getView().findViewById(R.id.Sliding);
                     Sliding.callOnClick();
 
-                    /*
+                    /* 강의 눌렸을 때 토스트 메세지
                     TimeData time = item.getTime();
                     showToast(getActivity(),
                             time.getTitle() + ", " + new DateTime(time.getStartMills()).toString() +
@@ -123,7 +118,7 @@ public class TimetableActivity extends Fragment {
             //initLongSamples();
             //initShortSamples();
 
-            timeTable.setStartHour(4);
+            timeTable.setStartHour(0);
             timeTable.setShowHeader(true);
             timeTable.setTableMode(TimeTableView.TableMode.SHORT);
 
@@ -131,9 +126,10 @@ public class TimetableActivity extends Fragment {
             mNow = now.withTimeAtStartOfDay().getMillis();
 
             //timeTable.setTimeTable(getMillis("2017-11-10 00:00:00"), mLongSamples);
-            timeTable.setTimeTable(mNow, getSamples(mNow, mLongHeaders, mTitles));
+            timeTable.setTimeTable(mNow, getSamples(mNow, mShortHeaders, mTitles));
         }
 
+        // ******* 이 부분이 강의 생성 하는 것으로 추정 ***************************
         private ArrayList<TimeTableData> getSamples(long date, List<String> headers, List<String> titles){
             TypedArray colors_table = getResources().obtainTypedArray(R.array.colors_table);
             TypedArray colors_table_light = getResources().obtainTypedArray(R.array.colors_table_light);
@@ -168,7 +164,7 @@ public class TimetableActivity extends Fragment {
             }
             return tables;
         }
-
+/*  두칸 테이블 예제
         private void initLongSamples(){
             //TEST
             ArrayList<TimeData> values = new ArrayList<>();
@@ -194,7 +190,8 @@ public class TimetableActivity extends Fragment {
 
             mLongSamples.addAll(tables);
         }
-
+*/
+/* 7칸 테이블 예제
         private void initShortSamples(){
             //TEST
             ArrayList<TimeData> values = new ArrayList<>();
@@ -221,11 +218,12 @@ public class TimetableActivity extends Fragment {
 
             mShortSamples.addAll(tables);
         }
-
-        private void toogleMode() {
+*/
+  /*      툴바 변경 메소드
+           private void toogleMode() {
             btnMode.setActivated(!btnMode.isActivated());
         }
-
+*/
         // =============================================================================
         // Date format
         // =============================================================================
@@ -242,7 +240,7 @@ public class TimetableActivity extends Fragment {
         // =============================================================================
         // Toast
         // =============================================================================
-/*
+/* 토스트 메세지 메소드
         private void showToast(Activity activity, String msg){
             Toast toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
