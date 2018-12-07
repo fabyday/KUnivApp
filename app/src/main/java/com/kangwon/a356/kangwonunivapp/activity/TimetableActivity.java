@@ -130,30 +130,35 @@ public class TimetableActivity extends Fragment {
         }
 
         // ******* 이 부분이 강의 생성 하는 것으로 추정 ***************************
+        // headers = List<String> mShortHeaders = Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+        // titles = List<String> mTitles = Arrays.asList("Korean", "English", "Math", "Science", "Physics", "Chemistry", "Biology");   // 강의 샘플
         private ArrayList<TimeTableData> getSamples(long date, List<String> headers, List<String> titles){
-            TypedArray colors_table = getResources().obtainTypedArray(R.array.colors_table);
-            TypedArray colors_table_light = getResources().obtainTypedArray(R.array.colors_table_light);
+           // TypedArray colors_table = getResources().obtainTypedArray(R.array.colors_table);  // 강의 배경색 진한 것
+            TypedArray colors_table_light = getResources().obtainTypedArray(R.array.colors_table_light);  // 강의 배경색 연한 것
 
             ArrayList<TimeTableData> tables = new ArrayList<>();
             for(int i=0; i<headers.size(); i++){
                 ArrayList<TimeData> values = new ArrayList<>();
-                DateTime start = new DateTime(date);
-                DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
+                DateTime start = new DateTime(date);      //강의 시작 시간
+                DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);  // 강의 끝나는 시간
                 for(int j=0; j<titles.size(); j++){
                     int color = colors_table_light.getResourceId(j, 0);
                     int textColor = R.color.black;
+                    /*  두 칸 테이블 때 글자 흰색으로
                     //TEST
                     if(headers.size() == 2 && i == 1){
                         color = colors_table.getResourceId(j, 0);
                         textColor = R.color.white;
                     }
-
+                    */
                     TimeData timeData = new TimeData(j, titles.get(j), color, textColor, start.getMillis(), end.getMillis());
 
+                    /* 두칸 테이블 때 강의 경고 표시 나타내기
                     //TEST
                     if(headers.size() == 2 && j == 2){
                         timeData.setShowError(true);
                     }
+                    */
                     values.add(timeData);
 
                     start = end.plusMinutes((int)((Math.random() * 10) + 1) * 10);
