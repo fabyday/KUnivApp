@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io' } //자바 스크립트 코어 1
+        maven { url 'https://jitpack.io' }
     }
 }
 

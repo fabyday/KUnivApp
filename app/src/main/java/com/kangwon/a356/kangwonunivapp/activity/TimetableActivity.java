@@ -1,17 +1,36 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
+import android.app.Activity;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.eunsiljo.timetablelib.data.TimeData;
+import com.github.eunsiljo.timetablelib.data.TimeGridData;
+import com.github.eunsiljo.timetablelib.data.TimeTableData;
+import com.github.eunsiljo.timetablelib.view.TimeTableView;
+import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 import com.kangwon.a356.kangwonunivapp.R;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 노지현
@@ -19,7 +38,19 @@ import com.kangwon.a356.kangwonunivapp.R;
  * 이 클래스는 로그인을 담당하는 클래스이며
  * res/layout/timetable_layout.xml의 레이아웃들을 다룬다.
  */
+
 public class TimetableActivity extends Fragment {
+
+    View btnMode;
+    TimeTableView timeTable;
+    Button attendanceBtn;
+
+    ArrayList<TimeTableData> mShortSamples = new ArrayList<>();
+    ArrayList<TimeTableData> mLongSamples = new ArrayList<>();
+    List<String> mTitles = Arrays.asList("Korean", "English", "Math", "Science", "Physics", "Chemistry", "Biology");
+    List<String> mLongHeaders = Arrays.asList("Plan", "Do");
+    List<String> mShortHeaders = Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    long mNow = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,180 +62,192 @@ public class TimetableActivity extends Fragment {
         View view = inflater.inflate(R.layout.timetable_layout, container, false);
         return view;
     }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        //시간표에 있는 모든 버튼 선언
-        Button Mon9 = (Button) getView().findViewById(R.id.Mon9);
-        Button Tue9 = (Button) getView().findViewById(R.id.Tue9);
-        Button Wed9 = (Button) getView().findViewById(R.id.Wed9);
-        Button Thr9 = (Button) getView().findViewById(R.id.Thu9);
-        Button Fri9 = (Button) getView().findViewById(R.id.Fri9);
 
-        Button Mon10 = (Button) getView().findViewById(R.id.Mon10);
-        Button Tue10 = (Button) getView().findViewById(R.id.Tue10);
-        Button Wed10 = (Button) getView().findViewById(R.id.Wed10);
-        Button Thr10 = (Button) getView().findViewById(R.id.Thu10);
-        Button Fri10 = (Button) getView().findViewById(R.id.Fri10);
+            initLayout();
+            initListener();
+            initData();
+            attendanceBtn = (Button)getView().findViewById(R.id.attendanceBtn);
+            attendanceBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new AttendanceActivity()).commit();
+                }
+                });
+        }
 
-        Button Mon11 = (Button) getView().findViewById(R.id.Mon11);
-        Button Tue11 = (Button) getView().findViewById(R.id.Tue11);
-        Button Wed11 = (Button) getView().findViewById(R.id.Wed11);
-        Button Thr11 = (Button) getView().findViewById(R.id.Thu11);
-        Button Fri11 = (Button) getView().findViewById(R.id.Fri11);
+        private void initLayout() {
+            btnMode = getView().findViewById(R.id.btnMode);
+            timeTable = (TimeTableView)getView().findViewById(R.id.timeTable);
+        }
 
-        Button Mon12 = (Button) getView().findViewById(R.id.Mon12);
-        Button Tue12 = (Button) getView().findViewById(R.id.Tue12);
-        Button Wed12 = (Button) getView().findViewById(R.id.Wed12);
-        Button Thr12 = (Button) getView().findViewById(R.id.Thu12);
-        Button Fri12 = (Button) getView().findViewById(R.id.Fri12);
+        private void initListener() {
+            btnMode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toogleMode();
 
-        Button Mon13 = (Button) getView().findViewById(R.id.Mon13);
-        Button Tue13 = (Button) getView().findViewById(R.id.Tue13);
-        Button Wed13 = (Button) getView().findViewById(R.id.Wed13);
-        Button Thr13 = (Button) getView().findViewById(R.id.Thu13);
-        Button Fri13 = (Button) getView().findViewById(R.id.Fri13);
+                    if(v.isActivated()){
+                        timeTable.setShowHeader(false);
+                        timeTable.setTableMode(TimeTableView.TableMode.SHORT);
+                        //timeTable.setTimeTable(getMillis("2017-11-10 00:00:00"), mShortSamples);
+                        timeTable.setTimeTable(mNow, getSamples(mNow, mShortHeaders, mTitles));
 
-        Button Mon14 = (Button) getView().findViewById(R.id.Mon14);
-        Button Tue14 = (Button) getView().findViewById(R.id.Tue14);
-        Button Wed14 = (Button) getView().findViewById(R.id.Wed14);
-        Button Thr14 = (Button) getView().findViewById(R.id.Thu14);
-        Button Fri14 = (Button) getView().findViewById(R.id.Fri14);
+                    }else{
+                        timeTable.setShowHeader(true);
+                        timeTable.setTableMode(TimeTableView.TableMode.LONG);
+                        //timeTable.setTimeTable(getMillis("2017-11-10 00:00:00"), mLongSamples);
+                        timeTable.setTimeTable(mNow, getSamples(mNow, mLongHeaders, mTitles));
+                    }
+                }
+            });
 
-        Button Mon15 = (Button) getView().findViewById(R.id.Mon15);
-        Button Tue15 = (Button) getView().findViewById(R.id.Tue15);
-        Button Wed15 = (Button) getView().findViewById(R.id.Wed15);
-        Button Thr15 = (Button) getView().findViewById(R.id.Thu15);
-        Button Fri15 = (Button) getView().findViewById(R.id.Fri15);
+            timeTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
+                @Override
+                public void onTimeItemClick(View view, int position, TimeGridData item) {
 
-        Button Mon16 = (Button) getView().findViewById(R.id.Mon16);
-        Button Tue16 = (Button) getView().findViewById(R.id.Tue16);
-        Button Wed16 = (Button) getView().findViewById(R.id.Wed16);
-        Button Thr16 = (Button) getView().findViewById(R.id.Thu16);
-        Button Fri16 = (Button) getView().findViewById(R.id.Fri16);
+                    LinearLayout Sliding = (LinearLayout) getView().findViewById(R.id.Sliding);
+                    Sliding.callOnClick();
 
-        Button Mon17 = (Button) getView().findViewById(R.id.Mon17);
-        Button Tue17 = (Button) getView().findViewById(R.id.Tue17);
-        Button Wed17 = (Button) getView().findViewById(R.id.Wed17);
-        Button Thr17 = (Button) getView().findViewById(R.id.Thu17);
-        Button Fri17 = (Button) getView().findViewById(R.id.Fri17);
+                    /*
+                    TimeData time = item.getTime();
+                    showToast(getActivity(),
+                            time.getTitle() + ", " + new DateTime(time.getStartMills()).toString() +
+                                    " ~ " + new DateTime(time.getStopMills()).toString());*/
+                }
+            });
+        }
 
-        Button Mon18 = (Button) getView().findViewById(R.id.Mon18);
-        Button Tue18 = (Button) getView().findViewById(R.id.Tue18);
-        Button Wed18 = (Button) getView().findViewById(R.id.Wed18);
-        Button Thr18 = (Button) getView().findViewById(R.id.Thu18);
-        Button Fri18 = (Button) getView().findViewById(R.id.Fri18);
+        private void initData(){
+            //initLongSamples();
+            //initShortSamples();
 
+            timeTable.setStartHour(4);
+            timeTable.setShowHeader(true);
+            timeTable.setTableMode(TimeTableView.TableMode.SHORT);
 
-        //시간표 작성
-        Mon9.setVisibility(View.VISIBLE);
-        Mon9.setText("소프트웨어 공학");
-        Mon9.setBackgroundColor(Color.rgb(11, 22, 33));
-        Mon9.setOnClickListener(mClickListener);
+            DateTime now = DateTime.now();
+            mNow = now.withTimeAtStartOfDay().getMillis();
 
-        Mon10.setVisibility(View.VISIBLE);
-        Mon10.setText("네트워크");
-        Mon10.setBackgroundColor(Color.rgb(44, 55, 66));
-        Mon10.setOnClickListener(mClickListener);
+            //timeTable.setTimeTable(getMillis("2017-11-10 00:00:00"), mLongSamples);
+            timeTable.setTimeTable(mNow, getSamples(mNow, mLongHeaders, mTitles));
+        }
 
-        Mon14.setVisibility(View.VISIBLE);
-        Mon14.setText("PL");
-        Mon14.setBackgroundColor(Color.rgb(77, 88, 99));
-        Mon14.setOnClickListener(mClickListener);
-        Mon15.setVisibility(View.VISIBLE);
-        Mon15.setText("PL");
-        Mon15.setBackgroundColor(Color.rgb(77, 88, 99));
-        Mon15.setOnClickListener(mClickListener);
+        private ArrayList<TimeTableData> getSamples(long date, List<String> headers, List<String> titles){
+            TypedArray colors_table = getResources().obtainTypedArray(R.array.colors_table);
+            TypedArray colors_table_light = getResources().obtainTypedArray(R.array.colors_table_light);
 
-        Tue10.setVisibility(View.VISIBLE);
-        Tue10.setText("데이터베이스");
-        Tue10.setBackgroundColor(Color.rgb(99, 88, 77));
-        Tue10.setOnClickListener(mClickListener);
-        Tue11.setVisibility(View.VISIBLE);
-        Tue11.setText("데이터베이스");
-        Tue11.setBackgroundColor(Color.rgb(99, 88, 77));
-        Tue11.setOnClickListener(mClickListener);
+            ArrayList<TimeTableData> tables = new ArrayList<>();
+            for(int i=0; i<headers.size(); i++){
+                ArrayList<TimeData> values = new ArrayList<>();
+                DateTime start = new DateTime(date);
+                DateTime end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
+                for(int j=0; j<titles.size(); j++){
+                    int color = colors_table_light.getResourceId(j, 0);
+                    int textColor = R.color.black;
+                    //TEST
+                    if(headers.size() == 2 && i == 1){
+                        color = colors_table.getResourceId(j, 0);
+                        textColor = R.color.white;
+                    }
 
-        Tue14.setVisibility(View.VISIBLE);
-        Tue14.setText("컴퓨터시스템공학");
-        Tue14.setBackgroundColor(Color.rgb(66, 55, 44));
-        Tue14.setOnClickListener(mClickListener);
-        Tue15.setVisibility(View.VISIBLE);
-        Tue15.setText("컴퓨터시스템공학");
-        Tue15.setBackgroundColor(Color.rgb(66, 55, 44));
-        Tue15.setOnClickListener(mClickListener);
+                    TimeData timeData = new TimeData(j, titles.get(j), color, textColor, start.getMillis(), end.getMillis());
 
-        Wed13.setVisibility(View.VISIBLE);
-        Wed13.setText("데이터베이스");
-        Wed13.setBackgroundColor(Color.rgb(99, 88, 77));
-        Wed13.setOnClickListener(mClickListener);
+                    //TEST
+                    if(headers.size() == 2 && j == 2){
+                        timeData.setShowError(true);
+                    }
+                    values.add(timeData);
 
-        Wed16.setVisibility(View.VISIBLE);
-        Wed16.setText("컴퓨터시스템공학");
-        Wed16.setBackgroundColor(Color.rgb(66, 55, 44));
-        Wed16.setOnClickListener(mClickListener);
+                    start = end.plusMinutes((int)((Math.random() * 10) + 1) * 10);
+                    end = start.plusMinutes((int)((Math.random() * 10) + 1) * 30);
+                }
 
-        Wed17.setVisibility(View.VISIBLE);
-        Wed17.setText("직업선택과 꿈설계");
-        Wed17.setBackgroundColor(Color.rgb(33, 22, 11));
-        Wed17.setOnClickListener(mClickListener);
+                tables.add(new TimeTableData(headers.get(i), values));
+            }
+            return tables;
+        }
 
-        Thr9.setVisibility(View.VISIBLE);
-        Thr9.setText("소프트웨어 공학");
-        Thr9.setBackgroundColor(Color.rgb(11, 22, 33));
-        Thr9.setOnClickListener(mClickListener);
+        private void initLongSamples(){
+            //TEST
+            ArrayList<TimeData> values = new ArrayList<>();
+            values.add(new TimeData(0, "Korean", R.color.color_table_1_light, getMillis("2017-11-10 04:00:00"), getMillis("2017-11-10 05:00:00")));
+            values.add(new TimeData(1, "English", R.color.color_table_2_light, getMillis("2017-11-10 07:00:00"), getMillis("2017-11-10 08:00:00")));
 
-        Thr10.setVisibility(View.VISIBLE);
-        Thr10.setText("네트워크");
-        Thr10.setBackgroundColor(Color.rgb(44, 55, 66));
-        Thr10.setOnClickListener(mClickListener);
+            ArrayList<TimeData> values2 = new ArrayList<>();
+            values2.add(new TimeData(0, "Korean", R.color.color_table_1, R.color.white, getMillis("2017-11-10 03:00:00"), getMillis("2017-11-10 06:00:00")));
 
-        Thr14.setVisibility(View.VISIBLE);
-        Thr14.setText("PL");
-        Thr14.setBackgroundColor(Color.rgb(77, 88, 99));
-        Thr14.setOnClickListener(mClickListener);
-        Thr15.setVisibility(View.VISIBLE);
-        Thr15.setText("PL");
-        Thr15.setBackgroundColor(Color.rgb(77, 88, 99));
-        Thr15.setOnClickListener(mClickListener);
+            TimeData timeData = new TimeData(1, "English", R.color.color_table_2, R.color.white, getMillis("2017-11-10 07:30:00"), getMillis("2017-11-10 08:55:00"));
+            timeData.setShowError(true);
+            values2.add(timeData);
 
+            values2.add(new TimeData(2, "Math", R.color.color_table_3, R.color.white, getMillis("2017-11-10 10:40:00"), getMillis("2017-11-10 11:45:00")));
+            values2.add(new TimeData(3, "Science", R.color.color_table_4, R.color.white, getMillis("2017-11-10 15:00:00"), getMillis("2017-11-10 17:10:00")));
+            values2.add(new TimeData(4, "Physics", R.color.color_table_5, R.color.white, getMillis("2017-11-10 17:30:00"), getMillis("2017-11-10 21:30:00")));
+            values2.add(new TimeData(5, "Chemistry", R.color.color_table_6, R.color.white, getMillis("2017-11-10 21:31:00"), getMillis("2017-11-10 22:45:00")));
+            values2.add(new TimeData(6, "Biology", R.color.color_table_7, R.color.white, getMillis("2017-11-10 23:00:00"), getMillis("2017-11-11 02:30:00")));
 
+            ArrayList<TimeTableData> tables = new ArrayList<>();
+            tables.add(new TimeTableData("Plan", values));
+            tables.add(new TimeTableData("Do", values2));
+
+            mLongSamples.addAll(tables);
+        }
+
+        private void initShortSamples(){
+            //TEST
+            ArrayList<TimeData> values = new ArrayList<>();
+            values.add(new TimeData(0, "Korean", R.color.color_table_1_light, getMillis("2017-11-10 04:00:00"), getMillis("2017-11-10 05:00:00")));
+            values.add(new TimeData(1, "English", R.color.color_table_2_light, getMillis("2017-11-10 07:00:00"), getMillis("2017-11-10 08:00:00")));
+
+            ArrayList<TimeData> values2 = new ArrayList<>();
+            values2.add(new TimeData(0, "Korean", R.color.color_table_1_light, getMillis("2017-11-10 03:00:00"), getMillis("2017-11-10 06:00:00")));
+            values2.add(new TimeData(1, "English", R.color.color_table_2_light, getMillis("2017-11-10 07:30:00"), getMillis("2017-11-10 08:30:00")));
+            values2.add(new TimeData(2, "Math", R.color.color_table_3_light, getMillis("2017-11-10 11:40:00"), getMillis("2017-11-10 11:45:00")));
+            values2.add(new TimeData(3, "Science", R.color.color_table_4_light, getMillis("2017-11-10 18:00:00"), getMillis("2017-11-10 18:10:00")));
+            values2.add(new TimeData(4, "Physics", R.color.color_table_5_light, getMillis("2017-11-10 20:00:00"), getMillis("2017-11-10 21:30:00")));
+            values2.add(new TimeData(5, "Chemistry", R.color.color_table_6_light, getMillis("2017-11-10 21:31:00"), getMillis("2017-11-10 22:45:00")));
+            values2.add(new TimeData(6, "Biology", R.color.color_table_7_light, getMillis("2017-11-10 23:00:00"), getMillis("2017-11-11 02:30:00")));
+
+            ArrayList<TimeTableData> tables = new ArrayList<>();
+            tables.add(new TimeTableData("Sun", values));
+            tables.add(new TimeTableData("Mon", values2));
+            tables.add(new TimeTableData("Tue", values));
+            tables.add(new TimeTableData("Wed", values2));
+            tables.add(new TimeTableData("Thu", values));
+            tables.add(new TimeTableData("Fri", values2));
+            tables.add(new TimeTableData("Sat", values));
+
+            mShortSamples.addAll(tables);
+        }
+
+        private void toogleMode() {
+            btnMode.setActivated(!btnMode.isActivated());
+        }
+
+        // =============================================================================
+        // Date format
+        // =============================================================================
+
+        private long getMillis(String day){
+            DateTime date = getDateTimePattern().parseDateTime(day);
+            return date.getMillis();
+        }
+
+        private DateTimeFormatter getDateTimePattern(){
+            return DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        }
+
+        // =============================================================================
+        // Toast
+        // =============================================================================
 /*
-        final TabBar tabBar =(TabBar)getView().findViewById(R.id.tabbar);
-
-        tabBar.addLayerInfo(0, 3, new String[] {"home", "favorite", "setting"}, null);
-        tabBar.addLayerInfo(0, 3, new String[] {"need", "bad", "set"}, null);
-        tabBar.editListener(0, new View.OnClickListener[]{new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(tabBar.getChildVisivility(1) == View.GONE)
-                    tabBar.setChildVisivility(1, View.VISIBLE);
-                else
-                    tabBar.setChildVisivility(1, View.GONE);
-            }
+        private void showToast(Activity activity, String msg){
+            Toast toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
         }
-                ,null});
-        tabBar.init(); */
+        */
     }
-
-    // 시간표에 있는 강의 클릭시
-    Button.OnClickListener mClickListener = new Button.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            TextView Course = getView().findViewById(R.id.course);
-            Button btn = getView().findViewById(v.getId());
-            Course.setText(btn.getText().toString());
-            RelativeLayout Sliding = (RelativeLayout) getView().findViewById(R.id.Sliding);
-            Sliding.callOnClick();
-        }
-    };
-}
-
-
-
