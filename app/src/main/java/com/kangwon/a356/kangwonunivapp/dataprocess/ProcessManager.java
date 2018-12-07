@@ -222,7 +222,7 @@ public class ProcessManager {
 
     /**
      * 이 request는 procoessQueue의 동기화를 담당하는 메소드이다.
-     *
+     * 하지만 메인 스레드도 동기화가 많을 경우 프리징될 가능성이 있으므로 주의할 필요하다. 추후 변경 요먕
      * @param msg
      */
     private void addItemToQueue(MessageObject msg) {

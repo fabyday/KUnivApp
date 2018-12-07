@@ -1,7 +1,6 @@
 package com.kangwon.a356.kangwonunivapp.database;
 
 
-import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 
 import java.util.ArrayList;
@@ -25,6 +24,9 @@ public class ClassInfo {
     private String className; // 강의 이름
     private String instructor;
     private ArrayList<TimeSpaceInfo> timeSpaceInfo;
+    private ArrayList<Attandance> attandanceLists; //출석
+
+
     private Message messageListener;
 
     private String startDate; //시작일
@@ -81,4 +83,6 @@ public class ClassInfo {
     public void add(Message msg) {
         messageListener = msg;
     }
+
+   
 }

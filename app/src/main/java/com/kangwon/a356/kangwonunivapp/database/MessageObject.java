@@ -35,13 +35,14 @@ public class MessageObject {
     public static final String CHECK_ATTANDANCE = "checkattandance";
     public static final String JOIN_LECTURE = "joinlecture";
     public static final String ALL_LIST = "alllist";
-
+    public static final String STUDENT_ATTANDANCE_LIST = "attandancelist";
     //강사용
     public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable"; //시간표
     public static final String OPEN_ATTANDANCE = "openattandance"; //출석부 열기
     public static final String CLOSE_ATTANDANCE = "closeattandance"; //출석부 닫기
     public static final String OPEN_LECTURE= "openlecture"; //강의 생성
     public static final String DEL_LECTURE = "closelecture"; //강의 삭제
+    public static final String INSTRUCTOR_ATTANDANCE_LIST = "instructorattandancelist";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////일단은 안쓴다.////////////////////////////////////////
