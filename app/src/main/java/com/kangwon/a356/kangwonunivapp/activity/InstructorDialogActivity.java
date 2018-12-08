@@ -75,6 +75,10 @@ public class InstructorDialogActivity extends Fragment {
                     SunEnd.setInputType(0);   // EditText 눌려도 키보드 안올라오게
                     SunEnd.setOnClickListener(editOnClick);
                 }
+                else if (!(SunCBox.isChecked())) {
+                    LinearLayout Sun = (LinearLayout) getView().findViewById(R.id.Sun);
+                    Sun.setVisibility(Sun.GONE);
+                }
             }
         });
         MonCBox.setOnClickListener(new CheckBox.OnClickListener() {
@@ -89,6 +93,10 @@ public class InstructorDialogActivity extends Fragment {
                     EditText MonEnd = (EditText) getView().findViewById(R.id.MonEnd);
                     MonEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     MonEnd.setOnClickListener(editOnClick);
+                }
+                else if (!(MonCBox.isChecked())) {
+                    LinearLayout Mon = (LinearLayout) getView().findViewById(R.id.Mon);
+                    Mon.setVisibility(Mon.GONE);
                 }
             }
         });
@@ -106,6 +114,10 @@ public class InstructorDialogActivity extends Fragment {
                     TueEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     TueEnd.setOnClickListener(editOnClick);
                 }
+                else if (!(TueCBox.isChecked())) {
+                    LinearLayout Tue = (LinearLayout) getView().findViewById(R.id.Tue);
+                    Tue.setVisibility(Tue.GONE);
+                }
             }
         });
         WedCBox.setOnClickListener(new CheckBox.OnClickListener() {
@@ -120,6 +132,10 @@ public class InstructorDialogActivity extends Fragment {
                     EditText WedEnd = (EditText) getView().findViewById(R.id.WedEnd);
                     WedEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     WedEnd.setOnClickListener(editOnClick);
+                }
+                else if (!(WedCBox.isChecked())) {
+                    LinearLayout Wed = (LinearLayout) getView().findViewById(R.id.Wed);
+                    Wed.setVisibility(Wed.GONE);
                 }
             }
         });
@@ -136,6 +152,10 @@ public class InstructorDialogActivity extends Fragment {
                     ThrEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     ThrEnd.setOnClickListener(editOnClick);
                 }
+                else if (!(ThrCBox.isChecked())) {
+                    LinearLayout Thr = (LinearLayout) getView().findViewById(R.id.Thr);
+                    Thr.setVisibility(Thr.GONE);
+                }
             }
         });
         FriCBox.setOnClickListener(new CheckBox.OnClickListener() {
@@ -151,6 +171,10 @@ public class InstructorDialogActivity extends Fragment {
                     FriEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     FriEnd.setOnClickListener(editOnClick);
                 }
+                else if (!(FriCBox.isChecked())) {
+                    LinearLayout Fri = (LinearLayout) getView().findViewById(R.id.Fri);
+                    Fri.setVisibility(Fri.GONE);
+                }
             }
         });
         SatCBox.setOnClickListener(new CheckBox.OnClickListener() {
@@ -165,6 +189,10 @@ public class InstructorDialogActivity extends Fragment {
                     EditText SatEnd = (EditText) getView().findViewById(R.id.SatEnd);
                     SatEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     SatEnd.setOnClickListener(editOnClick);
+                }
+                else if (!(SatCBox.isChecked())) {
+                    LinearLayout Sat = (LinearLayout) getView().findViewById(R.id.Sat);
+                    Sat.setVisibility(Sat.GONE);
                 }
             }
         });
