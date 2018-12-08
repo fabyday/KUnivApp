@@ -27,9 +27,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:textSize="20sp"
-            android:textColorHint="#47C83E"
+            android:textColorHint="#4374D9"
             android:hint="출석인증번호"
-            android:textColor="#47C83E" />
+            android:textColor="#4374D9" />
 
         <Button
             android:id="@+id/confirm"
