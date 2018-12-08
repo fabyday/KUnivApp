@@ -12,6 +12,6 @@
     android:layout_width="match_parent"
     android:id="@android:id/text2"
     android:textStyle="bold"
-    android:textSize="20sp"
-    android:textColor="#47C83E"
+    android:textSize="30sp"
+    android:textColor="#4374D9"
     />
