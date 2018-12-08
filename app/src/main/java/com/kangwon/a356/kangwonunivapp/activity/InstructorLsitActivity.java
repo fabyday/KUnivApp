@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -61,6 +62,8 @@ public class InstructorLsitActivity extends Fragment {
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorDialogActivity()).commit();
+                /*
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
                 final EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
                 courseName.setHint("강의명을 입력해주세요.");
@@ -76,7 +79,7 @@ public class InstructorLsitActivity extends Fragment {
                         })
                         .setNegativeButton("취소", null)
                         .create()
-                        .show();
+                        .show();*/
             }
         });
 
