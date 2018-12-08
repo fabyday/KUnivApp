@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
@@ -46,7 +47,7 @@ public class TimetableActivity extends Fragment {
 
     //View btnMode; //툴바 2칸 ,7칸 변경 버튼
     TimeTableView timeTable;
-    Button attendanceBtn;
+    ImageButton attendanceBtn;
 
    // ArrayList<TimeTableData> mShortSamples = new ArrayList<>();  // 두칸 테이블 샘플을 위해 사용
     // ArrayList<TimeTableData> mLongSamples = new ArrayList<>();  // 7칸 데이블 샘플을 위해 사용
@@ -72,7 +73,7 @@ public class TimetableActivity extends Fragment {
             initLayout();
             initListener();
             initData();
-            attendanceBtn = (Button)getView().findViewById(R.id.attendanceBtn);  // 출석인증 버튼
+            attendanceBtn = (ImageButton)getView().findViewById(R.id.attendanceBtn);  // 출석인증 버튼
             attendanceBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
