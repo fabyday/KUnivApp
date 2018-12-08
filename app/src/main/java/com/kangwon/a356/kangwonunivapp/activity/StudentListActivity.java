@@ -1,6 +1,8 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +23,15 @@ import java.util.ArrayList;
  */
 
 public class StudentListActivity extends Fragment {
+
+    final Handler handler = new Handler(){//TODO-구현 필요
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

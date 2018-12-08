@@ -2,6 +2,8 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +20,15 @@ import com.kangwon.a356.kangwonunivapp.R;
  * 강의가 언제 있는지 나타내는 테이블과 테이블의 한 행을 누르면 출석인증번호가 있는 Dialog 가 나오게 한다.
  */
 public class InstructorAttendanceActivity extends Fragment {
+
+
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

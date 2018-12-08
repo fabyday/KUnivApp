@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public FragmentManager fmng;
     public FragmentTransaction transaction;
 
+
     public final Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

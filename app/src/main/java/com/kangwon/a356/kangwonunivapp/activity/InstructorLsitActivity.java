@@ -3,6 +3,8 @@ package com.kangwon.a356.kangwonunivapp.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +27,14 @@ import java.util.ArrayList;
  */
 
 public class InstructorLsitActivity extends Fragment {
+
+    public Handler handler=  new Handler(){ //TODO
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

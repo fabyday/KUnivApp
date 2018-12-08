@@ -2,6 +2,8 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,6 +35,14 @@ import java.util.List;
  */
 
 public class TimetableActivity extends Fragment {
+
+
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     //View btnMode; //툴바 2칸 ,7칸 변경 버튼
     TimeTableView timeTable;
