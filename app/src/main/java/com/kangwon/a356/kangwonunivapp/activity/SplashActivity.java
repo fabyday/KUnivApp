@@ -8,6 +8,7 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

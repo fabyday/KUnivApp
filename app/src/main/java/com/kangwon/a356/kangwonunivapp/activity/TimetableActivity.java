@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ import java.util.List;
 
 public class TimetableActivity extends Fragment {
 
-
+    public static final int STUDENT_TIMETABLE = 1;
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -77,7 +78,10 @@ public class TimetableActivity extends Fragment {
             attendanceBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new AttendanceActivity()).commit();
+                    FragmentTransaction transaction =getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.add(R.id.frameLayout, new AttendanceActivity());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
                 });
         }

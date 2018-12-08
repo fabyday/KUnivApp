@@ -13,7 +13,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.activity.commonactivity.MessageListenable;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
+
+import java.util.Map;
 
 /**
  * @author 노지현
@@ -26,16 +31,20 @@ public class MainActivity extends AppCompatActivity {
 
     public FragmentManager fmng;
     public FragmentTransaction transaction;
+    public MessageListenable messageListener;
+    ProcessManager processManager= ProcessManager.getInstance();
 
-
-    public final Handler handler = new Handler(){
+    public final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-                    
+            MessageObject protoMessage = (MessageObject) msg.obj;
+
+            if (messageListener == null)
+                return;
+            messageListener.update(protoMessage);
+
         }
     };
-
-
 
 
     @Override
@@ -52,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fmng = getSupportFragmentManager();
-                transaction =fmng.beginTransaction();
+                transaction = fmng.beginTransaction();
                 transaction.add(R.id.frameLayout, new TimetableActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -62,17 +71,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fmng = getSupportFragmentManager();
-                transaction =fmng.beginTransaction();
+                transaction = fmng.beginTransaction();
                 transaction.add(R.id.frameLayout, new StudentListActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
+                processManager.updateRequest(MessageObject.ALL_LIST, handler);
+                System.out.println("eh------------------------------asdadasdada");
+
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fmng = getSupportFragmentManager();
-                transaction =fmng.beginTransaction();
+                transaction = fmng.beginTransaction();
                 transaction.add(R.id.frameLayout, new InstructorLsitActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         tabBar.editListener(0, new View.OnClickListener[]{new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fmng.popBackStack();
+                while (fmng.popBackStackImmediate()) ;
             }
         }, new View.OnClickListener() {
             @Override
@@ -113,7 +125,18 @@ public class MainActivity extends AppCompatActivity {
     //뒤로 가기 버튼 기능 제거
     @Override
     public void onBackPressed() {
+        fmng.popBackStack();
+    }
 
+    /**
+     * 처리된 데이터를 보내준다.
+     */
+    public void add(MessageListenable listenable) {
+        this.messageListener = listenable;
+    }
+
+    public FragmentTransaction getTransaction() {
+        return transaction;
     }
 
 }

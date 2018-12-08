@@ -34,6 +34,11 @@ public class TimeTableInfo implements Message {
         timeTable = new ArrayList<>();
     }
 
+    public ClassInfo[] getClassInfo()
+    {
+        return timeTable.toArray(new ClassInfo[0]);
+    }
+
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;

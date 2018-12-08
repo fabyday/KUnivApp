@@ -23,7 +23,7 @@ import com.kangwon.a356.kangwonunivapp.R;
 
 public class AttendanceActivity extends Fragment {
 
-
+    public static final int ATTANDANCE_ACTIVITY = 16;
     /**
      *
      */

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Listview 의 아이템 글자 옵션-->
+
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"

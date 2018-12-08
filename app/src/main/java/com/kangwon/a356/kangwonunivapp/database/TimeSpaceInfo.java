@@ -84,4 +84,10 @@ public class TimeSpaceInfo {
         hashCode = prime * hashCode + endTime.hashCode();
         return hashCode;
     }
+
+
+    @Override
+    public String toString() {
+        return "[ 시간 :" + startTime+" ~ "+endTime+" ]" + "[ 장소 : " + classRoom+" ]";
+    }
 }

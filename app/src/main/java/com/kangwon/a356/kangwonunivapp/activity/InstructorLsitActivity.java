@@ -29,13 +29,7 @@ import java.util.ArrayList;
 
 public class InstructorLsitActivity extends Fragment {
 
-    public Handler handler=  new Handler(){ //TODO
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
+   public static final int INSTRUCTOR_LIST = 4;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +61,7 @@ public class InstructorLsitActivity extends Fragment {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
                 final EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
                 courseName.setHint("강의명을 입력해주세요.");
+
                 builder.setTitle("강의 추가")
                         .setView(courseName)
                         .setPositiveButton("추가", new DialogInterface.OnClickListener() {

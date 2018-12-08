@@ -136,4 +136,11 @@ public class ClassInfo {
         hashCode = prime * hashCode + instructor.hashCode();
         return hashCode;
     }
+
+
+
+    @Override
+    public String toString() {
+        return "className : " + className + "instructor : " + instructor;
+    }
 }

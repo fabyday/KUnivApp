@@ -22,13 +22,7 @@ import com.kangwon.a356.kangwonunivapp.R;
 public class InstructorAttendanceActivity extends Fragment {
 
 
-    public Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
+    public static final int INSTURCTOR_ATTANDANCE = 8;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
