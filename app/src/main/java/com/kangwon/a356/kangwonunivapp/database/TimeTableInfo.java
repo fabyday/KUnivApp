@@ -61,6 +61,7 @@ public class TimeTableInfo implements Message {
         try {
             msg.put(MessageObject.TYPE, refMsg.getType());
             msg.put(UserInfo.ID, userInfo.getId());
+            msg.put(UserInfo.PASSWORD, userInfo.getPasswd());
         } catch (InformationNotFoundException e) {
             e.printStackTrace();
         }
@@ -103,22 +104,24 @@ public class TimeTableInfo implements Message {
     @Override
     public void receive(MessageObject msg) {
 
-        switch (msg.getType()) {
-            case MessageObject.ALL_LIST: //시간표 갱신 연산
-            case MessageObject.STUDENT_TIMETABLE_TYPE:
-            case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
-                tableUpdate(msg);
-                break;
-            case MessageObject.STUDENT_ATTANDANCE_LIST: //출석 갱신 연산
-            case MessageObject.INSTRUCTOR_ATTANDANCE_LIST:
-                AttandanceUpdate(msg);
-                break;
-            case MessageObject.JOIN_LECTURE:
-                break;
+        if (msg.getRequsetStatus() == MessageObject.RESPONSE_FOR_REQUEST) {
+            switch (msg.getType()) {
+                case MessageObject.ALL_LIST: //시간표 갱신 연산
+                case MessageObject.STUDENT_TIMETABLE_TYPE:
+                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                    tableUpdate(msg);
+                    break;
+                case MessageObject.STUDENT_ATTANDANCE_LIST: //출석 갱신 연산
+                case MessageObject.INSTRUCTOR_ATTANDANCE_LIST:
+                    AttandanceUpdate(msg);
+                    break;
+                case MessageObject.JOIN_LECTURE:
+                    break;
 
+            }
         }
-
     }
+
 
     private void AttandanceUpdate(MessageObject msg) {
         ArrayList msgList = msg.getMessage();
@@ -152,7 +155,7 @@ public class TimeTableInfo implements Message {
 
         for (int i = 0; i < size; i++) {
             LinkedHashMap data = (LinkedHashMap) msgList.get(i);
-            TimeSpaceInfo timeSpaceInfo = new TimeSpaceInfo((String) data.get(TimeSpaceInfo.DAY),
+            TimeSpaceInfo timeSpaceInfo = new TimeSpaceInfo((String) data.get(TimeSpaceInfo.DAY_TYPE),
                     (String) data.get(TimeSpaceInfo.CLASSNAME_TYPE),
                     (String) data.get(TimeSpaceInfo.START_TYPE),
                     (String) data.get(TimeSpaceInfo.END_TYPE));
@@ -187,7 +190,8 @@ public class TimeTableInfo implements Message {
             case MessageObject.OPEN_LECTURE:
                 tableUpdate(refMsg);
                 break;
-            case MessageObject.OPEN_ATTANDANCE:case MessageObject.CLOSE_ATTANDANCE:  //알 수 있는 방법이 없어서 무시된다. 어플리케이션 단에서 처리한다.
+            case MessageObject.OPEN_ATTANDANCE:
+            case MessageObject.CLOSE_ATTANDANCE:  //알 수 있는 방법이 없어서 무시된다. 어플리케이션 단에서 처리한다.
             case MessageObject.CHECK_ATTANDANCE:
                 break;
         }

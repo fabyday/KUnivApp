@@ -34,10 +34,10 @@ public class DataManager extends AbstractManager {
         this.dataQueue = queue;
         timeTableInfo[AS_STUDENT] = new TimeTableInfo(MessageObject.STUDENT_TIMETABLE_TYPE);
         timeTableInfo[AS_INSTRUCTOR] = new TimeTableInfo(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE);
-
+        timeTableInfo[AS_ALL_LIST] = new TimeTableInfo(MessageObject.ALL_LIST);
         timeTableInfo[AS_STUDENT].setUserInfo(userInfo);
         timeTableInfo[AS_INSTRUCTOR].setUserInfo(userInfo);
-
+        timeTableInfo[AS_ALL_LIST].setUserInfo(userInfo);
 
         if (dThread == null)
             dThread = new Thread(new Runnable() {

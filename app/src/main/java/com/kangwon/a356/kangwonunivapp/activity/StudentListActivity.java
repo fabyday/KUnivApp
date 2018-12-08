@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,8 @@ public class StudentListActivity extends Fragment {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fix_simple_list, list);
         sListView.setAdapter(adapter);
 
+
+        ProcessManager.getInstance().updateRequest(MessageObject.ALL_LIST, handler);
         // * 학생이 수강 신청한 강의가 list에 있어야 함
 
    

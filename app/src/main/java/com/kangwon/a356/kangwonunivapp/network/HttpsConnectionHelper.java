@@ -175,7 +175,7 @@ public class HttpsConnectionHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            System.out.println("네트워크 큐 타입> " + recvMsg.getMessageQueueType());
+            System.out.println("네트워크 큐 타입> " );
             return recvMsg;
         }
 

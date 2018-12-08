@@ -18,21 +18,21 @@ public class TimeSpaceInfo {
 
 
     public static SimpleDateFormat TIME = new SimpleDateFormat("kk:mm");
-    public static SimpleDateFormat DAY = new SimpleDateFormat("E");
 
     private String classRoom;
 
-    private Date day;
+    private String day;
     private Date startTime;
     private Date endTime;
 
 
     public TimeSpaceInfo(String day, String classRoom, String startTime, String endTime) {
         this.classRoom = classRoom;
+        this.day=day;
         try {
             this.startTime = TIME.parse(startTime);
             this.endTime = TIME.parse(endTime);
-            this.day = DAY.parse(day);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class TimeSpaceInfo {
         return endTime;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 

@@ -108,6 +108,9 @@ public class UserInfo implements Message {
 
     @Override
     public void receive(MessageObject msg) {
+        int type = msg.getRequsetStatus();
+        if(type == MessageObject.RESPONSE_FOR_REQUEST || type == MessageObject.RESPONSE_HINT)
+            return;
         LinkedHashMap msgData = msg.getMessage().get(0);
         this.id = (String) msgData.get(UserInfo.ID);
         this.passwd = (String) msgData.get(UserInfo.PASSWORD);
