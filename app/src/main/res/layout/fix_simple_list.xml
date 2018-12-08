@@ -14,5 +14,5 @@
     android:id="@android:id/text2"
     android:textStyle="bold"
     android:textSize="30sp"
-    android:textColor="#4374D9"
+    android:textColor="#000000"
     />

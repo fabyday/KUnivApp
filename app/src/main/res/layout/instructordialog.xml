@@ -6,27 +6,42 @@
     android:background="@drawable/main">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical">
 
-        <EditText
-            android:background="#333333"
-            android:id="@+id/CourseName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="강의명"
-            android:inputType="text"
-            android:textSize="30sp"/>
+            android:background="#333333">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="과목명"
+                android:textSize="30sp" />
+
+            <EditText
+                android:id="@+id/CourseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="강의명"
+                android:inputType="text"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <LinearLayout
-            android:background="#333333"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#333333">
 
             <CheckBox
                 android:id="@+id/SunCBox"
@@ -78,10 +93,45 @@
                 android:text="토" />
         </LinearLayout>
 
-        <ScrollView
-            android:background="#333333"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="wrap_content"
+            android:background="#333333"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시작일"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="YYYY-MM-DD"
+                android:inputType="date"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="종료일"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="YYYY-MM-DD"
+                android:inputType="date"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="#333333">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,277 +139,311 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Sun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Sun"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(일)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/SunStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/SunEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Mon"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(월)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/MonStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/MonEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Tue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Tue"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(화)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/TueStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/TueEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Wed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Wed"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(수)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/WedStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/WedEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Thr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Thr"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(목)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/ThrStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/ThrEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Fri"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Fri"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(금)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/FriStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/FriEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="20dp"
+                    android:id="@+id/Sat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/Sat"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="(토)"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/SatStart"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
                         android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/SatEnd"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="0dp" />
+                        android:hint="HH-MM"
+                        android:inputType="time" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -375,13 +459,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="확인" />
+                android:text="확인"
+                android:textSize="20sp"
+                android:background="#4374D9"/>
 
             <Button
                 android:id="@+id/No"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="취소" />
+                android:text="취소"
+                android:background="#4374D9"
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
