@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class TimeSpaceInfo {
@@ -15,6 +16,10 @@ public class TimeSpaceInfo {
     public static final String CLASSNAME_TYPE = "classplace"; //장소
     public static final String START_TYPE = "starttime"; //시작시간
     public static final String END_TYPE = "endtime"; //종료 시간
+
+
+    public static final DayType DAY_STRING_TO_INTEGER = new DayType();
+
 
 
     public static SimpleDateFormat TIME = new SimpleDateFormat("kk:mm");
@@ -45,6 +50,16 @@ public class TimeSpaceInfo {
     public String getEndTime() {
         return TIME.format(endTime);
     }
+
+    public long getStartTimeInteger()
+    {
+        return startTime.getTime();
+    }
+    public long getEndTimeInteger()
+    {
+        return endTime.getTime();
+    }
+
 
     public String getDay() {
         return day;
@@ -90,4 +105,27 @@ public class TimeSpaceInfo {
     public String toString() {
         return "시간 :" + getStartTime()+" ~ "+getEndTime()+"-" + "[ 장소 : " + classRoom+" ]";
     }
+
+
+    public static class DayType
+    {
+        public HashMap<String, Integer> day;
+
+        public DayType()
+        {
+            day = new HashMap<>();
+            day.put("SUN", 0);day.put("MON", 1);
+            day.put("TUE", 2);day.put("WED", 3);
+            day.put("THU", 4);day.put("FRI", 5);
+            day.put("SAT", 6);
+
+        }
+
+        public int toInteger(String day)
+        {
+            return this.day.get(day).intValue();
+        }
+    }
+
+
 }
