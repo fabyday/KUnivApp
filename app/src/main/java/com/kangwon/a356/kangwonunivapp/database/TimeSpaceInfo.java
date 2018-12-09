@@ -121,6 +121,7 @@ public class TimeSpaceInfo implements Comparable<TimeSpaceInfo>{
     public static class DayType
     {
         public HashMap<String, Integer> day;
+        public HashMap<Integer, String> dayInteger;
 
         public DayType()
         {
@@ -130,12 +131,21 @@ public class TimeSpaceInfo implements Comparable<TimeSpaceInfo>{
             day.put("THU", 4);day.put("FRI", 5);
             day.put("SAT", 6);
 
+
+            dayInteger = new HashMap<>();
+            dayInteger.put(0, "SUN"); dayInteger.put(1, "MON");
+            dayInteger.put(2, "TUE"); dayInteger.put(3, "WED");
+            dayInteger.put(4, "THU"); dayInteger.put(5, "FRI");
+            dayInteger.put(6, "SAT");
+
         }
 
         public int toInteger(String day)
         {
             return this.day.get(day).intValue();
         }
+
+        public String toStringDay(int i){ return this.dayInteger.get(new Integer(i));};
     }
 
 

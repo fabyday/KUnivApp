@@ -16,9 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.database.TimeSpaceInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 /**
  * res/layout/instructordialog.xml 을 다룬다.
@@ -26,6 +32,11 @@ import java.util.Date;
  */
 
 public class InstructorDialogActivity extends Fragment {
+
+    CheckBox[] checkBoxes;
+    EditText[] startTime;
+    EditText[] endTime;
+    EditText[] classPlace;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,26 +50,29 @@ public class InstructorDialogActivity extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        EditText CourseName = (EditText) getView().findViewById(R.id.CourseName);
-        EditText StartDate = (EditText) getView().findViewById(R.id.startDate);
-        EditText EndDate = (EditText) getView().findViewById(R.id.endDate);
+        final EditText CourseName = (EditText) getView().findViewById(R.id.CourseName);
+        final EditText StartDate = (EditText) getView().findViewById(R.id.startDate);
+        final EditText EndDate = (EditText) getView().findViewById(R.id.endDate);
 
         StartDate.setInputType(0);
         EndDate.setInputType(0);
         StartDate.setOnClickListener(dateEditOnClick);
         EndDate.setOnClickListener(dateEditOnClick);
 
-        CheckBox[] checkBoxes = new CheckBox[7];
 
-        checkBoxes[0] = getView().findViewById(R.id.SunCBox);
+        startTime = new EditText[7];
+        endTime = new EditText[7];
+        classPlace = new EditText[7];
 
-        final CheckBox SunCBox = (CheckBox) getView().findViewById(R.id.SunCBox);
-        final CheckBox MonCBox = (CheckBox) getView().findViewById(R.id.MonCBox);
-        final CheckBox TueCBox = (CheckBox) getView().findViewById(R.id.TueCBox);
-        final CheckBox WedCBox = (CheckBox) getView().findViewById(R.id.WedCBox);
-        final CheckBox ThrCBox = (CheckBox) getView().findViewById(R.id.ThrCBox);
-        final CheckBox FriCBox = (CheckBox) getView().findViewById(R.id.FriCBox);
-        final CheckBox SatCBox = (CheckBox) getView().findViewById(R.id.SatCBox);
+
+        checkBoxes = new CheckBox[7];
+        checkBoxes[0] = (CheckBox) getView().findViewById(R.id.SunCBox);
+        checkBoxes[1] = (CheckBox) getView().findViewById(R.id.MonCBox);
+        checkBoxes[2] = (CheckBox) getView().findViewById(R.id.TueCBox);
+        checkBoxes[3] = (CheckBox) getView().findViewById(R.id.WedCBox);
+        checkBoxes[4] = (CheckBox) getView().findViewById(R.id.ThrCBox);
+        checkBoxes[5] = (CheckBox) getView().findViewById(R.id.FriCBox);
+        checkBoxes[6] = (CheckBox) getView().findViewById(R.id.SatCBox);
 
 
         Button YES = (Button) getView().findViewById(R.id.Yes);   //확인 버튼
@@ -68,7 +82,25 @@ public class InstructorDialogActivity extends Fragment {
         YES.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int length = checkBoxes.length;
+                ArrayList<LinkedHashMap> msgObject = new ArrayList<>();
+                for (int i = 0; i < length; i++) {
+                    if (checkBoxes[i].isChecked()) {
+                        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
+                        msg.put(MessageObject.TYPE, MessageObject.OPEN_LECTURE);
+                        msg.put(ClassInfo.CLASSNAME, CourseName.getText().toString());
+                        msg.put(TimeSpaceInfo.CLASSNAME_TYPE, classPlace[i].getText().toString()); //야 이거 안만들었네 골때리게 ㅅㅂ ///////
+                        msg.put(TimeSpaceInfo.DAY_TYPE, TimeSpaceInfo.DAY_STRING_TO_INTEGER.toStringDay(i));
+                        msg.put(ClassInfo.START_DATE, StartDate.getText().toString());
+                        msg.put(ClassInfo.END_DATE, EndDate.getText().toString());
+                        msg.put(TimeSpaceInfo.START_TYPE, startTime[i].getText().toString());
+                        msg.put(TimeSpaceInfo.END_TYPE, endTime[i].getText().toString());
 
+                        msgObject.add(msg);
+                    }
+                }
+                ProcessManager.getInstance().commitRequest(msgObject, ((MainActivity) getActivity()).handler); // 강의 콜링.
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorLsitActivity()).commit();
             }
         });
         NO.setOnClickListener(new View.OnClickListener() {
@@ -79,10 +111,10 @@ public class InstructorDialogActivity extends Fragment {
         });
 
         // 체크박스 클릭할 시
-        SunCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[0].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SunCBox.isChecked()) {
+                if (checkBoxes[0].isChecked()) {
                     LinearLayout Sun = (LinearLayout) getView().findViewById(R.id.Sun);
                     Sun.setVisibility(Sun.VISIBLE);
                     EditText SunStart = (EditText) getView().findViewById(R.id.SunStart);
@@ -91,16 +123,20 @@ public class InstructorDialogActivity extends Fragment {
                     EditText SunEnd = (EditText) getView().findViewById(R.id.SunEnd);
                     SunEnd.setInputType(0);   // EditText 눌려도 키보드 안올라오게
                     SunEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(SunCBox.isChecked())) {
+                    classPlace[0] = (EditText)getView().findViewById(R.id.SunPlace);
+                    startTime[0] = SunStart;
+                    endTime[0] = SunEnd;
+
+                } else if (!(checkBoxes[0].isChecked())) {
                     LinearLayout Sun = (LinearLayout) getView().findViewById(R.id.Sun);
                     Sun.setVisibility(Sun.GONE);
                 }
             }
         });
-        MonCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[1].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MonCBox.isChecked()) {
+                if (checkBoxes[1].isChecked()) {
                     LinearLayout Mon = (LinearLayout) getView().findViewById(R.id.Mon);
                     Mon.setVisibility(Mon.VISIBLE);
                     EditText MonStart = (EditText) getView().findViewById(R.id.MonStart);
@@ -109,17 +145,20 @@ public class InstructorDialogActivity extends Fragment {
                     EditText MonEnd = (EditText) getView().findViewById(R.id.MonEnd);
                     MonEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     MonEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(MonCBox.isChecked())) {
+                    classPlace[1] = (EditText)getView().findViewById(R.id.MonPlace);
+                    startTime[1] = MonStart;
+                    endTime[1] = MonEnd;
+                } else if (!(checkBoxes[1].isChecked())) {
                     LinearLayout Mon = (LinearLayout) getView().findViewById(R.id.Mon);
                     Mon.setVisibility(Mon.GONE);
                 }
             }
         });
 
-        TueCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[2].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TueCBox.isChecked()) {
+                if (checkBoxes[2].isChecked()) {
                     LinearLayout Tue = (LinearLayout) getView().findViewById(R.id.Tue);
                     Tue.setVisibility(Tue.VISIBLE);
                     EditText TueStart = (EditText) getView().findViewById(R.id.TueStart);
@@ -128,16 +167,19 @@ public class InstructorDialogActivity extends Fragment {
                     EditText TueEnd = (EditText) getView().findViewById(R.id.TueEnd);
                     TueEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     TueEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(TueCBox.isChecked())) {
+                    classPlace[2] = (EditText)getView().findViewById(R.id.TuePlace);
+                    startTime[2] = TueStart;
+                    endTime[2] = TueEnd;
+                } else if (!(checkBoxes[2].isChecked())) {
                     LinearLayout Tue = (LinearLayout) getView().findViewById(R.id.Tue);
                     Tue.setVisibility(Tue.GONE);
                 }
             }
         });
-        WedCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[3].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (WedCBox.isChecked()) {
+                if (checkBoxes[3].isChecked()) {
                     LinearLayout Wed = (LinearLayout) getView().findViewById(R.id.Wed);
                     Wed.setVisibility(Wed.VISIBLE);
                     EditText WedStart = (EditText) getView().findViewById(R.id.WedStart);
@@ -146,16 +188,19 @@ public class InstructorDialogActivity extends Fragment {
                     EditText WedEnd = (EditText) getView().findViewById(R.id.WedEnd);
                     WedEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     WedEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(WedCBox.isChecked())) {
+                    classPlace[3] = (EditText)getView().findViewById(R.id.WedPlace);
+                    startTime[3] = WedStart;
+                    endTime[3] = WedEnd;
+                } else if (!(checkBoxes[3].isChecked())) {
                     LinearLayout Wed = (LinearLayout) getView().findViewById(R.id.Wed);
                     Wed.setVisibility(Wed.GONE);
                 }
             }
         });
-        ThrCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[4].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ThrCBox.isChecked()) {
+                if (checkBoxes[4].isChecked()) {
                     LinearLayout Thr = (LinearLayout) getView().findViewById(R.id.Thr);
                     Thr.setVisibility(Thr.VISIBLE);
                     EditText ThrStart = (EditText) getView().findViewById(R.id.ThrStart);
@@ -164,16 +209,19 @@ public class InstructorDialogActivity extends Fragment {
                     EditText ThrEnd = (EditText) getView().findViewById(R.id.ThrEnd);
                     ThrEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     ThrEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(ThrCBox.isChecked())) {
+                    classPlace[4] = (EditText)getView().findViewById(R.id.ThrPlace);
+                    startTime[4] = ThrStart;
+                    endTime[4] = ThrEnd;
+                } else if (!(checkBoxes[4].isChecked())) {
                     LinearLayout Thr = (LinearLayout) getView().findViewById(R.id.Thr);
                     Thr.setVisibility(Thr.GONE);
                 }
             }
         });
-        FriCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[5].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FriCBox.isChecked()) {
+                if (checkBoxes[5].isChecked()) {
                     LinearLayout Fri = (LinearLayout) getView().findViewById(R.id.Fri);
                     Fri.setVisibility(Fri.VISIBLE);
                     EditText FriStart = (EditText) getView().findViewById(R.id.FriStart);
@@ -182,16 +230,19 @@ public class InstructorDialogActivity extends Fragment {
                     EditText FriEnd = (EditText) getView().findViewById(R.id.FriEnd);
                     FriEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     FriEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(FriCBox.isChecked())) {
+                    classPlace[5] = (EditText)getView().findViewById(R.id.FriPlace);
+                    startTime[5] = FriStart;
+                    endTime[5] = FriEnd;
+                } else if (!(checkBoxes[5].isChecked())) {
                     LinearLayout Fri = (LinearLayout) getView().findViewById(R.id.Fri);
                     Fri.setVisibility(Fri.GONE);
                 }
             }
         });
-        SatCBox.setOnClickListener(new CheckBox.OnClickListener() {
+        checkBoxes[6].setOnClickListener(new CheckBox.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SatCBox.isChecked()) {
+                if (checkBoxes[6].isChecked()) {
                     LinearLayout Sat = (LinearLayout) getView().findViewById(R.id.Sat);
                     Sat.setVisibility(Sat.VISIBLE);
                     EditText SatStart = (EditText) getView().findViewById(R.id.SatStart);
@@ -200,7 +251,10 @@ public class InstructorDialogActivity extends Fragment {
                     EditText SatEnd = (EditText) getView().findViewById(R.id.SatEnd);
                     SatEnd.setInputType(0); // EditText 눌려도 키보드 안올라오게
                     SatEnd.setOnClickListener(timeEditOnClick);
-                } else if (!(SatCBox.isChecked())) {
+                    classPlace[6] = (EditText)getView().findViewById(R.id.SatPlace);
+                    startTime[6] = SatStart;
+                    endTime[6] = SatEnd;
+                } else if (!(checkBoxes[6].isChecked())) {
                     LinearLayout Sat = (LinearLayout) getView().findViewById(R.id.Sat);
                     Sat.setVisibility(Sat.GONE);
                 }
@@ -217,59 +271,60 @@ public class InstructorDialogActivity extends Fragment {
                     switch (v.getId()) {                                            // 클릭했던 EditText에 SetText(hourOfDay +":" + minute) 하는 과정
                         case R.id.SunStart:
                             EditText SunStart = (EditText) getView().findViewById(R.id.SunStart);
-                            SunStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            SunStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
+
                             break;
                         case R.id.SunEnd:
                             EditText SunEnd = (EditText) getView().findViewById(R.id.SunEnd);
-                            SunEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            SunEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.MonStart:
                             EditText MonStart = (EditText) getView().findViewById(R.id.MonStart);
-                            MonStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            MonStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.MonEnd:
                             EditText MonEnd = (EditText) getView().findViewById(R.id.MonEnd);
-                            MonEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            MonEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.TueStart:
                             EditText TueStart = (EditText) getView().findViewById(R.id.TueStart);
-                            TueStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            TueStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.TueEnd:
                             EditText TueEnd = (EditText) getView().findViewById(R.id.TueEnd);
-                            TueEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            TueEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.WedStart:
                             EditText WedStart = (EditText) getView().findViewById(R.id.WedStart);
-                            WedStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            WedStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.WedEnd:
                             EditText WedEnd = (EditText) getView().findViewById(R.id.WedEnd);
-                            WedEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            WedEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.ThrStart:
                             EditText ThrStart = (EditText) getView().findViewById(R.id.ThrStart);
-                            ThrStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            ThrStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.ThrEnd:
                             EditText ThrEnd = (EditText) getView().findViewById(R.id.ThrEnd);
-                            ThrEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            ThrEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.FriStart:
                             EditText FriStart = (EditText) getView().findViewById(R.id.FriStart);
-                            FriStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            FriStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.FriEnd:
                             EditText FriEnd = (EditText) getView().findViewById(R.id.FriEnd);
-                            FriEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            FriEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.SatStart:
                             EditText SatStart = (EditText) getView().findViewById(R.id.SatStart);
-                            SatStart.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            SatStart.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                         case R.id.SatEnd:
                             EditText SatEnd = (EditText) getView().findViewById(R.id.SatEnd);
-                            SatEnd.setText((String.valueOf(hourOfDay)) + ":" + (String.valueOf(minute)));
+                            SatEnd.setText(String.format("%02d:%02d",hourOfDay, minute ));
                             break;
                     }
                 }
@@ -295,10 +350,10 @@ public class InstructorDialogActivity extends Fragment {
                             break;
                     }
                 }
-            },2018,11,01);
+            }, 2018, 11, 01);
 
             dDialog.show();
 
-            }
-        };
-    }
+        }
+    };
+}

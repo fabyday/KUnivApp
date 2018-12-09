@@ -157,13 +157,18 @@ public class MessageObject {
      */
     public String toGETMessage() {
         String getMsg = "/" + type + "?";
-        LinkedHashMap msg = message.get(0);
+        for(int i=0; i<message.size(); i++)
+        {
+            LinkedHashMap msg = message.get(i);
+            msg.remove("type");
+
         Iterator iter = msg.keySet().iterator();
 
-        iter.next(); //첫 번째 거는 버린다. 이미 type에 존재하기 때문.
+        //iter.next(); //첫 번째 거는 버린다. 이미 type에 존재하기 때문.
         while (iter.hasNext()) {
             String key = (String) iter.next();
             getMsg += key + "=" + msg.get(key) + "&";
+        }
         }
 
         return getMsg.substring(0, getMsg.length() - 1);

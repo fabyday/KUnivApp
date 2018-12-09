@@ -79,6 +79,7 @@ public class HttpsConnectionHelper {
             urlCon.setRequestProperty("Content-Type", "application/json");
             urlCon.setDoInput(true);
 
+            System.out.println("문자그대로 " + msg.toGETMessage());
             bis = new BufferedInputStream(urlCon.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(bis, "UTF-8"));
             String line;
@@ -189,7 +190,6 @@ public class HttpsConnectionHelper {
     }
 
     private void setNEMessage(MessageObject recvMsg) {
-        System.out.println(recvMsg.getMessage().get(0).get("status"));
         if (recvMsg.getMessage().get(0).get("status").equals("SUCC") )
             recvMsg.setNEM(NetworkManager.SUCCESS);
         else

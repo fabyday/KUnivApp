@@ -86,10 +86,20 @@ public class TimeTableInfo implements Message {
                 msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
                 break;
             case MessageObject.RESPONSE_FOR_REQUEST: //네트워크에서 부터 온 것은 전부 프로세스 매니저로 자신을 첨부해서 보낸다.
-                msgData = new MessageObject(data);
-                msgData.setProcessedData(this);
-                msgData.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
-                msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                if(refMsg.getNEM().getNumber() != NetworkExecuteMessage.FAIL)
+                {
+                    msgData = new MessageObject(data);
+                    msgData.setProcessedData(this);
+                    msgData.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+                    msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                }
+                else
+                {
+                    msgData = new MessageObject();
+                    msgData.setProcessedData(refMsg.getNEM());
+                    msgData.setRequestStatus(MessageObject.RESPONSE_HINT);
+                    msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
+                }
                 break;
             case MessageObject.RESPONSE_HINT: //힌트를 유저에게 전달
                 lastServ(refMsg);
