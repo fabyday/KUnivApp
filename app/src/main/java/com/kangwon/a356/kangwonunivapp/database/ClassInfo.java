@@ -6,6 +6,8 @@ import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -16,7 +18,7 @@ import java.util.LinkedHashMap;
  * @author 노지현
  * @see TimeTableInfo
  */
-public class ClassInfo {
+public class ClassInfo implements Comparable<ClassInfo>{
 
     public static final String CLASSNAME = "classname"; //강좌 이름
     public static final String INSTRUCTOR = "instructor"; //강의자 이름
@@ -138,7 +140,13 @@ public class ClassInfo {
         return hashCode;
     }
 
+    @Override
+    public int compareTo(ClassInfo classInfo) {
 
+        Collections.sort(timeSpaceInfo);
+        Arrays.sort(classInfo.getTimeInfo());
+        return timeSpaceInfo.get(0).getStartTimeDate().compareTo(classInfo.getTimeInfo()[0].getStartTimeDate());
+    }
 
     @Override
     public String toString() {

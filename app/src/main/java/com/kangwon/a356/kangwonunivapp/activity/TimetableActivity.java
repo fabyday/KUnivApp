@@ -34,6 +34,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -55,11 +56,14 @@ public class TimetableActivity extends Fragment implements MessageListenable {
     ImageButton attendanceBtn;
 
     TimeTableInfo timeTableInfo;
+    ClassInfo[] classInfo;
 
-
-    //List<String> mLongHeaders = Arrays.asList("Plan", "Do");   // 두 칸 테이블를 위한 헤더
+    LinearLayout Sliding;
     List<String> mShortHeaders = Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     long mNow = 0;
+
+
+    int clickedClassIndex=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,20 +78,13 @@ public class TimetableActivity extends Fragment implements MessageListenable {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
+        Sliding = (LinearLayout) getView().findViewById(R.id.Sliding);
+        attendanceBtn = (ImageButton) getView().findViewById(R.id.attendanceBtn);  // 출석인증 버튼
         initLayout();
         initListener();
         initData();
-        attendanceBtn = (ImageButton) getView().findViewById(R.id.attendanceBtn);  // 출석인증 버튼
-        attendanceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.frameLayout, new AttendanceActivity());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+
+
         ((MainActivity)getActivity()).add(this);
         ((MainActivity) getActivity()).processManager.updateRequest(MessageObject.STUDENT_TIMETABLE_TYPE, ((MainActivity) getActivity()).handler);
 
@@ -104,11 +101,22 @@ public class TimetableActivity extends Fragment implements MessageListenable {
         timeTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
             @Override
             public void onTimeItemClick(View view, int position, TimeGridData item) {  // 강의 눌렸을 때 슬라이드 올라오게
-
-                LinearLayout Sliding = (LinearLayout) getView().findViewById(R.id.Sliding);
                 Sliding.callOnClick();
+                TimeData indexData=item.getTime();
+                clickedClassIndex = (int)indexData.getKey();
+                System.out.println("인덱스 값 : " + clickedClassIndex);
+            }
+        });
 
-
+        attendanceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                AttendanceActivity attrActivity = new AttendanceActivity();
+                transaction.add(R.id.frameLayout, attrActivity);
+                transaction.addToBackStack(null);
+                attrActivity.setClassInfo(classInfo[clickedClassIndex]);
+                transaction.commit();
             }
         });
     }
@@ -149,7 +157,7 @@ public class TimetableActivity extends Fragment implements MessageListenable {
 
                 int targetHeader = TimeSpaceInfo.DAY_STRING_TO_INTEGER.toInteger(timeSpaceInfos[j].getDay()); //헤더의 배열 인덱스 값
                 System.out.println("열열열 : " + targetHeader);
-                TimeData timeData = new TimeData(i * 10 + j, titles[i].getClassName(), color, textColor, start.getMillis(), end.getMillis());
+                TimeData timeData = new TimeData(i , titles[i].getClassName() + "\n" + timeSpaceInfos[j].getClassRoom(), color, textColor, start.getMillis(), end.getMillis());
                 values[targetHeader].add(timeData);
             }
         }
@@ -185,7 +193,8 @@ public class TimetableActivity extends Fragment implements MessageListenable {
         } else {
             System.out.println(msg.toGETMessage());
             timeTableInfo = (TimeTableInfo) temp;
-            ClassInfo[] classInfo = timeTableInfo.getClassInfo();
+            classInfo = timeTableInfo.getClassInfo();
+            Arrays.sort(classInfo);
             timeTable.setTimeTable(0, getSamples(mShortHeaders, classInfo)); //데이터를 셋팅
         }
     }

@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Attandance implements Comparable<Attandance> {
+//////인증을 보낼때 사용함.
+    public static String AUTH = "auth";
+
+
 
     public static String CHECK_DATE = "checkdate";
     public static String CHECK_TIME = "time";

@@ -22,7 +22,8 @@
 
             <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
                 //테스트용 이미지 버튼
 
 
@@ -30,7 +31,8 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/timetable" />
+                    android:background="@drawable/timetable"
+                    />
 
                 <ImageButton
                     android:id="@+id/imageButton2"

@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TimeSpaceInfo {
+public class TimeSpaceInfo implements Comparable<TimeSpaceInfo>{
     public static final String DAY_TYPE = "day"; //날짜
     public static final String CLASSNAME_TYPE = "classplace"; //장소
     public static final String START_TYPE = "starttime"; //시작시간
@@ -49,6 +49,17 @@ public class TimeSpaceInfo {
 
     public String getEndTime() {
         return TIME.format(endTime);
+    }
+
+
+
+    public Date getStartTimeDate()
+    {
+        return startTime;
+    }
+    public Date getEndTimeDate()
+    {
+        return endTime;
     }
 
     public long getStartTimeInteger()
@@ -128,4 +139,9 @@ public class TimeSpaceInfo {
     }
 
 
+    @Override
+    public int compareTo(TimeSpaceInfo timeSpaceInfo) {
+        int flag = this.startTime.compareTo(timeSpaceInfo.getStartTimeDate());
+        return flag;
+    }
 }

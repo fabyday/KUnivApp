@@ -48,6 +48,9 @@ public class InstructorDialogActivity extends Fragment {
         StartDate.setOnClickListener(dateEditOnClick);
         EndDate.setOnClickListener(dateEditOnClick);
 
+        CheckBox[] checkBoxes = new CheckBox[7];
+
+        checkBoxes[0] = getView().findViewById(R.id.SunCBox);
 
         final CheckBox SunCBox = (CheckBox) getView().findViewById(R.id.SunCBox);
         final CheckBox MonCBox = (CheckBox) getView().findViewById(R.id.MonCBox);
@@ -56,6 +59,7 @@ public class InstructorDialogActivity extends Fragment {
         final CheckBox ThrCBox = (CheckBox) getView().findViewById(R.id.ThrCBox);
         final CheckBox FriCBox = (CheckBox) getView().findViewById(R.id.FriCBox);
         final CheckBox SatCBox = (CheckBox) getView().findViewById(R.id.SatCBox);
+
 
         Button YES = (Button) getView().findViewById(R.id.Yes);   //확인 버튼
         Button NO = (Button) getView().findViewById(R.id.No);     //취소 버튼
