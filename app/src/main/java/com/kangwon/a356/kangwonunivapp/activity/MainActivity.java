@@ -18,6 +18,7 @@ import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
 import com.kangwon.a356.kangwonunivapp.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 
 /**
@@ -32,20 +33,32 @@ public class MainActivity extends AppCompatActivity {
     public FragmentManager fmng;
     public FragmentTransaction transaction;
     public MessageListenable messageListener;
-    ProcessManager processManager= ProcessManager.getInstance();
+    ProcessManager processManager = ProcessManager.getInstance();
 
-    public final Handler handler = new Handler() {
+    public Handler handler = new NonLeakHandler(this);
+
+
+    /**
+     * 메모리 누수를 방지하는 내부의 non-static handler 클래스이다. 이를 통해 MainActivity와 간접적인 통신을 담당한다.
+     */
+    private static final class NonLeakHandler extends Handler {
+        private final WeakReference<AppCompatActivity> ref;
+
+        public NonLeakHandler(AppCompatActivity act) {
+            ref = new WeakReference<>(act);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            MessageObject protoMessage = (MessageObject) msg.obj;
-
-            if (messageListener == null)
-                return;
-            messageListener.update(protoMessage);
-
+            AppCompatActivity act = ref.get();
+            if (act != null) {
+                MessageObject protoMessage = (MessageObject) msg.obj;
+                if (((MainActivity) act).messageListener == null)
+                    return;
+                ((MainActivity) act).messageListener.update(protoMessage);
+            }
         }
-    };
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.add(R.id.frameLayout, new StudentListActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
-                processManager.updateRequest(MessageObject.ALL_LIST, handler);
-                System.out.println("eh------------------------------asdadasdada");
-
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
@@ -139,4 +149,13 @@ public class MainActivity extends AppCompatActivity {
         return transaction;
     }
 
+
+    /**
+     * 파괴작업
+     */
+    @Override
+    protected void onDestroy() {
+        this.handler = null;
+        super.onDestroy();
+    }
 }

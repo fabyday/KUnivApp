@@ -38,12 +38,12 @@ public class TimeSpaceInfo {
         }
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getStartTime() {
+        return TIME.format(startTime);
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public String getEndTime() {
+        return TIME.format(endTime);
     }
 
     public String getDay() {
@@ -88,6 +88,6 @@ public class TimeSpaceInfo {
 
     @Override
     public String toString() {
-        return "[ 시간 :" + startTime+" ~ "+endTime+" ]" + "[ 장소 : " + classRoom+" ]";
+        return "시간 :" + getStartTime()+" ~ "+getEndTime()+"-" + "[ 장소 : " + classRoom+" ]";
     }
 }

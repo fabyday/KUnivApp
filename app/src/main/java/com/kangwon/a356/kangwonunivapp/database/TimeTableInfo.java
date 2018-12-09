@@ -2,6 +2,7 @@ package com.kangwon.a356.kangwonunivapp.database;
 
 import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
 import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -34,8 +35,7 @@ public class TimeTableInfo implements Message {
         timeTable = new ArrayList<>();
     }
 
-    public ClassInfo[] getClassInfo()
-    {
+    public ClassInfo[] getClassInfo() {
         return timeTable.toArray(new ClassInfo[0]);
     }
 
@@ -60,24 +60,27 @@ public class TimeTableInfo implements Message {
 
 
         ArrayList<LinkedHashMap> data = new ArrayList<>();
-        LinkedHashMap<String, String> msg = new LinkedHashMap<>();
-
-
-        try {
-            msg.put(MessageObject.TYPE, refMsg.getType());
-            msg.put(UserInfo.ID, userInfo.getId());
-            msg.put(UserInfo.PASSWORD, userInfo.getPasswd());
-        } catch (InformationNotFoundException e) {
-            e.printStackTrace();
+        //LinkedHashMap<String, String> msg = new LinkedHashMap<>();
+        ArrayList<LinkedHashMap> lastData = refMsg.getMessage();
+        int size = lastData.size();
+        for (int i = 0; i < size; i++) {
+            LinkedHashMap msg = lastData.get(i);
+            try {
+                msg.put(UserInfo.ID, userInfo.getId());
+                msg.put(UserInfo.PASSWORD, userInfo.getPasswd());
+            } catch (InformationNotFoundException e) {
+                e.printStackTrace();
+            }
+            data.add(msg);
         }
-        data.add(msg);
+
+
         MessageObject msgData = null;
         int flag = refMsg.getRequsetStatus();
         switch (flag) {
             case MessageObject.REQUEST_FOR_ALL:
             case MessageObject.JUST_REQUEST_HINT:
             case MessageObject.NOT_REQUEST_QUERY://사용자의 메시지 요청은 메시지를 네트워크로 메시지를 요청해준다.
-                firstServ(refMsg);
                 msgData = new MessageObject(data);
                 msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
                 msgData.setMessageQueueType(MessageObject.NETWORK_MANAGER);
@@ -89,6 +92,7 @@ public class TimeTableInfo implements Message {
                 msgData.setMessageQueueType(MessageObject.PROCESS_MANAGER);
                 break;
             case MessageObject.RESPONSE_HINT: //힌트를 유저에게 전달
+                lastServ(refMsg);
                 msgData = new MessageObject();
                 msgData.setProcessedData(refMsg.getNEM());
                 msgData.setRequestStatus(MessageObject.RESPONSE_HINT);
@@ -110,19 +114,21 @@ public class TimeTableInfo implements Message {
     public void receive(MessageObject msg) {
 
         if (msg.getRequsetStatus() == MessageObject.RESPONSE_FOR_REQUEST) {
-            switch (msg.getType()) {
-                case MessageObject.ALL_LIST: //시간표 갱신 연산
-                case MessageObject.STUDENT_TIMETABLE_TYPE:
-                case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
-                    tableUpdate(msg);
-                    break;
-                case MessageObject.STUDENT_ATTANDANCE_LIST: //출석 갱신 연산
-                case MessageObject.INSTRUCTOR_ATTANDANCE_LIST:
-                    AttandanceUpdate(msg);
-                    break;
-                case MessageObject.JOIN_LECTURE:
-                    break;
+            if (msg.getNEM().getNumber() == NetworkExecuteMessage.SUCCESS) {
+                switch (msg.getType()) {
+                    case MessageObject.ALL_LIST: //시간표 갱신 연산
+                    case MessageObject.STUDENT_TIMETABLE_TYPE:
+                    case MessageObject.INSTRUCTOR_TIME_TABLE_TYPE:
+                        tableUpdate(msg);
+                        break;
+                    case MessageObject.STUDENT_ATTANDANCE_LIST: //출석 갱신 연산
+                    case MessageObject.INSTRUCTOR_ATTANDANCE_LIST:
+                        AttandanceUpdate(msg);
+                        break;
+                    case MessageObject.JOIN_LECTURE:
+                        break;
 
+                }
             }
         }
     }
@@ -150,6 +156,8 @@ public class TimeTableInfo implements Message {
 
 
     private void tableUpdate(MessageObject msg) {
+        if (msg.getMessage() == null)
+            return;
         ArrayList msgList = msg.getMessage();
         int index;
         int size = msgList.size();
@@ -173,6 +181,7 @@ public class TimeTableInfo implements Message {
             //만일 강사의 과목이 중복된 정보가 들어올 경우 중복된 정보에 TimeSpace 정보만 추가한다.
 
             if ((index = timeTable.indexOf(classInfo)) == -1) {
+                classInfo.addTimeSpaceInfo(timeSpaceInfo);
                 timeTable.add(classInfo);
             } else {
                 timeTable.get(index).addTimeSpaceInfo(timeSpaceInfo);
@@ -181,19 +190,28 @@ public class TimeTableInfo implements Message {
     }
 
 
-    private void firstServ(MessageObject refMsg) {
+    private void lastServ(MessageObject refMsg) {
         ArrayList msg = refMsg.getMessage();
         int size = msg.size();
         String type = refMsg.getType();
         switch (type) {
             case MessageObject.DEL_LECTURE:
-                int index;
-                LinkedHashMap hashMsg = (LinkedHashMap) msg.get(size - 1);
-                ClassInfo classInfo = new ClassInfo((String) hashMsg.get(ClassInfo.CLASSNAME), (String) hashMsg.get(ClassInfo.INSTRUCTOR));
-                if ((index = timeTable.indexOf(classInfo)) != -1)
-                    timeTable.remove(index);
+                if (refMsg.getNEM() != null) {
+                    if (refMsg.getNEM().getNumber() == NetworkExecuteMessage.SUCCESS) {
+                        int index;
+                        LinkedHashMap hashMsg = (LinkedHashMap) msg.get(size - 1);
+                        ClassInfo classInfo = new ClassInfo((String) hashMsg.get(ClassInfo.CLASSNAME), (String) hashMsg.get(UserInfo.ID));
+                        if ((index = timeTable.indexOf(classInfo)) != -1)
+                            timeTable.remove(index);
+                    }
+                }
+                break;
             case MessageObject.OPEN_LECTURE:
-                tableUpdate(refMsg);
+                if (refMsg.getNEM() != null) {
+                    if (refMsg.getNEM().getNumber() == NetworkExecuteMessage.SUCCESS) {
+                        tableUpdate(refMsg);
+                    }
+                }
                 break;
             case MessageObject.OPEN_ATTANDANCE:
             case MessageObject.CLOSE_ATTANDANCE:  //알 수 있는 방법이 없어서 무시된다. 어플리케이션 단에서 처리한다.

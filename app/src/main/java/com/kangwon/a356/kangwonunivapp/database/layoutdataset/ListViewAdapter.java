@@ -71,8 +71,15 @@ public class ListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
+
+    public void removeItem(int postion)
+    {
+        listViewItemList.remove(postion-1);
+    }
+
     public void addItem(ClassInfo[] classInfos)
     {
+        listViewItemList = new ArrayList<>();
         int size = classInfos.length;
         for(int i = 0; i<size; i++)
         {

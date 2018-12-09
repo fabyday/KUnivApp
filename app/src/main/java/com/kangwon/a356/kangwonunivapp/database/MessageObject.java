@@ -40,7 +40,7 @@ public class MessageObject {
     public static final String INSTRUCTOR_TIME_TABLE_TYPE = "instructortimetable"; //시간표
     public static final String OPEN_ATTANDANCE = "openattandance"; //출석부 열기
     public static final String CLOSE_ATTANDANCE = "closeattandance"; //출석부 닫기
-    public static final String OPEN_LECTURE= "openlecture"; //강의 생성
+    public static final String OPEN_LECTURE = "openlecture"; //강의 생성
     public static final String DEL_LECTURE = "closelecture"; //강의 삭제
     public static final String INSTRUCTOR_ATTANDANCE_LIST = "instructorattandancelist";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,9 @@ public class MessageObject {
     private Object processedData; //유저가 사용할 정보 객체. 필요에 따라 형 변환해서 사용
     private Handler handler;
 
-    public MessageObject(){}
+    public MessageObject() {
+    }
+
     public MessageObject(LinkedHashMap[] msg) {
         message = new ArrayList<>();
         for (int i = 0; i < msg.length; i++)
@@ -95,6 +97,7 @@ public class MessageObject {
         type = (String) msg.get(0).get("type");
 
     }
+
     public MessageObject(JSONObject msg) {
         this(JSONParser.toArrayList(msg));
     }
@@ -113,7 +116,10 @@ public class MessageObject {
     /**
      * @return 메시지 타입을 리턴한다.
      */
-    public void setType(String type){this.type = type;}
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
@@ -134,6 +140,7 @@ public class MessageObject {
     public ArrayList<LinkedHashMap> getMessage() {
         return message;
     }
+    public void setMessage(ArrayList<LinkedHashMap> message){this.message = message;}
 
     public void setRequestStatus(int requsetStatus) {
         this.requsetStatus = requsetStatus;
@@ -194,12 +201,11 @@ public class MessageObject {
     }
 
 
-    public void setHandler(Handler handler)
-    {
+    public void setHandler(Handler handler) {
         this.handler = handler;
     }
-    public Handler getHandler()
-    {
+
+    public Handler getHandler() {
         return handler;
     }
 

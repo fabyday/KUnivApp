@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +18,37 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
+import com.kangwon.a356.kangwonunivapp.activity.commonactivity.MessageListenable;
+import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.database.TimeTableInfo;
+import com.kangwon.a356.kangwonunivapp.database.layoutdataset.ListViewAdapter;
+import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
+import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * res/layout/instructorlist_layout.xml 을 다룬다.
  * 교수가 강의를 생성하고 생성한 강의를 리스트뷰 형식으로 보여주고 강의를 삭제할 수 도 있다.
  */
 
-public class InstructorLsitActivity extends Fragment {
+public class InstructorLsitActivity extends Fragment implements MessageListenable {
 
-   public static final int INSTRUCTOR_LIST = 4;
+    public static final int INSTRUCTOR_LIST = 4;
+
+
+    ListView iListView;
+    ListViewAdapter adapter;
+
+
+    TimeTableInfo timetableInfo;
+    ClassInfo[] classInfo;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,36 +64,26 @@ public class InstructorLsitActivity extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Button AddBtn = getView().findViewById(R.id.AddCourse); // 강의 추가 버튼
-        final ListView iListView = getView().findViewById(R.id.InstructorListView);  // instructorlist_layout.xml의 리스트뷰
-        final ArrayList<String> list = new ArrayList<String>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fix_simple_list, list);
+        iListView = getView().findViewById(R.id.InstructorListView);  // instructorlist_layout.xml의 리스트뷰
+        final View header = getLayoutInflater().inflate(R.layout.listview_header, null, false);
+        iListView.addHeaderView(header, null, false);
+        adapter = new ListViewAdapter();
         iListView.setAdapter(adapter);
 
+
+        ((MainActivity) getActivity()).add(this);
+        ((MainActivity) getActivity()).processManager.updateRequest(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE, ((MainActivity) getActivity()).handler);
 
 
 //강의 추가 버튼 동작
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorDialogActivity()).commit();
-                /*
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());  // 강의 추가 Dialog 생성
-                final EditText courseName = new EditText(getActivity()); // 강의명 입력받는 에디트 텍스트
-                courseName.setHint("강의명을 입력해주세요.");
+                FragmentTransaction transaction =getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.frameLayout, new InstructorDialogActivity());
+                transaction.addToBackStack(null);
+                transaction.commit();
 
-                builder.setTitle("강의 추가")
-                        .setView(courseName)
-                        .setPositiveButton("추가", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                list.add(courseName.getText().toString());
-                                adapter.notifyDataSetChanged();
-
-                            }
-                        })
-                        .setNegativeButton("취소", null)
-                        .create()
-                        .show();*/
             }
         });
 
@@ -82,13 +91,20 @@ public class InstructorLsitActivity extends Fragment {
         iListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final int pos = position-1;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // 강의 삭제 Dialog 생성
                 builder.setTitle("강의 삭제")
                         .setMessage("강의를 삭제하시겠습니까?")
                         .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                list.remove(position);
-                                adapter.notifyDataSetChanged();
+
+                                //삭제 메시지 전달
+                                LinkedHashMap<String, String> msg = new LinkedHashMap<>();
+                                msg.put(MessageObject.TYPE, MessageObject.DEL_LECTURE);
+                                msg.put(ClassInfo.CLASSNAME, classInfo[pos].getClassName());
+                                ProcessManager.getInstance().commitRequest(msg, ((MainActivity) getActivity()).handler);
+                                /*adapter.removeItem(position);
+                                adapter.notifyDataSetChanged();*/
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -103,9 +119,30 @@ public class InstructorLsitActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 교수용 강의 출석인증 화면으로
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorAttendanceActivity()).commit();
+                FragmentTransaction transaction =getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.frameLayout, new InstructorAttendanceActivity());
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
+    }
+
+
+    @Override
+    public void update(MessageObject msg) {
+        Object temp = msg.getProcessedData();
+        if (temp instanceof NetworkExecuteMessage) {
+            classInfo = timetableInfo.getClassInfo();
+            adapter.addItem(classInfo);
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), ((NetworkExecuteMessage) temp).getMessage(), Toast.LENGTH_SHORT).show();
+        } else {
+            timetableInfo = (TimeTableInfo) temp;
+            classInfo = timetableInfo.getClassInfo();
+            adapter.addItem(classInfo);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
 

@@ -47,49 +47,49 @@
                 android:id="@+id/SunCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="일" />
 
             <CheckBox
                 android:id="@+id/MonCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="월" />
 
             <CheckBox
                 android:id="@+id/TueCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="화" />
 
             <CheckBox
                 android:id="@+id/WedCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="수" />
 
             <CheckBox
                 android:id="@+id/ThrCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="목" />
 
             <CheckBox
                 android:id="@+id/FriCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="금" />
 
             <CheckBox
                 android:id="@+id/SatCBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="토" />
         </LinearLayout>
 
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="시작일"
-                android:textSize="20sp" />
+                android:textSize="15dp" />
 
             <EditText
                 android:id="@+id/startDate"
@@ -111,13 +111,13 @@
                 android:layout_height="wrap_content"
                 android:hint="YYYY-MM-DD"
                 android:inputType="date"
-                android:textSize="20sp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="종료일"
-                android:textSize="20sp" />
+                android:textSize="15dp" />
 
             <EditText
                 android:id="@+id/endDate"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:hint="YYYY-MM-DD"
                 android:inputType="date"
-                android:textSize="20sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <ScrollView
@@ -151,14 +151,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(일)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/SunStart"
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/SunEnd"
@@ -186,7 +186,7 @@
                     android:id="@+id/Mon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -195,14 +195,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(월)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/MonStart"
@@ -216,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/MonEnd"
@@ -239,14 +239,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(화)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/TueStart"
@@ -260,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/TueEnd"
@@ -283,14 +283,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(수)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/WedStart"
@@ -304,7 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/WedEnd"
@@ -327,14 +327,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(목)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/ThrStart"
@@ -348,7 +348,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/ThrEnd"
@@ -371,14 +371,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(금)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/FriStart"
@@ -392,7 +392,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/FriEnd"
@@ -415,14 +415,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="(토)"
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="시작시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/SatStart"
@@ -436,7 +436,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:text="종료 시간 : "
-                        android:textSize="20sp" />
+                        android:textSize="15dp" />
 
                     <EditText
                         android:id="@+id/SatEnd"
@@ -460,7 +460,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="확인"
-                android:textSize="20sp"
+                android:textSize="15dp"
                 android:background="#4374D9"/>
 
             <Button
@@ -469,7 +469,7 @@
                 android:layout_height="wrap_content"
                 android:text="취소"
                 android:background="#4374D9"
-                android:textSize="20sp"/>
+                android:textSize="15dp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

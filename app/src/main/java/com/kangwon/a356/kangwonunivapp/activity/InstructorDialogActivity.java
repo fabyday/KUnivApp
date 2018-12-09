@@ -40,9 +40,9 @@ public class InstructorDialogActivity extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         EditText CourseName = (EditText) getView().findViewById(R.id.CourseName);
-
         EditText StartDate = (EditText) getView().findViewById(R.id.startDate);
         EditText EndDate = (EditText) getView().findViewById(R.id.endDate);
+
         StartDate.setInputType(0);
         EndDate.setInputType(0);
         StartDate.setOnClickListener(dateEditOnClick);

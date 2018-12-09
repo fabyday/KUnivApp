@@ -204,7 +204,17 @@ public class ProcessManager {
      */
     public void commitRequest(LinkedHashMap msg, Handler handler)
     {
+        ArrayList<LinkedHashMap> data = new ArrayList<>();
+        data.add(msg);
 
+        MessageObject msgData = new MessageObject(data);
+        msgData.setHandler(handler);
+        msgData.setRequestStatus(MessageObject.REQUEST_FOR_ALL);
+
+        msgData.setMessageQueueType(MessageObject.DATA_MANAGER);
+
+        addItemToQueue(msgData);
+        requestProcess();
     }
 
     /**

@@ -37,8 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             MessageObject managerMsg = (MessageObject) msg.obj;
-            System.out.println(((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber());
-            if (((NetworkExecuteMessage)managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
+            System.out.println(((NetworkExecuteMessage) managerMsg.getProcessedData()).getNumber());
+            if (((NetworkExecuteMessage) managerMsg.getProcessedData()).getNumber() == NetworkExecuteMessage.SUCCESS) {
                 {
                     Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
     ProcessManager manager = ProcessManager.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("LoginActivity", "login waiting");
             }
         }));
-        signUpButton = (Button)findViewById(R.id.SignUpButton);
+        signUpButton = (Button) findViewById(R.id.SignUpButton);
         signUpButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     private void changeSigninActivity() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         Log.i("LoginActivity", "sign up");

@@ -22,6 +22,10 @@ public class NetworkExecuteMessage {
         return number;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public String toString() {
         return "[ 코드 : " + number + " ] : " + message;

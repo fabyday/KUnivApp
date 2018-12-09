@@ -88,7 +88,7 @@ public class HttpsConnectionHelper {
             bis.close();
 
             Log.i("log", page);
-            MessageObject lastMessage = makeMessage(msg.getType(), page); //메시지를 처리하고 마지막으로 핸들러를 달아준다.
+            MessageObject lastMessage = makeMessage(msg.getType(), page, msg); //메시지를 처리하고 마지막으로 핸들러를 달아준다.
             lastMessage.setHandler(msg.getHandler());
             adapter.receive(lastMessage);
             Log.i("HttpsConnectionHelper", "메시지 처리 완료");
@@ -105,7 +105,7 @@ public class HttpsConnectionHelper {
 
     }
 
-    private MessageObject makeMessage(String type, String page) {
+    private MessageObject makeMessage(String type, String page, MessageObject origMsg) {
         MessageObject recvMsg = null;
         try {
 
@@ -164,6 +164,7 @@ public class HttpsConnectionHelper {
                     break;
                 case MessageObject.DEL_LECTURE:
                     setNEMessage(recvMsg);
+                    recvMsg.setMessage(origMsg.getMessage());
                     recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
                     recvMsg.setRequestStatus(MessageObject.RESPONSE_HINT);
                     break;
@@ -174,7 +175,13 @@ public class HttpsConnectionHelper {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        } finally {
+        }catch(Exception e){
+            recvMsg = origMsg;
+            recvMsg.setNEM(NetworkManager.FAIL);
+            recvMsg.setMessageQueueType(MessageObject.DATA_MANAGER);
+            recvMsg.setRequestStatus(MessageObject.RESPONSE_FOR_REQUEST);
+        }
+        finally {
             System.out.println("네트워크 큐 타입> " );
             return recvMsg;
         }

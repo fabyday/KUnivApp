@@ -29,7 +29,7 @@ public class ClassInfo {
     private ArrayList<Attandance> attandanceLists; //출석
 
 
-    public static SimpleDateFormat DATE = new SimpleDateFormat("YYYY-MM-DD");
+    public static SimpleDateFormat DATE = new SimpleDateFormat("yyyy-MM-dd");
 
 
     private Date startDate; //시작일
@@ -54,12 +54,13 @@ public class ClassInfo {
         timeSpaceInfo = new ArrayList<>();
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getStartDate() {
+        return DATE.format(startDate);
+    };
+
+    public String getEndDate() {
+        return DATE.format(endDate);
     }
 
     public void addTimeSpaceInfo(TimeSpaceInfo info) {
