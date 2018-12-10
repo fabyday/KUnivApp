@@ -144,6 +144,10 @@ public class ProcessManager {
         return processManager;
     }
 
+    public static void getFlush(){
+        processManager = null;
+    }
+
 
     /**
      * 최초 로그인시 필요한 메소드이다. 이후부터는 토큰 혹은 구현에 따라 세션에 의해 로그인이 유지될 것임.

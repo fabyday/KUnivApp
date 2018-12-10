@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     Button signUpButton;
     TextView id;
     TextView pw;
-
+    ProcessManager manager= ProcessManager.getInstance();
 
     final Handler handler = new Handler() {
         @Override
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-    ProcessManager manager = ProcessManager.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

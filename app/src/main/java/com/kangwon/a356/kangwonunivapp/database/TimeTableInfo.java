@@ -110,6 +110,7 @@ public class TimeTableInfo implements Message {
                 break;
         }
 
+        msgData.setNEM(refMsg.getNEM());
         return msgData;
 
     }
@@ -230,6 +231,7 @@ public class TimeTableInfo implements Message {
         }
 
     }
+
 
 
 }

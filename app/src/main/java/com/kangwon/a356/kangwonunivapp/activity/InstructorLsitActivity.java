@@ -79,7 +79,7 @@ public class InstructorLsitActivity extends Fragment implements MessageListenabl
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction =getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.frameLayout, new InstructorDialogActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -91,7 +91,7 @@ public class InstructorLsitActivity extends Fragment implements MessageListenabl
         iListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                final int pos = position-1;
+                final int pos = position - 1;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // 강의 삭제 Dialog 생성
                 builder.setTitle("강의 삭제")
                         .setMessage("강의를 삭제하시겠습니까?")
@@ -119,7 +119,7 @@ public class InstructorLsitActivity extends Fragment implements MessageListenabl
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 교수용 강의 출석인증 화면으로
-                FragmentTransaction transaction =getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.frameLayout, new InstructorAttendanceActivity());
                 transaction.addToBackStack(null);
                 transaction.commit();

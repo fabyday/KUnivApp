@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,8 @@ public class InstructorDialogActivity extends Fragment {
     EditText[] startTime;
     EditText[] endTime;
     EditText[] classPlace;
+
+    InstructorLsitActivity instructorLsitActivity;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,13 +104,17 @@ public class InstructorDialogActivity extends Fragment {
                     }
                 }
                 ProcessManager.getInstance().commitRequest(msgObject, ((MainActivity) getActivity()).handler); // 강의 콜링.
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorLsitActivity()).commit();
+                FragmentManager f= getActivity().getSupportFragmentManager();
+
+                ((MainActivity) getActivity()).processManager.updateRequest(MessageObject.INSTRUCTOR_TIME_TABLE_TYPE, ((MainActivity) getActivity()).handler);
+                f.popBackStack();
             }
         });
         NO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new InstructorLsitActivity()).commit();
+                FragmentManager f= getActivity().getSupportFragmentManager();
+                f.popBackStack();
             }
         });
 
@@ -356,4 +364,5 @@ public class InstructorDialogActivity extends Fragment {
 
         }
     };
+
 }
