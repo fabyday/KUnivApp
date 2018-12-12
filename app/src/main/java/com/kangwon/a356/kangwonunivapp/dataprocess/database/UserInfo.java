@@ -1,6 +1,7 @@
-package com.kangwon.a356.kangwonunivapp.database;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database;
 
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.infoexception.InformationNotFoundException;
 
 import java.util.LinkedHashMap;
 

@@ -1,15 +1,9 @@
-package com.kangwon.a356.kangwonunivapp.database;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database;
 
-import android.widget.TextView;
-
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class TimeSpaceInfo implements Comparable<TimeSpaceInfo>{
     public static final String DAY_TYPE = "day"; //날짜

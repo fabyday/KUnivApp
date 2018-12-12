@@ -1,10 +1,7 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,23 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.MessageListenable;
-import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.TimeTableInfo;
-import com.kangwon.a356.kangwonunivapp.database.layoutdataset.ListViewAdapter;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.TimeTableInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.layoutdataset.ListViewAdapter;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
-import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.NetworkExecuteMessage;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
@@ -133,10 +126,15 @@ public class InstructorLsitActivity extends Fragment implements MessageListenabl
     public void update(MessageObject msg) {
         Object temp = msg.getProcessedData();
         if (temp instanceof NetworkExecuteMessage) {
-            classInfo = timetableInfo.getClassInfo();
-            adapter.addItem(classInfo);
-            adapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), ((NetworkExecuteMessage) temp).getMessage(), Toast.LENGTH_SHORT).show();
+            try {
+                classInfo = timetableInfo.getClassInfo();
+                adapter.addItem(classInfo);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), ((NetworkExecuteMessage) temp).getMessage(), Toast.LENGTH_SHORT).show();
+            }catch(Exception e)
+            {
+
+            }
         } else {
             timetableInfo = (TimeTableInfo) temp;
             classInfo = timetableInfo.getClassInfo();

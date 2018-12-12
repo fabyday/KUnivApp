@@ -1,12 +1,10 @@
 package com.kangwon.a356.kangwonunivapp.dataprocess;
 
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.datainterface.Message;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 
 /**

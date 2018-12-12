@@ -1,9 +1,9 @@
-package com.kangwon.a356.kangwonunivapp.database;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database;
 
 import android.os.Handler;
 
 import com.kangwon.a356.kangwonunivapp.dataprocess.JSONParser;
-import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.NetworkExecuteMessage;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,8 +17,8 @@ import java.util.LinkedHashMap;
  * 메시지 객체이다. 내부에서 사용할 메시지와 외부에서 사용할 메시지를 구분하지 않고 사용 가능하게 해준다.
  * 모든 객체들은 이 메시지 객체를 사용하여 통신한다.
  *
- * @see com.kangwon.a356.kangwonunivapp.database.datainterface.Message
- * @see com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter
+ * @see com.kangwon.a356.kangwonunivapp.dataprocess.database.datainterface.Message
+ * @see com.kangwon.a356.kangwonunivapp.dataprocess.database.dataadapter.MessageAdapter
  */
 public class MessageObject {
 

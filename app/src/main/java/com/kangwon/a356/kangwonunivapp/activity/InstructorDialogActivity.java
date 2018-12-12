@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import com.kangwon.a356.kangwonunivapp.R;
-import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.TimeSpaceInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.TimeSpaceInfo;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**

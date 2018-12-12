@@ -2,15 +2,12 @@ package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -22,11 +19,11 @@ import com.github.eunsiljo.timetablelib.view.TimeTableView;
 import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.MessageListenable;
-import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.TimeSpaceInfo;
-import com.kangwon.a356.kangwonunivapp.database.TimeTableInfo;
-import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.TimeSpaceInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.TimeTableInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.NetworkExecuteMessage;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -34,7 +31,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**

@@ -1,7 +1,5 @@
-package com.kangwon.a356.kangwonunivapp.database;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database;
 
-
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

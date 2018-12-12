@@ -1,17 +1,15 @@
-package com.kangwon.a356.kangwonunivapp.network;
+package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
-import android.content.Context;
-import android.os.MessageQueue;
 import android.util.Log;
 
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
-import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.dataadapter.MessageAdapter;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.datainterface.Message;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.HttpsConnectionHelper;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.NetworkExecuteMessage;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Queue;
 
 /**

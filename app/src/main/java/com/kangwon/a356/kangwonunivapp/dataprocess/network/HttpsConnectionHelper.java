@@ -1,10 +1,10 @@
-package com.kangwon.a356.kangwonunivapp.network;
+package com.kangwon.a356.kangwonunivapp.dataprocess.network;
 
 import android.util.Log;
 
-import com.google.gson.JsonArray;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
+import com.kangwon.a356.kangwonunivapp.dataprocess.NetworkManager;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.dataadapter.MessageAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

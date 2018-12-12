@@ -12,10 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.UserInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
-import com.kangwon.a356.kangwonunivapp.network.NetworkExecuteMessage;
+import com.kangwon.a356.kangwonunivapp.dataprocess.network.NetworkExecuteMessage;
 
 /**
  * @author 노지현

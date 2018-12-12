@@ -1,4 +1,4 @@
-package com.kangwon.a356.kangwonunivapp.network;
+package com.kangwon.a356.kangwonunivapp.dataprocess.network;
 
 
 /**

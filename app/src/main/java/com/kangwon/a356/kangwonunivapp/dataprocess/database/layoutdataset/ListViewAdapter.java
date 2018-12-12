@@ -1,4 +1,4 @@
-package com.kangwon.a356.kangwonunivapp.database.layoutdataset;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database.layoutdataset;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kangwon.a356.kangwonunivapp.R;
-import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.ClassInfo;
 
 import java.util.ArrayList;
 

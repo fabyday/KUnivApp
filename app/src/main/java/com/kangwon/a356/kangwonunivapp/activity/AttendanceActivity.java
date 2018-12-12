@@ -1,8 +1,6 @@
 package com.kangwon.a356.kangwonunivapp.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,9 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
-import com.kangwon.a356.kangwonunivapp.database.Attandance;
-import com.kangwon.a356.kangwonunivapp.database.ClassInfo;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.Attandance;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.ClassInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
 import java.util.LinkedHashMap;

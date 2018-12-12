@@ -1,6 +1,6 @@
 package com.kangwon.a356.kangwonunivapp.activity.commonactivity;
 
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
 
 public interface MessageListenable {
 

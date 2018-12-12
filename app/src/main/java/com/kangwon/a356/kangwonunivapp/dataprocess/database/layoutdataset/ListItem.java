@@ -1,4 +1,4 @@
-package com.kangwon.a356.kangwonunivapp.database.layoutdataset;
+package com.kangwon.a356.kangwonunivapp.dataprocess.database.layoutdataset;
 
 public class ListItem {
 

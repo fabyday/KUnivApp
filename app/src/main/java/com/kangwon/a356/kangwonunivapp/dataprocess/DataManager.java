@@ -1,10 +1,12 @@
-package com.kangwon.a356.kangwonunivapp.database;
+package com.kangwon.a356.kangwonunivapp.dataprocess;
 
 
 import android.util.Log;
 
-import com.kangwon.a356.kangwonunivapp.database.datainterface.Message;
-import com.kangwon.a356.kangwonunivapp.dataprocess.AbstractManager;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.TimeTableInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.UserInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.datainterface.Message;
 
 import java.util.Iterator;
 import java.util.Queue;

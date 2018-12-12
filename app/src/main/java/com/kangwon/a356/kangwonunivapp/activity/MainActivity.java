@@ -9,17 +9,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kangwon.a356.kangwonunivapp.R;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.MessageListenable;
 import com.kangwon.a356.kangwonunivapp.activity.commonactivity.TabBar;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
 import com.kangwon.a356.kangwonunivapp.dataprocess.ProcessManager;
 
 import java.lang.ref.WeakReference;
-import java.util.Map;
 
 /**
  * @author 노지현

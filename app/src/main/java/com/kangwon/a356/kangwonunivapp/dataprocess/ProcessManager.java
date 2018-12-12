@@ -5,11 +5,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.kangwon.a356.kangwonunivapp.database.DataManager;
-import com.kangwon.a356.kangwonunivapp.database.MessageObject;
-import com.kangwon.a356.kangwonunivapp.database.UserInfo;
-import com.kangwon.a356.kangwonunivapp.database.dataadapter.MessageAdapter;
-import com.kangwon.a356.kangwonunivapp.network.NetworkManager;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.MessageObject;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.UserInfo;
+import com.kangwon.a356.kangwonunivapp.dataprocess.database.dataadapter.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
